@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 大模型 API 清单</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --text2: #9ca3af;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --red: #ef4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    background: linear-gradient(135deg, rgba(99,102,241,.15), rgba(139,92,246,.1));
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header p { color: var(--text2); font-size: .95rem; }
+  .header .update { color: var(--text2); font-size: .8rem; margin-top: 6px; opacity: .7; }
+
+  .controls {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .search-box {
+    flex: 1 1 260px;
+    position: relative;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: .9rem;
+    outline: none;
+    transition: border .2s;
+  }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box::before {
+    content: '🔍';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: .85rem;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    font-size: .82rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent2);
+    background: rgba(99,102,241,.1);
+  }
+
+  .table-wrap {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 24px 48px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+    min-width: 1350px;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text2);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color .2s;
+  }
+  thead th:hover { color: var(--accent2); }
+  thead th .sort-icon { margin-left: 4px; font-size: .7rem; opacity: .5; }
+  thead th.sorted .sort-icon { opacity: 1; color: var(--accent); }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  tbody tr:hover { background: rgba(99,102,241,.06); }
+  td {
+    padding: 12px 12px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .vendor-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: .78rem;
+    font-weight: 600;
+  }
+  .v-openai   { background: rgba(16,163,127,.15); color: #34d399; }
+  .v-anthropic { background: rgba(217,119,87,.15); color: #fb923c; }
+  .v-google   { background: rgba(66,133,244,.15); color: #60a5fa; }
+  .v-deepseek { background: rgba(99,102,241,.15); color: #818cf8; }
+  .v-doubao   { background: rgba(244,63,94,.15); color: #fb7185; }
+  .v-qwen     { background: rgba(234,179,8,.15); color: #facc15; }
+  .v-glm      { background: rgba(34,197,94,.15); color: #4ade80; }
+  .v-minimax  { background: rgba(168,85,247,.15); color: #c084fc; }
+  .v-kimi     { background: rgba(14,165,233,.15); color: #38bdf8; }
+  .v-xiaomi   { background: rgba(255,107,0,.15); color: #ff8c00; }
+
+  .multi-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: .72rem;
+    margin-right: 2px;
+    background: rgba(99,102,241,.1);
+    color: var(--accent2);
+  }
+  .multi-video { background: rgba(244,63,94,.12); color: #fb7185; }
+  .multi-audio { background: rgba(34,197,94,.12); color: #4ade80; }
+
+  .score-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: .8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .score-s { background: rgba(34,197,94,.2); color: #22c55e; }
+  .score-a { background: rgba(99,102,241,.2); color: #818cf8; }
+  .score-b { background: rgba(245,158,11,.2); color: #f59e0b; }
+  .score-c { background: rgba(156,163,175,.15); color: #9ca3af; }
+
+  .price { font-variant-numeric: tabular-nums; }
+  .price-low { color: var(--green); }
+  .price-mid { color: var(--orange); }
+  .price-high { color: var(--red); }
+  .free-tag {
+    background: rgba(34,197,94,.2);
+    color: var(--green);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  .ctx-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .75rem;
+    background: rgba(99,102,241,.12);
+    color: var(--accent2);
+  }
+  a.link {
+    color: var(--accent2);
+    text-decoration: none;
+    font-size: .8rem;
+    border: 1px solid rgba(99,102,241,.3);
+    padding: 3px 10px;
+    border-radius: 6px;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  a.link:hover {
+    background: rgba(99,102,241,.15);
+    border-color: var(--accent);
+  }
+
+  .stats {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 12px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    flex: 1 1 160px;
+  }
+  .stat-card .num {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .stat-card .label { font-size: .78rem; color: var(--text2); }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text2);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.5rem; }
+    .controls { flex-direction: column; }
+    .stats { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤖 2026 大模型 API 清单</h1>
+  <p>覆盖 10 家厂商 · 31+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <div class="update">数据更新于 2026 年 6 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
+  <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
+  <div class="stat-card"><div class="num" id="vendors">10</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
+</div>
+
+<div class="controls">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="搜索模型名称、厂商...">
+  </div>
+  <button class="filter-btn active" data-filter="all">全部</button>
+  <button class="filter-btn" data-filter="cn">🇨🇳 国产</button>
+  <button class="filter-btn" data-filter="intl">🌍 海外</button>
+  <button class="filter-btn" data-filter="cheap">💰 极致低价</button>
+  <button class="filter-btn" data-filter="flagship">🏆 旗舰</button>
+</div>
+
+<div class="table-wrap">
+<table id="modelTable">
+<thead>
+<tr>
+  <th data-col="vendor">厂商 <span class="sort-icon">⇅</span></th>
+  <th data-col="model">模型名称 <span class="sort-icon">⇅</span></th>
+  <th data-col="params">参数量 <span class="sort-icon">⇅</span></th>
+  <th data-col="maxInput">最大输入 <span class="sort-icon">⇅</span></th>
+  <th data-col="maxOutput">最大输出 <span class="sort-icon">⇅</span></th>
+  <th data-col="inputPrice">输入价格 <span class="sort-icon">⇅</span></th>
+  <th data-col="cachePrice">缓存命中 <span class="sort-icon">⇅</span></th>
+  <th data-col="outputPrice">输出价格 <span class="sort-icon">⇅</span></th>
+  <th data-col="multimodal">多模态 <span class="sort-icon">⇅</span></th>
+  <th data-col="score">评分 <span class="sort-icon">⇅</span></th>
+  <th data-col="site">官网</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<div class="footer">
+  数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
+  评分基于 Artificial Analysis Coding Index（2026年6月）· 多模态能力以官方文档为准
+</div>
+
+<script>
+const models = [
+  // ── 小米 MiMo ──
+  {
+    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5 Pro",
+    params: "1.02T MoE (42B active)", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
+    site: "https://platform.xiaomimimo.com", tag: "cn,flagship",
+    multimodal: ["text"], score: 45.5
+  },
+  {
+    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
+    site: "https://platform.xiaomimimo.com", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
+  // ── DeepSeek ──
+  {
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
+    site: "https://platform.deepseek.com", tag: "cn,cheap",
+    multimodal: ["text"], score: 38.7
+  },
+  {
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
+    site: "https://platform.deepseek.com", tag: "cn",
+    multimodal: ["text"], score: 47.5
+  },
+  {
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek R1",
+    params: "671B MoE", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥4", cachePrice: "¥1", outputPrice: "¥16",
+    site: "https://platform.deepseek.com", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
+  // ── 豆包 Doubao ──
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Pro",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥6", cachePrice: "¥1.2", outputPrice: "¥30",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Turbo",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥3", cachePrice: "¥0.6", outputPrice: "¥15",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Mini",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥0.2", cachePrice: "¥0.04", outputPrice: "¥2",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Lite",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥0.6", cachePrice: "¥0.12", outputPrice: "¥3.6",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Pro",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥3.2", cachePrice: "¥0.64", outputPrice: "¥16",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Code",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥3.2", cachePrice: "¥0.64", outputPrice: "¥16",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn",
+    multimodal: ["text"], score: null
+  },
+  // ── 通义千问 Qwen ──
+  {
+    vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.6 Flash",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥1.2", cachePrice: "—", outputPrice: "¥7.2",
+    site: "https://bailian.console.aliyun.com", tag: "cn,cheap",
+    multimodal: ["text","image","video"], score: 36.5
+  },
+  {
+    vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.7 Plus",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥2", cachePrice: "—", outputPrice: "¥8",
+    site: "https://bailian.console.aliyun.com", tag: "cn",
+    multimodal: ["text","image","video"], score: 46.5
+  },
+  {
+    vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.7 Max",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥12", cachePrice: "—", outputPrice: "¥36",
+    site: "https://bailian.console.aliyun.com", tag: "cn,flagship",
+    multimodal: ["text"], score: 50.1
+  },
+  // ── 智谱 GLM ──
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.2",
+    params: "~744B MoE", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "$2.5", cachePrice: "$0.5", outputPrice: "$10",
+    site: "https://z.ai", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.1",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥6", cachePrice: "¥1.3", outputPrice: "¥24",
+    site: "https://open.bigmodel.cn", tag: "cn,flagship",
+    multimodal: ["text"], score: 43.4
+  },
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5-Turbo",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥5", cachePrice: "¥1.2", outputPrice: "¥22",
+    site: "https://open.bigmodel.cn", tag: "cn",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-4.5-Air",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥0.8", cachePrice: "¥0.16", outputPrice: "¥2",
+    site: "https://open.bigmodel.cn", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-4.7 Flash",
+    params: "—", maxInput: "32K", maxOutput: "4K",
+    inputPrice: "免费", cachePrice: "免费", outputPrice: "免费",
+    site: "https://open.bigmodel.cn", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
+  // ── MiniMax ──
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M3",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
+    site: "https://platform.minimaxi.com", tag: "cn",
+    multimodal: ["text","image","video"], score: 43.4
+  },
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M2.7",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
+    site: "https://platform.minimaxi.com", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  // ── Kimi ──
+  {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.7 Code",
+    params: "1T MoE (32B active)", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥6.5", cachePrice: "¥1.3", outputPrice: "¥27",
+    site: "https://platform.moonshot.cn", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.6",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥6.5", cachePrice: "¥1.1", outputPrice: "¥27",
+    site: "https://platform.moonshot.cn", tag: "cn,flagship",
+    multimodal: ["text","image","video"], score: 47.1
+  },
+  {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.5",
+    params: "—", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "¥4", cachePrice: "¥0.7", outputPrice: "¥21",
+    site: "https://platform.moonshot.cn", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  // ── Claude ──
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Opus 4.8",
+    params: "—", maxInput: "200K", maxOutput: "32K",
+    inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$25",
+    site: "https://platform.claude.com", tag: "intl,flagship",
+    multimodal: ["text","image"], score: 56.7
+  },
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 4.6",
+    params: "—", maxInput: "200K", maxOutput: "16K",
+    inputPrice: "$3", cachePrice: "$0.3", outputPrice: "$15",
+    site: "https://platform.claude.com", tag: "intl",
+    multimodal: ["text","image"], score: 50.9
+  },
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Haiku 4.5",
+    params: "—", maxInput: "200K", maxOutput: "8K",
+    inputPrice: "$1", cachePrice: "$0.1", outputPrice: "$5",
+    site: "https://platform.claude.com", tag: "intl",
+    multimodal: ["text","image"], score: 32.6
+  },
+  // ── Gemini ──
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Pro",
+    params: "—", maxInput: "2M", maxOutput: "64K",
+    inputPrice: "$1.25", cachePrice: "$0.125", outputPrice: "$10",
+    site: "https://ai.google.dev", tag: "intl,flagship",
+    multimodal: ["text","image","audio","video"], score: 55.5
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.5 Flash",
+    params: "—", maxInput: "2M", maxOutput: "32K",
+    inputPrice: "$0.3", cachePrice: "$0.03", outputPrice: "$2.5",
+    site: "https://ai.google.dev", tag: "intl,cheap",
+    multimodal: ["text","image"], score: 45.0
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Flash-Lite",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "$0.25", cachePrice: "—", outputPrice: "$1.5",
+    site: "https://ai.google.dev", tag: "intl,cheap",
+    multimodal: ["text","image"], score: null
+  },
+  // ── GPT ──
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5",
+    params: "—", maxInput: "256K", maxOutput: "32K",
+    inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$30",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: 59.1
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5 Pro",
+    params: "—", maxInput: "256K", maxOutput: "32K",
+    inputPrice: "$30", cachePrice: "—", outputPrice: "$180",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: null
+  },
+];
+
+// ── Render ──
+const tbody = document.getElementById('tbody');
+let currentFilter = 'all';
+let currentSort = { col: null, asc: true };
+
+function renderTable(data) {
+  tbody.innerHTML = '';
+  data.forEach(m => {
+    const tr = document.createElement('tr');
+    tr.dataset.tag = m.tag;
+    tr.innerHTML = `
+      <td><span class="vendor-badge ${m.vendorClass}">${m.vendor}</span></td>
+      <td><strong>${m.model}</strong></td>
+      <td>${m.params}</td>
+      <td><span class="ctx-badge">${m.maxInput}</span></td>
+      <td>${m.maxOutput}</td>
+      <td class="price ${priceClass(m.inputPrice)}">${formatPrice(m.inputPrice)}</td>
+      <td class="price ${priceClass(m.cachePrice)}">${formatPrice(m.cachePrice)}</td>
+      <td class="price ${priceClass(m.outputPrice)}">${formatPrice(m.outputPrice)}</td>
+      <td>${renderMulti(m.multimodal)}</td>
+      <td>${renderScore(m.score)}</td>
+      <td><a class="link" href="${m.site}" target="_blank" rel="noopener">官网 →</a></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  updateStats(data);
+}
+
+function formatPrice(p) {
+  if (p === '免费') return '<span class="free-tag">FREE</span>';
+  if (p === '—') return '<span style="opacity:.4">—</span>';
+  return p;
+}
+function priceClass(p) {
+  if (p === '免费' || p === '—') return '';
+  const num = parseFloat(p.replace(/[^0-9.]/g, ''));
+  const isDollar = p.startsWith('$');
+  if (isDollar) {
+    if (num <= 0.5) return 'price-low';
+    if (num <= 5) return 'price-mid';
+    return 'price-high';
+  }
+  if (num <= 1) return 'price-low';
+  if (num <= 5) return 'price-mid';
+  return 'price-high';
+}
+
+function updateStats(data) {
+  document.getElementById('count').textContent = data.length;
+  // find cheapest input
+  let cheap = Infinity, cheapStr = '';
+  data.forEach(m => {
+    if (m.inputPrice === '免费' || m.inputPrice === '—') return;
+    const num = parseFloat(m.inputPrice.replace(/[^0-9.]/g, ''));
+    const isDollar = m.inputPrice.startsWith('$');
+    const cny = isDollar ? num * 7.25 : num;
+    if (cny < cheap) { cheap = cny; cheapStr = m.inputPrice + '/M'; }
+  });
+  document.getElementById('cheapest').textContent = cheapStr || '—';
+  // max context
+  let maxCtx = 0, maxStr = '';
+  data.forEach(m => {
+    const v = parseCtx(m.maxInput);
+    if (v > maxCtx) { maxCtx = v; maxStr = m.maxInput; }
+  });
+  document.getElementById('maxctx').textContent = maxStr || '—';
+}
+function parseCtx(s) {
+  const m = s.match(/([\d.]+)(K|M)/i);
+  if (!m) return 0;
+  return parseFloat(m[1]) * (m[2].toUpperCase() === 'M' ? 1000000 : 1000);
+}
+
+// ── Filter ──
+function applyFilter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let filtered = models.filter(m => {
+    if (currentFilter === 'cn' && !m.tag.includes('cn')) return false;
+    if (currentFilter === 'intl' && !m.tag.includes('intl')) return false;
+    if (currentFilter === 'cheap' && !m.tag.includes('cheap')) return false;
+    if (currentFilter === 'flagship' && !m.tag.includes('flagship')) return false;
+    if (q && !(m.model.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  // sort
+  if (currentSort.col) {
+    filtered.sort((a, b) => {
+      let va = a[currentSort.col], vb = b[currentSort.col];
+      if (['inputPrice','cachePrice','outputPrice'].includes(currentSort.col)) {
+        va = priceNum(va); vb = priceNum(vb);
+      }
+      if (['maxInput','maxOutput'].includes(currentSort.col)) {
+        va = parseCtx(va); vb = parseCtx(vb);
+      }
+      if (currentSort.col === 'score') {
+        va = va || 0; vb = vb || 0;
+      }
+      if (currentSort.col === 'multimodal') {
+        va = Array.isArray(va) ? va.length : 0;
+        vb = Array.isArray(vb) ? vb.length : 0;
+      }
+      if (typeof va === 'number') return currentSort.asc ? va - vb : vb - va;
+      return currentSort.asc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+    });
+  }
+  renderTable(filtered);
+}
+function renderMulti(m) {
+  if (!m) return '<span style="opacity:.4">—</span>';
+  const badges = {
+    'text': { icon: '📝', label: '文本', cls: '' },
+    'image': { icon: '🖼️', label: '图片', cls: 'multi-img' },
+    'audio': { icon: '🎵', label: '音频', cls: 'multi-audio' },
+    'video': { icon: '🎬', label: '视频', cls: 'multi-video' },
+  };
+  return m.map(k => {
+    const b = badges[k] || badges.text;
+    return `<span class="multi-badge ${b.cls}">${b.icon} ${b.label}</span>`;
+  }).join(' ');
+}
+function renderScore(s) {
+  if (!s) return '<span style="opacity:.4">—</span>';
+  const c = s >= 55 ? 'score-s' : s >= 45 ? 'score-a' : s >= 35 ? 'score-b' : 'score-c';
+  return `<span class="score-badge ${c}">${s}</span>`;
+}
+function priceNum(p) {
+  if (p === '免费') return 0;
+  if (p === '—') return 999999;
+  return parseFloat(p.replace(/[^0-9.]/g, '')) * (p.startsWith('$') ? 7.25 : 1);
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+document.getElementById('search').addEventListener('input', applyFilter);
+
+// ── Sort ──
+document.querySelectorAll('thead th').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (!col) return;
+    if (currentSort.col === col) {
+      currentSort.asc = !currentSort.asc;
+    } else {
+      currentSort = { col, asc: true };
+    }
+    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    th.querySelector('.sort-icon').textContent = currentSort.asc ? '↑' : '↓';
+    applyFilter();
+  });
+});
+
+// init
+renderTable(models);
+</script>
+</body>
+</html>
