@@ -314,7 +314,7 @@ const models = [
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
     site: "https://platform.xiaomimimo.com", tag: "cn,cheap",
-    multimodal: ["text"], score: null
+    multimodal: ["text","image","audio","video"], score: null
   },
   // ── DeepSeek ──
   {
@@ -406,8 +406,15 @@ const models = [
     multimodal: ["text"], score: null
   },
   {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5V-Turbo",
+    params: "—", maxInput: "200K", maxOutput: "16K",
+    inputPrice: "$2.5", cachePrice: "$0.5", outputPrice: "$10",
+    site: "https://z.ai", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
     vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.1",
-    params: "—", maxInput: "128K", maxOutput: "16K",
+    params: "—", maxInput: "198K", maxOutput: "16K",
     inputPrice: "¥6", cachePrice: "¥1.3", outputPrice: "¥24",
     site: "https://open.bigmodel.cn", tag: "cn,flagship",
     multimodal: ["text"], score: 43.4
@@ -417,20 +424,6 @@ const models = [
     params: "—", maxInput: "128K", maxOutput: "16K",
     inputPrice: "¥5", cachePrice: "¥1.2", outputPrice: "¥22",
     site: "https://open.bigmodel.cn", tag: "cn",
-    multimodal: ["text"], score: null
-  },
-  {
-    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-4.5-Air",
-    params: "—", maxInput: "128K", maxOutput: "16K",
-    inputPrice: "¥0.8", cachePrice: "¥0.16", outputPrice: "¥2",
-    site: "https://open.bigmodel.cn", tag: "cn,cheap",
-    multimodal: ["text"], score: null
-  },
-  {
-    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-4.7 Flash",
-    params: "—", maxInput: "32K", maxOutput: "4K",
-    inputPrice: "免费", cachePrice: "免费", outputPrice: "免费",
-    site: "https://open.bigmodel.cn", tag: "cn,cheap",
     multimodal: ["text"], score: null
   },
   // ── MiniMax ──
@@ -443,7 +436,7 @@ const models = [
   },
   {
     vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M2.7",
-    params: "—", maxInput: "1M", maxOutput: "16K",
+    params: "—", maxInput: "192K", maxOutput: "16K",
     inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
     site: "https://platform.minimaxi.com", tag: "cn",
     multimodal: ["text","image","video"], score: null
@@ -454,11 +447,11 @@ const models = [
     params: "1T MoE (32B active)", maxInput: "256K", maxOutput: "16K",
     inputPrice: "¥6.5", cachePrice: "¥1.3", outputPrice: "¥27",
     site: "https://platform.moonshot.cn", tag: "cn,flagship",
-    multimodal: ["text"], score: null
+    multimodal: ["text","image","video"], score: null
   },
   {
     vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.6",
-    params: "—", maxInput: "128K", maxOutput: "16K",
+    params: "—", maxInput: "256K", maxOutput: "16K",
     inputPrice: "¥6.5", cachePrice: "¥1.1", outputPrice: "¥27",
     site: "https://platform.moonshot.cn", tag: "cn,flagship",
     multimodal: ["text","image","video"], score: 47.1
