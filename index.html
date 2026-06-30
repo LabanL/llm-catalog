@@ -319,25 +319,19 @@ const models = [
   // ── DeepSeek ──
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash",
-    params: "—", maxInput: "128K", maxOutput: "16K",
+    params: "—", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
     site: "https://platform.deepseek.com", tag: "cn,cheap",
     multimodal: ["text"], score: 38.7
   },
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
-    params: "—", maxInput: "128K", maxOutput: "16K",
+    params: "—", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
     site: "https://platform.deepseek.com", tag: "cn",
     multimodal: ["text"], score: 47.5
   },
-  {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek R1",
-    params: "671B MoE", maxInput: "128K", maxOutput: "16K",
-    inputPrice: "¥4", cachePrice: "¥1", outputPrice: "¥16",
-    site: "https://platform.deepseek.com", tag: "cn,flagship",
-    multimodal: ["text"], score: null
-  },
+
   // ── 豆包 Doubao ──
   {
     vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Pro",
