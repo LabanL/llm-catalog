@@ -149,6 +149,7 @@
   .v-minimax  { background: rgba(168,85,247,.15); color: #c084fc; }
   .v-kimi     { background: rgba(14,165,233,.15); color: #38bdf8; }
   .v-xiaomi   { background: rgba(255,107,0,.15); color: #ff8c00; }
+  .v-tencent  { background: rgba(0,150,255,.15); color: #38bdf8; }
 
   .multi-badge {
     display: inline-block;
@@ -251,14 +252,14 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 10 家厂商 · 31+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
-  <div class="update">数据更新于 2026 年 6 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
+  <p>覆盖 11 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <div class="update">数据更新于 2026 年 7 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
 </div>
 
 <div class="stats" id="stats">
   <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
   <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
-  <div class="stat-card"><div class="num" id="vendors">10</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="vendors">11</div><div class="label">厂商数量</div></div>
   <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
 </div>
 
@@ -296,7 +297,7 @@
 
 <div class="footer">
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
-  评分基于 Artificial Analysis Coding Index（2026年6月）· 多模态能力以官方文档为准
+  评分基于 Artificial Analysis Coding Index（2026年7月）· 多模态能力以官方文档为准
 </div>
 
 <script>
@@ -426,6 +427,14 @@ const models = [
     site: "https://open.bigmodel.cn", tag: "cn",
     multimodal: ["text"], score: null
   },
+  // ── 腾讯混元 ──
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "Hy3",
+    params: "295B MoE (21B active)", maxInput: "192K", maxOutput: "128K",
+    inputPrice: "¥1", cachePrice: "¥0.25", outputPrice: "¥4",
+    site: "https://hunyuan.tencent.com", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
   // ── MiniMax ──
   {
     vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M3",
@@ -443,6 +452,13 @@ const models = [
   },
   // ── Kimi ──
   {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K3",
+    params: "2.8T MoE", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥20", cachePrice: "¥2", outputPrice: "¥100",
+    site: "https://platform.moonshot.cn", tag: "cn,flagship",
+    multimodal: ["text","image"], score: null
+  },
+  {
     vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.7 Code",
     params: "1T MoE (32B active)", maxInput: "256K", maxOutput: "16K",
     inputPrice: "¥6.5", cachePrice: "¥1.3", outputPrice: "¥27",
@@ -456,20 +472,27 @@ const models = [
     site: "https://platform.moonshot.cn", tag: "cn,flagship",
     multimodal: ["text","image","video"], score: 47.1
   },
-  {
-    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.5",
-    params: "—", maxInput: "128K", maxOutput: "16K",
-    inputPrice: "¥4", cachePrice: "¥0.7", outputPrice: "¥21",
-    site: "https://platform.moonshot.cn", tag: "cn",
-    multimodal: ["text","image","video"], score: null
-  },
   // ── Claude ──
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Fable 5",
+    params: "Mythos-class", maxInput: "1M", maxOutput: "128K",
+    inputPrice: "$10", cachePrice: "$1", outputPrice: "$50",
+    site: "https://platform.claude.com", tag: "intl,flagship",
+    multimodal: ["text","image"], score: null
+  },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Opus 4.8",
     params: "—", maxInput: "200K", maxOutput: "32K",
     inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$25",
     site: "https://platform.claude.com", tag: "intl,flagship",
     multimodal: ["text","image"], score: 56.7
+  },
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 5",
+    params: "—", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$10",
+    site: "https://platform.claude.com", tag: "intl",
+    multimodal: ["text","image"], score: null
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 4.6",
@@ -488,17 +511,31 @@ const models = [
   // ── Gemini ──
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Pro",
-    params: "—", maxInput: "2M", maxOutput: "64K",
-    inputPrice: "$1.25", cachePrice: "$0.125", outputPrice: "$10",
+    params: "—", maxInput: "1M", maxOutput: "64K",
+    inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://ai.google.dev", tag: "intl,flagship",
     multimodal: ["text","image","audio","video"], score: 55.5
   },
   {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.6 Flash",
+    params: "—", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$7.5",
+    site: "https://ai.google.dev", tag: "intl",
+    multimodal: ["text","image","audio","video"], score: null
+  },
+  {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.5 Flash",
-    params: "—", maxInput: "2M", maxOutput: "32K",
+    params: "—", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$9",
+    site: "https://ai.google.dev", tag: "intl",
+    multimodal: ["text","image","audio","video"], score: 45.0
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.5 Flash-Lite",
+    params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "$0.3", cachePrice: "$0.03", outputPrice: "$2.5",
     site: "https://ai.google.dev", tag: "intl,cheap",
-    multimodal: ["text","image"], score: 45.0
+    multimodal: ["text","image"], score: null
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Flash-Lite",
@@ -508,6 +545,27 @@ const models = [
     multimodal: ["text","image"], score: null
   },
   // ── GPT ──
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Sol",
+    params: "—", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$30",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Terra",
+    params: "—", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "$2.5", cachePrice: "$0.25", outputPrice: "$15",
+    site: "https://openai.com/api/pricing", tag: "intl",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Luna",
+    params: "—", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "$1", cachePrice: "$0.1", outputPrice: "$6",
+    site: "https://openai.com/api/pricing", tag: "intl,cheap",
+    multimodal: ["text","image"], score: null
+  },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5",
     params: "—", maxInput: "256K", maxOutput: "32K",
