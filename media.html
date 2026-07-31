@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🎬 2026 音视频大模型 API 清单</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2f3d;
+    --text: #e4e6eb;
+    --text2: #9ca3af;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #10b981;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --c-video: #ec4899;
+    --c-audio: #06b6d4;
+    --c-image: #f59e0b;
+    --c-music: #a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 24px 16px;
+    background: linear-gradient(135deg, rgba(99,102,241,.08), rgba(236,72,153,.08));
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 { font-size: 2rem; margin-bottom: 8px; }
+  .header p { color: var(--text2); font-size: .95rem; }
+  .header .update { color: var(--text2); font-size: .78rem; margin-top: 8px; }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .nav-link {
+    padding: 6px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    font-size: .85rem;
+    transition: all .2s;
+  }
+  .nav-link:hover {
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+  .nav-link.active {
+    background: rgba(236,72,153,.15);
+    color: var(--c-video);
+    border-color: var(--c-video);
+  }
+
+  /* 厂商色块 */
+  .v-openai   { background: rgba(16,185,129,.15); color: #34d399; }
+  .v-anthropic{ background: rgba(245,158,11,.15); color: #fbbf24; }
+  .v-google  { background: rgba(59,130,246,.15); color: #60a5fa; }
+  .v-deepseek{ background: rgba(99,102,241,.15); color: #a5b4fc; }
+  .v-doubao  { background: rgba(244,63,94,.15); color: #fb7185; }
+  .v-qwen    { background: rgba(234,179,8,.15); color: #fde047; }
+  .v-glm     { background: rgba(34,197,94,.15); color: #4ade80; }
+  .v-minimax { background: rgba(168,85,247,.15); color: #c084fc; }
+  .v-kimi    { background: rgba(56,189,248,.15); color: #7dd3fc; }
+  .v-xiaomi  { background: rgba(249,115,22,.15); color: #fdba74; }
+  .v-tencent { background: rgba(14,165,233,.15); color: #38bdf8; }
+
+  /* 类型徽标 */
+  .type-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  .type-video  { background: rgba(236,72,153,.18); color: var(--c-video); }
+  .type-audio  { background: rgba(6,182,212,.18); color: var(--c-audio); }
+  .type-image  { background: rgba(245,158,11,.18); color: var(--c-image); }
+  .type-music  { background: rgba(168,85,247,.18); color: var(--c-music); }
+  .type-tts    { background: rgba(6,182,212,.18); color: var(--c-audio); }
+  .type-asr    { background: rgba(6,182,212,.12); color: var(--c-audio); }
+
+  .controls {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search {
+    flex: 1 1 240px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: .9rem;
+    outline: none;
+  }
+  .search:focus { border-color: var(--accent); }
+  .filter-btn {
+    padding: 6px 14px;
+    background: var(--surface);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .85rem;
+    transition: all .2s;
+  }
+  .filter-btn:hover { color: var(--text); border-color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .stats {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 24px 12px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    flex: 1 1 140px;
+  }
+  .stat-card .num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--c-video);
+  }
+  .stat-card .label { font-size: .75rem; color: var(--text2); }
+
+  .table-wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  th {
+    background: rgba(99,102,241,.08);
+    color: var(--text2);
+    font-weight: 600;
+    font-size: .78rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  th:hover { color: var(--text); }
+  th.sort-asc::after  { content: " ↑"; color: var(--accent2); }
+  th.sort-desc::after { content: " ↓"; color: var(--accent2); }
+  tbody tr:hover { background: rgba(99,102,241,.05); }
+  td.vendor {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  td.model { font-weight: 500; color: var(--text); }
+  td.price { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .price-cn { color: var(--orange); }
+  .price-us { color: var(--accent2); }
+  .price-free { color: var(--green); }
+  .vendor-tag {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 5px;
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  a.link {
+    color: var(--accent2);
+    text-decoration: none;
+    font-size: .78rem;
+    border: 1px solid rgba(99,102,241,.3);
+    padding: 3px 9px;
+    border-radius: 6px;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  a.link:hover { background: rgba(99,102,241,.15); border-color: var(--accent); }
+  .empty { text-align: center; color: var(--text2); padding: 28px 0; }
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text2);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.4rem; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .stats { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎬 2026 音视频大模型 API 清单</h1>
+  <p>覆盖 11 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
+  <div class="update">数据更新于 2026 年 7 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">← 🤖 文本模型</a>
+    <a href="media.html" class="nav-link active">🎬 音视频模型</a>
+  </div>
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
+  <div class="stat-card"><div class="num" id="videoCount">0</div><div class="label">🎥 视频</div></div>
+  <div class="stat-card"><div class="num" id="imageCount">0</div><div class="label">🖼️ 图像</div></div>
+  <div class="stat-card"><div class="num" id="audioCount">0</div><div class="label">🔊 音频/语音</div></div>
+  <div class="stat-card"><div class="num" id="musicCount">0</div><div class="label">🎵 音乐</div></div>
+  <div class="stat-card"><div class="num" id="vendorCount">0</div><div class="label">覆盖厂商</div></div>
+</div>
+
+<div class="controls">
+  <input class="search" id="search" type="text" placeholder="🔍 搜索模型名称 / 厂商 / 能力…">
+  <button class="filter-btn active" data-filter="all">全部</button>
+  <button class="filter-btn" data-filter="video">🎥 仅视频</button>
+  <button class="filter-btn" data-filter="image">🖼️ 仅图像</button>
+  <button class="filter-btn" data-filter="audio">🔊 仅音频</button>
+  <button class="filter-btn" data-filter="cn">🇨🇳 国产</button>
+  <button class="filter-btn" data-filter="overseas">🌍 海外</button>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th data-sort="vendor">厂商</th>
+        <th data-sort="model">模型</th>
+        <th data-sort="type">类型</th>
+        <th>关键能力</th>
+        <th>输入规格</th>
+        <th>输出规格</th>
+        <th data-sort="outputPrice">价格</th>
+        <th>官网</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty" id="empty" style="display:none;">没有匹配的模型</div>
+</div>
+
+<div class="footer">
+  数据来源：各厂商官方定价页面（OpenAI · Google · Anthropic · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 腾讯混元）
+  <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务。
+</div>
+
+<script>
+/* ─────────── 数据 ─────────── */
+const media = [
+  /* ── OpenAI ── */
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "Sora 2", type: "video",
+    typeLabel: "🎥 视频", cap: "文生视频 · 图生视频 · 视频续写",
+    inSpec: "文本/图片 prompt", outSpec: "1080p · 5–25s",
+    outputPrice: "$0.10/秒 (720p) · $0.30/秒 (1080p)",
+    site: "https://openai.com/sora", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-Image-2", type: "image",
+    typeLabel: "🖼️ 图像", cap: "SOTA 图像生成与编辑",
+    inSpec: "文本/图像 prompt", outSpec: "1024/2048/4096 px",
+    outputPrice: "图片 token 计费 (~$0.04/张 起)",
+    site: "https://platform.openai.com/docs/models/gpt-image-2", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-Realtime-1.5", type: "audio",
+    typeLabel: "🔊 实时语音", cap: "端到端语音对话 · 工具调用",
+    inSpec: "文本/音频流", outSpec: "实时音频流 (24kHz)",
+    outputPrice: "音频输入 $40/MTok · 输出 $80/MTok",
+    site: "https://platform.openai.com/docs/models/gpt-realtime-1.5", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-4o mini TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "高自然度文本转语音",
+    inSpec: "文本 (10MB)", outSpec: "MP3/Opus/WAV",
+    outputPrice: "$0.60/MTok (约 $0.015/千字)",
+    site: "https://platform.openai.com/docs/models/gpt-4o-mini-tts", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-4o Transcribe", type: "asr",
+    typeLabel: "🔊 ASR", cap: "高精度语音转文本",
+    inSpec: "音频文件 (≤25MB)", outSpec: "文本 + 时间戳",
+    outputPrice: "$0.06/分 (输入) · $0.10/MTok (输出)",
+    site: "https://platform.openai.com/docs/models/gpt-4o-transcribe", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "Whisper", type: "asr",
+    typeLabel: "🔊 ASR", cap: "开源级多语种识别 + 翻译",
+    inSpec: "音频文件 (≤25MB)", outSpec: "文本 + 翻译",
+    outputPrice: "$0.006/分 (whisper-1)",
+    site: "https://platform.openai.com/docs/models/whisper-1", tag: "overseas"
+  },
+
+  /* ── Google ── */
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Veo 3.1", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频 · 含音频 · 4K 输出",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p/4K · 8s",
+    outputPrice: "$0.40/秒 (1080p) · $0.60/秒 (4K)",
+    site: "https://ai.google.dev/gemini-api/docs/veo", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Veo 3.1 Fast", type: "video",
+    typeLabel: "🎥 视频", cap: "快速版 Veo · 性价比优",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p/4K · 8s",
+    outputPrice: "$0.10/秒 (720p) · $0.30/秒 (4K)",
+    site: "https://ai.google.dev/gemini-api/docs/veo", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Veo 3.1 Lite", type: "video",
+    typeLabel: "🎥 视频", cap: "极低价版 · 720p 起步",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 8s",
+    outputPrice: "$0.05/秒 (720p) · $0.08/秒 (1080p)",
+    site: "https://ai.google.dev/gemini-api/docs/veo", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Flash Image (Nano Banana 2)", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文/图生图 · 4K 输出 · 一致性优",
+    inSpec: "文本/图像", outSpec: "0.5K/1K/2K/4K",
+    outputPrice: "$60/MTok 图 (≈ $0.045/0.5K · $0.151/4K)",
+    site: "https://ai.google.dev/gemini-api/docs/image-generation", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Imagen 4", type: "image",
+    typeLabel: "🖼️ 图像", cap: "原生图像生成 · 强文字渲染 (2026/8 关停)",
+    inSpec: "文本 prompt", outSpec: "≤1024px",
+    outputPrice: "Fast $0.02 · Std $0.04 · Ultra $0.06/张",
+    site: "https://ai.google.dev/gemini-api/docs/imagen", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Lyria 3", type: "music",
+    typeLabel: "🎵 音乐", cap: "AI 音乐生成 · 30s 片段 / 完整歌曲",
+    inSpec: "文本/风格 prompt", outSpec: "MP3 30s / 完整歌曲",
+    outputPrice: "Clip $0.04/首 · Pro $0.08/首",
+    site: "https://ai.google.dev/gemini-api/docs/music-generation", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 2.5 Flash TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "可控语音生成 · 多语种",
+    inSpec: "文本", outSpec: "音频流 (24kHz)",
+    outputPrice: "音频 $10/MTok (≈ $0.004/分钟)",
+    site: "https://ai.google.dev/gemini-api/docs/speech-generation", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 2.5 Pro TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "高品质低延迟语音",
+    inSpec: "文本", outSpec: "音频流 (24kHz)",
+    outputPrice: "音频 $20/MTok (≈ $0.008/分钟)",
+    site: "https://ai.google.dev/gemini-api/docs/speech-generation", tag: "overseas"
+  },
+
+  /* ── Anthropic ── */
+  {
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "—", type: "video",
+    typeLabel: "—", cap: "暂无原生音视频生成 API",
+    inSpec: "—", outSpec: "—", outputPrice: "—",
+    site: "https://docs.claude.com", tag: "overseas"
+  },
+
+  /* ── DeepSeek ── */
+  {
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "—", type: "video",
+    typeLabel: "—", cap: "仅文本模型 · 无音视频 API",
+    inSpec: "—", outSpec: "—", outputPrice: "—",
+    site: "https://api-docs.deepseek.com", tag: "overseas"
+  },
+
+  /* ── 豆包 Doubao ── */
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedance 2.0 Pro", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频 · 影视级运镜",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 5–12s",
+    outputPrice: "¥0.8/秒 (1080p)",
+    site: "https://www.volcengine.com/docs/82379/1521309", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedance 2.0 Fast", type: "video",
+    typeLabel: "🎥 视频", cap: "快速生成 · 适合批量",
+    inSpec: "文本/图片 prompt", outSpec: "720p · 5–10s",
+    outputPrice: "¥0.32/秒",
+    site: "https://www.volcengine.com/docs/82379/1521309", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedance 2.0 Mini", type: "video",
+    typeLabel: "🎥 视频", cap: "极低门槛 · 720p 体验版",
+    inSpec: "文本 prompt", outSpec: "720p · 5s",
+    outputPrice: "¥0.18/秒",
+    site: "https://www.volcengine.com/docs/82379/1521309", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedream 3.0", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 · 中文 prompt 友好",
+    inSpec: "文本/参考图", outSpec: "≤2048×2048",
+    outputPrice: "¥0.25/张 (1024px)",
+    site: "https://www.volcengine.com/docs/82379/1541523", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Doubao 语音合成 1.0", type: "tts",
+    typeLabel: "🔊 TTS", cap: "拟人音色 · 30+ 音色",
+    inSpec: "文本 (≤10万字)", outSpec: "MP3/WAV · 24kHz",
+    outputPrice: "¥2/万字",
+    site: "https://www.volcengine.com/docs/82379/1099475", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Doubao 实时语音交互", type: "audio",
+    typeLabel: "🔊 实时语音", cap: "端到端对话 · 工具调用",
+    inSpec: "文本/音频流", outSpec: "实时音频流",
+    outputPrice: "音频输入 ¥0.0001/秒 · 输出 ¥0.0002/秒",
+    site: "https://www.volcengine.com/docs/82379/1398927", tag: "cn"
+  },
+  {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Doubao 录音文件识别 2.0", type: "asr",
+    typeLabel: "🔊 ASR", cap: "高准字率 · 多语种方言",
+    inSpec: "音频文件 (≤2GB)", outSpec: "文本 + 标点 + 时间戳",
+    outputPrice: "¥0.0001/秒 (中文) · ¥0.00015/秒 (多语种)",
+    site: "https://www.volcengine.com/docs/82379/1099475", tag: "cn"
+  },
+
+  /* ── 阿里通义 Qwen ── */
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan2.7-I2V-2026-04-25", type: "video",
+    typeLabel: "🎥 视频", cap: "图生视频 · 运镜丝滑 · 情绪表现升级",
+    inSpec: "图片 + 文本 prompt", outSpec: "720p/1080p · 5–10s",
+    outputPrice: "¥0.6/秒 (1080p)",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan2.7-VideoEdit", type: "video",
+    typeLabel: "🎥 视频", cap: "指令编辑 · 创意复刻",
+    inSpec: "视频 + 文本指令", outSpec: "原分辨率输出",
+    outputPrice: "¥0.5/秒",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan2.7-Image-Pro", type: "image",
+    typeLabel: "🖼️ 图像", cap: "复杂指令遵循 · 4K 输出",
+    inSpec: "文本 prompt", outSpec: "≤4K",
+    outputPrice: "¥0.2/张 (1024px) · ¥0.5/张 (4K)",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Qwen-Image-2.0", type: "image",
+    typeLabel: "🖼️ 图像", cap: "融合图像生成与编辑",
+    inSpec: "文本/图像", outSpec: "≤2048×2048",
+    outputPrice: "¥0.15/张 (1024px)",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Qwen3-TTS-Flash", type: "tts",
+    typeLabel: "🔊 TTS", cap: "高表现力多语言拟人音色",
+    inSpec: "文本", outSpec: "音频流 · 24kHz",
+    outputPrice: "¥1.5/万字",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Qwen3-ASR-Flash", type: "asr",
+    typeLabel: "🔊 ASR", cap: "精准多语言转写 · 情绪识别",
+    inSpec: "音频文件 / 流", outSpec: "文本 + 情感标签",
+    outputPrice: "¥0.0008/秒",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+  {
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Fun-ASR", type: "asr",
+    typeLabel: "🔊 ASR", cap: "高准确率多语言 + 方言",
+    inSpec: "音频文件 / 流", outSpec: "文本 + 时间戳",
+    outputPrice: "¥0.0005/秒",
+    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
+  },
+
+  /* ── 智谱 GLM ── */
+  {
+    vendor: "智谱", vendorClass: "v-glm", model: "CogVideoX-2", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频 · 影视级",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 6–10s",
+    outputPrice: "¥0.5/秒",
+    site: "https://bigmodel.cn/pricing", tag: "cn"
+  },
+  {
+    vendor: "智谱", vendorClass: "v-glm", model: "CogVideoX-5B", type: "video",
+    typeLabel: "🎥 视频", cap: "轻量版视频生成",
+    inSpec: "文本 prompt", outSpec: "720p · 6s",
+    outputPrice: "¥0.25/秒",
+    site: "https://bigmodel.cn/pricing", tag: "cn"
+  },
+  {
+    vendor: "智谱", vendorClass: "v-glm", model: "CogView-3", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 · 中文理解强",
+    inSpec: "文本 prompt", outSpec: "1024×1024",
+    outputPrice: "¥0.02/千 tokens",
+    site: "https://bigmodel.cn/pricing", tag: "cn"
+  },
+  {
+    vendor: "智谱", vendorClass: "v-glm", model: "GLM-4-Voice", type: "tts",
+    typeLabel: "🔊 TTS", cap: "端到端语音对话 · 情感可调",
+    inSpec: "文本/音频", outSpec: "实时音频流",
+    outputPrice: "¥1/MTok",
+    site: "https://bigmodel.cn/pricing", tag: "cn"
+  },
+
+  /* ── MiniMax ── */
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "Hailuo-03 (H3)", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频 · 2K 输出 · SOTA 物理",
+    inSpec: "文本/图片 prompt (≤7000字)", outSpec: "1080p/2K · 4–15s",
+    outputPrice: "¥0.8/秒 (1080p) · ¥1.2/秒 (2K)",
+    site: "https://platform.minimaxi.com/docs/api-reference/video-generation-v2-create", tag: "cn"
+  },
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax Image-01", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文/图生图 · 写实风",
+    inSpec: "文本/参考图", outSpec: "≤2048×2048",
+    outputPrice: "¥0.15/张 (1024px)",
+    site: "https://platform.minimaxi.com/docs/api-reference/image-generation", tag: "cn"
+  },
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "Speech-02", type: "tts",
+    typeLabel: "🔊 TTS", cap: "30+ 语种 · 拟人音色 · 情感可控",
+    inSpec: "文本", outSpec: "MP3/WAV · 24kHz",
+    outputPrice: "¥2/万字",
+    site: "https://platform.minimaxi.com/docs/api-reference/llms/speech-02", tag: "cn"
+  },
+  {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "Music-01", type: "music",
+    typeLabel: "🎵 音乐", cap: "AI 音乐生成 · 纯音乐 / 配乐",
+    inSpec: "风格/主题 prompt", outSpec: "MP3 · 30–60s",
+    outputPrice: "¥0.1/首",
+    site: "https://platform.minimaxi.com/docs/api-reference/llms/music-01", tag: "cn"
+  },
+
+  /* ── Kimi ── */
+  {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "—", type: "video",
+    typeLabel: "—", cap: "暂无原生音视频生成 API",
+    inSpec: "—", outSpec: "—", outputPrice: "—",
+    site: "https://platform.kimi.com", tag: "cn"
+  },
+
+  /* ── 小米 MiMo ── */
+  {
+    vendor: "小米", vendorClass: "v-xiaomi", model: "—", type: "video",
+    typeLabel: "—", cap: "暂无原生音视频生成 API",
+    inSpec: "—", outSpec: "—", outputPrice: "—",
+    site: "https://xiaomi.com", tag: "cn"
+  },
+
+  /* ── 腾讯混元 ── */
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "混元生视频 (Hunyuan-Video)", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频 · 视频特效",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 5s",
+    outputPrice: "¥0.5/秒",
+    site: "https://cloud.tencent.com/product/vclm", tag: "cn"
+  },
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "Tencent HY Image 3.0", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 · 漫画/表情包/科普插画",
+    inSpec: "文本 prompt", outSpec: "≤2048×2048",
+    outputPrice: "¥0.2/张 (1024px)",
+    site: "https://console.cloud.tencent.com/tokenhub/models/detail?modelId=hy-image-v3.0", tag: "cn"
+  },
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "Tencent HY 3D 3.1", type: "image",
+    typeLabel: "🖼️ 3D", cap: "文/图生 3D 模型",
+    inSpec: "文本/2D 图", outSpec: "GLB/USDZ ≤4K 纹理",
+    outputPrice: "¥0.5/模型",
+    site: "https://console.cloud.tencent.com/tokenhub/models/detail?modelId=hy-3d-3.1", tag: "cn"
+  },
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "混元语音合成 TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "100+ 音色 · 多语种",
+    inSpec: "文本 (≤10万字)", outSpec: "MP3/WAV",
+    outputPrice: "¥0.8/万字",
+    site: "https://cloud.tencent.com/product/tts", tag: "cn"
+  },
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "混元语音识别 ASR", type: "asr",
+    typeLabel: "🔊 ASR", cap: "高准确率 · 中英粤多语种",
+    inSpec: "音频文件 / 流", outSpec: "文本 + 时间戳",
+    outputPrice: "¥0.0006/秒",
+    site: "https://cloud.tencent.com/product/asr", tag: "cn"
+  },
+];
+
+/* ─────────── 渲染 ─────────── */
+const tbody = document.getElementById('tbody');
+const empty = document.getElementById('empty');
+const searchInput = document.getElementById('search');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+let currentFilter = 'all';
+let currentSearch = '';
+let sortKey = null;
+let sortDir = 1;
+
+function priceClass(p) {
+  if (!p || p === '—' || p.startsWith('—')) return '';
+  if (p.includes('免费') || p === '$0') return 'price-free';
+  if (p.includes('¥') || p.includes('元')) return 'price-cn';
+  if (p.includes('$')) return 'price-us';
+  return '';
+}
+
+function render() {
+  let rows = media.filter(m => {
+    // 过滤
+    if (currentFilter === 'cn' && !m.tag.includes('cn')) return false;
+    if (currentFilter === 'overseas' && !m.tag.includes('overseas')) return false;
+    if (['video','image','audio','music','tts','asr'].includes(currentFilter)) {
+      if (m.type !== currentFilter) return false;
+    }
+    // 搜索
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      const hay = (m.vendor + ' ' + m.model + ' ' + m.cap + ' ' + m.typeLabel).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  // 排序
+  if (sortKey) {
+    rows.sort((a, b) => {
+      const av = (a[sortKey] || '').toString();
+      const bv = (b[sortKey] || '').toString();
+      return av.localeCompare(bv, 'zh') * sortDir;
+    });
+  }
+
+  tbody.innerHTML = rows.map(m => `
+    <tr>
+      <td class="vendor"><span class="vendor-tag ${m.vendorClass}">${m.vendor}</span></td>
+      <td class="model">${m.model === '—' ? '<span style="color:var(--text2)">—</span>' : m.model}</td>
+      <td><span class="type-badge type-${m.type}">${m.typeLabel}</span></td>
+      <td style="color:var(--text2)">${m.cap}</td>
+      <td style="font-size:.8rem">${m.inSpec}</td>
+      <td style="font-size:.8rem">${m.outSpec}</td>
+      <td class="price ${priceClass(m.outputPrice)}" style="font-weight:600">${m.outputPrice}</td>
+      <td><a class="link" href="${m.site}" target="_blank" rel="noopener">📖 文档</a></td>
+    </tr>
+  `).join('');
+
+  empty.style.display = rows.length === 0 ? 'block' : 'none';
+}
+
+function updateStats() {
+  const real = media.filter(m => m.model !== '—');
+  document.getElementById('count').textContent      = real.length;
+  document.getElementById('videoCount').textContent  = real.filter(m => m.type === 'video').length;
+  document.getElementById('imageCount').textContent  = real.filter(m => m.type === 'image').length;
+  document.getElementById('audioCount').textContent  = real.filter(m => m.type === 'audio' || m.type === 'tts' || m.type === 'asr').length;
+  document.getElementById('musicCount').textContent  = real.filter(m => m.type === 'music').length;
+  document.getElementById('vendorCount').textContent = new Set(real.map(m => m.vendor)).size;
+}
+
+/* ─────────── 事件 ─────────── */
+searchInput.addEventListener('input', e => { currentSearch = e.target.value; render(); });
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    render();
+  });
+});
+
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    document.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc','sort-desc'));
+    const key = th.dataset.sort;
+    if (sortKey === key) {
+      sortDir = -sortDir;
+    } else {
+      sortKey = key;
+      sortDir = 1;
+    }
+    th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    render();
+  });
+});
+
+updateStats();
+render();
+</script>
+</body>
+</html>

@@ -233,6 +233,30 @@
   }
   .stat-card .label { font-size: .78rem; color: var(--text2); }
 
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .nav-link {
+    padding: 6px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    font-size: .85rem;
+    transition: all .2s;
+  }
+  .nav-link:hover {
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+  .nav-link.active {
+    background: rgba(99,102,241,.15);
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
   .footer {
     text-align: center;
     padding: 24px;
@@ -254,6 +278,10 @@
   <h1>🤖 2026 大模型 API 清单</h1>
   <p>覆盖 11 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 7 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">🤖 文本模型</a>
+    <a href="media.html" class="nav-link">🎬 音视频模型 →</a>
+  </div>
 </div>
 
 <div class="stats" id="stats">
@@ -335,46 +363,39 @@ const models = [
 
   // ── 豆包 Doubao ──
   {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed Evolving",
+    params: "—", maxInput: "1M", maxOutput: "256K",
+    inputPrice: "¥6", cachePrice: "¥1.2", outputPrice: "¥30",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
     vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Pro",
-    params: "—", maxInput: "256K", maxOutput: "16K",
+    params: "—", maxInput: "256K", maxOutput: "256K",
     inputPrice: "¥6", cachePrice: "¥1.2", outputPrice: "¥30",
     site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
     multimodal: ["text","image","video"], score: null
   },
   {
     vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Turbo",
-    params: "—", maxInput: "256K", maxOutput: "16K",
+    params: "—", maxInput: "256K", maxOutput: "256K",
     inputPrice: "¥3", cachePrice: "¥0.6", outputPrice: "¥15",
     site: "https://www.volcengine.com/product/doubao", tag: "cn",
     multimodal: ["text","image","video"], score: null
   },
   {
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Lite",
+    params: "—", maxInput: "256K", maxOutput: "128K",
+    inputPrice: "¥0.6", cachePrice: "¥0.12", outputPrice: "¥3.6",
+    site: "https://www.volcengine.com/product/doubao", tag: "cn",
+    multimodal: ["text","image","video","audio"], score: null
+  },
+  {
     vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Mini",
-    params: "—", maxInput: "256K", maxOutput: "16K",
+    params: "—", maxInput: "256K", maxOutput: "128K",
     inputPrice: "¥0.2", cachePrice: "¥0.04", outputPrice: "¥2",
     site: "https://www.volcengine.com/product/doubao", tag: "cn,cheap",
-    multimodal: ["text"], score: null
-  },
-  {
-    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Lite",
-    params: "—", maxInput: "256K", maxOutput: "16K",
-    inputPrice: "¥0.6", cachePrice: "¥0.12", outputPrice: "¥3.6",
-    site: "https://www.volcengine.com/product/doubao", tag: "cn,cheap",
-    multimodal: ["text"], score: null
-  },
-  {
-    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Pro",
-    params: "—", maxInput: "256K", maxOutput: "16K",
-    inputPrice: "¥3.2", cachePrice: "¥0.64", outputPrice: "¥16",
-    site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
-    multimodal: ["text"], score: null
-  },
-  {
-    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Code",
-    params: "—", maxInput: "256K", maxOutput: "16K",
-    inputPrice: "¥3.2", cachePrice: "¥0.64", outputPrice: "¥16",
-    site: "https://www.volcengine.com/product/doubao", tag: "cn",
-    multimodal: ["text"], score: null
+    multimodal: ["text","image","video"], score: null
   },
   // ── 通义千问 Qwen ──
   {
