@@ -1,10 +1,10 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 11 家厂商、40+ 主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 13 家厂商、40+ 主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含两份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：11 家厂商，40+ 模型
-- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：9 家厂商，30+ 模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：13 家厂商，40+ 模型
+- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，30+ 模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -14,7 +14,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Anthropic / Google / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 月之暗面 / 小米 / 腾讯混元 |
+| 模型厂商 | OpenAI / Anthropic / Google / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
 | 模型名称 | 含版本号 |
 | 模型参数量 | 已公开的标注 |
 | 最大输入 | 上下文窗口长度 |
@@ -30,7 +30,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Google / 豆包 / 通义千问 / 智谱AI / MiniMax / 腾讯混元（Anthropic / DeepSeek / Kimi / MiMo 暂未提供相应 API） |
+| 模型厂商 | OpenAI / Google / 豆包 / 通义千问 / 智谱AI / MiniMax / xAI / 腾讯混元 / 美团（Anthropic / DeepSeek / Kimi / MiMo 暂未提供相应 API） |
 | 模型名称 | 含版本号 |
 | 类型 | 🎥 视频 / 🖼️ 图像 / 🔊 TTS/ASR / 🎵 音乐 |
 | 关键能力 | 模型特性描述 |
@@ -58,6 +58,7 @@
 - **2026-07-31**：
   - 移除 MiniMax H3（视频生成模型从文本模型清单移至独立音视频页面）
   - 新增音视频模型清单页面 [`media.html`](./media.html)：覆盖 9 家厂商 30+ 模型，包含视频生成（OpenAI Sora 2 / Google Veo 3.1 / Doubao Seedance 2.0 / Wan2.7 / CogVideoX / Hailuo-03 / 混元生视频）、图像生成（GPT-Image-2 / Imagen 4 / Nano Banana 2 / Seedream 3.0 / CogView-3 / HY Image 3.0）、TTS/ASR（GPT-Realtime-1.5 / Qwen3-TTS-ASR / Doubao 语音 / GLM-4-Voice / Speech-02 / 混元 TTS/ASR）、音乐生成（Lyria 3 / Music-01）
+  - 新增 xAI Grok 4.5 文本模型，新增 Grok Voice Think Fast 2.0 与 Grok Imagine Video 1.5 音视频模型
   - 顶部增加页面间导航：文本模型 ↔ 音视频模型
   - 豆包模型调整为 5 款（对齐火山方舟模型广场「深度思考」首推）：保留 Doubao Seed 2.1 Pro / 2.1 Turbo，新增 Seed Evolving（1M 上下文，¥6/¥30 旗舰价）、Seed 2.0 Lite（豆包首款全模态理解模型，¥0.6/¥3.6）、Seed 2.0 Mini（低时延低成本，¥0.2/¥2）
   - 移除豆包 4 款已下线/降级模型：Seed 2.0 Code、1.6 系列等往期模型

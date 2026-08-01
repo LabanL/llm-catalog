@@ -77,6 +77,8 @@
   .v-kimi    { background: rgba(56,189,248,.15); color: #7dd3fc; }
   .v-xiaomi  { background: rgba(249,115,22,.15); color: #fdba74; }
   .v-tencent { background: rgba(14,165,233,.15); color: #38bdf8; }
+  .v-meituan { background: rgba(249,115,22,.15); color: #fb923c; }
+  .v-xai      { background: rgba(88,105,224,.15); color: #8b5cf6; }
 
   /* 类型徽标 */
   .type-badge {
@@ -234,7 +236,7 @@
 
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
-  <p>覆盖 11 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
+  <p>覆盖 13 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
   <div class="update">数据更新于 2026 年 7 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">← 🤖 文本模型</a>
@@ -331,6 +333,20 @@ const media = [
     outputPrice: "$0.006/分 (whisper-1)",
     site: "https://platform.openai.com/docs/models/whisper-1", tag: "overseas"
   },
+  {
+    vendor: "xAI", vendorClass: "v-xai", model: "Grok Voice Think Fast 2.0", type: "audio",
+    typeLabel: "🔊 语音", cap: "语音对话 / 语音助手",
+    inSpec: "文本/音频", outSpec: "实时语音",
+    outputPrice: "$0.08/分钟 ($4.80/小时)",
+    site: "https://x.ai", tag: "intl"
+  },
+  {
+    vendor: "xAI", vendorClass: "v-xai", model: "Grok Imagine Video 1.5", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图/参考视频生成 1080p",
+    inSpec: "文本/图像/参考视频", outSpec: "480p/720p/1080p",
+    outputPrice: "$0.08/秒 (480p) · $0.14/秒 (720p) · $0.25/秒 (1080p)",
+    site: "https://x.ai", tag: "intl"
+  },
 
   /* ── Google ── */
   {
@@ -404,6 +420,14 @@ const media = [
     typeLabel: "—", cap: "仅文本模型 · 无音视频 API",
     inSpec: "—", outSpec: "—", outputPrice: "—",
     site: "https://api-docs.deepseek.com", tag: "overseas"
+  },
+  {
+    vendor: "美团", vendorClass: "v-meituan", model: "LongCat-Video",
+    type: "video", typeLabel: "🎥 视频",
+    cap: "开源视频生成模型 · 文/图生视频 / 视频续写",
+    inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 1 分钟+",
+    outputPrice: "暂无公开商用 API",
+    site: "https://github.com/meituan-longcat", tag: "cn"
   },
 
   /* ── 豆包 Doubao ── */

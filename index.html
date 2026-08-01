@@ -147,9 +147,11 @@
   .v-qwen     { background: rgba(234,179,8,.15); color: #facc15; }
   .v-glm      { background: rgba(34,197,94,.15); color: #4ade80; }
   .v-minimax  { background: rgba(168,85,247,.15); color: #c084fc; }
+  .v-xai      { background: rgba(88,105,224,.15); color: #8b5cf6; }
   .v-kimi     { background: rgba(14,165,233,.15); color: #38bdf8; }
   .v-xiaomi   { background: rgba(255,107,0,.15); color: #ff8c00; }
   .v-tencent  { background: rgba(0,150,255,.15); color: #38bdf8; }
+  .v-meituan  { background: rgba(249,115,22,.15); color: #fb923c; }
 
   .multi-badge {
     display: inline-block;
@@ -276,7 +278,7 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 11 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 13 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 7 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -287,7 +289,7 @@
 <div class="stats" id="stats">
   <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
   <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
-  <div class="stat-card"><div class="num" id="vendors">11</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="vendors">12</div><div class="label">厂商数量</div></div>
   <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
 </div>
 
@@ -359,6 +361,22 @@ const models = [
     inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
     site: "https://platform.deepseek.com", tag: "cn",
     multimodal: ["text"], score: 47.5
+  },
+  // ── xAI ──
+  {
+    vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.5",
+    params: "—", maxInput: "500K", maxOutput: "—",
+    inputPrice: "$2.00", cachePrice: "$0.30", outputPrice: "$6.00",
+    site: "https://x.ai", tag: "intl,flagship",
+    multimodal: ["text"], score: null
+  },
+  // ── 美团 ──
+  {
+    vendor: "美团", vendorClass: "v-meituan", model: "LongCat-2.0",
+    params: "1.6T MoE (48B active)", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥2.00", cachePrice: "¥0.04", outputPrice: "¥8.00",
+    site: "https://github.com/meituan-longcat", tag: "cn,flagship",
+    multimodal: ["text"], score: null
   },
 
   // ── 豆包 Doubao ──
