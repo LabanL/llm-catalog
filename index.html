@@ -279,7 +279,7 @@
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
   <p>覆盖 13 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
-  <div class="update">数据更新于 2026 年 7 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
+  <div class="update">数据更新于 2026 年 8 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
     <a href="media.html" class="nav-link">🎬 音视频模型 →</a>
@@ -327,7 +327,7 @@
 
 <div class="footer">
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
-  评分基于 Artificial Analysis Coding Index（2026年7月）· 多模态能力以官方文档为准
+  评分基于 Artificial Analysis Intelligence Index（2026年8月）· 多模态能力以官方文档为准
 </div>
 
 <script>
@@ -350,10 +350,10 @@ const models = [
   // ── DeepSeek ──
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash",
-    params: "—", maxInput: "1M", maxOutput: "384K",
+    params: "284B MoE (13B active)", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
     site: "https://platform.deepseek.com", tag: "cn,cheap",
-    multimodal: ["text"], score: 38.7
+    multimodal: ["text"], score: 50
   },
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
@@ -436,6 +436,13 @@ const models = [
     inputPrice: "¥12", cachePrice: "—", outputPrice: "¥36",
     site: "https://bailian.console.aliyun.com", tag: "cn,flagship",
     multimodal: ["text"], score: 50.1
+  },
+  {
+    vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.8 Max",
+    params: "2.4T MoE", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥12", cachePrice: "¥1.5", outputPrice: "¥36",
+    site: "https://bailian.console.aliyun.com", tag: "cn,flagship",
+    multimodal: ["text","image","video"], score: null
   },
   // ── 智谱 GLM ──
   {
