@@ -152,6 +152,7 @@
   .v-xiaomi   { background: rgba(255,107,0,.15); color: #ff8c00; }
   .v-tencent  { background: rgba(0,150,255,.15); color: #38bdf8; }
   .v-meituan  { background: rgba(249,115,22,.15); color: #fb923c; }
+  .v-sensenova{ background: rgba(0,200,160,.15); color: #2dd4bf; }
 
   .multi-badge {
     display: inline-block;
@@ -494,6 +495,42 @@ const models = [
     params: "—", maxInput: "192K", maxOutput: "16K",
     inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
     site: "https://platform.minimaxi.com", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  // ── 商汤 SenseNova ──
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova 6.8 Flash-Lite",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥0.7", cachePrice: "—", outputPrice: "¥2.8",
+    site: "https://www.sensenova.cn", tag: "cn",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 Fast",
+    params: "—", maxInput: "256K", maxOutput: "8K",
+    inputPrice: "¥1.5", cachePrice: "—", outputPrice: "¥6",
+    site: "https://www.sensenova.cn", tag: "cn",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 PRO",
+    params: "—", maxInput: "256K", maxOutput: "8K",
+    inputPrice: "¥6", cachePrice: "—", outputPrice: "¥24",
+    site: "https://www.sensenova.cn", tag: "cn,flagship",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova V6 Pro",
+    params: "620B MoE", maxInput: "200K", maxOutput: "8K",
+    inputPrice: "¥10", cachePrice: "—", outputPrice: "¥30",
+    site: "https://www.sensenova.cn", tag: "cn,flagship",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova V6 Turbo",
+    params: "—", maxInput: "200K", maxOutput: "8K",
+    inputPrice: "¥3", cachePrice: "—", outputPrice: "¥9",
+    site: "https://www.sensenova.cn", tag: "cn",
     multimodal: ["text","image","video"], score: null
   },
   // ── Kimi ──

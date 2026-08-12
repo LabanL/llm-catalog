@@ -14,7 +14,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Anthropic / Google / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
+| 模型厂商 | OpenAI / Anthropic / Google / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
 | 模型名称 | 含版本号 |
 | 模型参数量 | 已公开的标注 |
 | 最大输入 | 上下文窗口长度 |
