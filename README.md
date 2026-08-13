@@ -55,6 +55,9 @@
 
 ## 🗓️ 更新记录
 
+- **2026-08-13**：
+  - DeepSeek V4 Pro 正式版（DeepSeek-V4-Pro-0813）确认上线：1M 上下文、384K 输出、默认开启 thinking 模式，价格维持 ¥3 / ¥0.025(缓存) / ¥6（与现有条目一致，无需调整）
+  - 新增 xAI Grok 4.6 文本模型（500K 上下文，$2 / $6 定价），原 Grok 4.5 保留并降为常规档
 - **2026-07-31**：
   - 移除 MiniMax H3（视频生成模型从文本模型清单移至独立音视频页面）
   - 新增音视频模型清单页面 [`media.html`](./media.html)：覆盖 9 家厂商 30+ 模型，包含视频生成（OpenAI Sora 2 / Google Veo 3.1 / Doubao Seedance 2.0 / Wan2.7 / CogVideoX / Hailuo-03 / 混元生视频）、图像生成（GPT-Image-2 / Imagen 4 / Nano Banana 2 / Seedream 3.0 / CogView-3 / HY Image 3.0）、TTS/ASR（GPT-Realtime-1.5 / Qwen3-TTS-ASR / Doubao 语音 / GLM-4-Voice / Speech-02 / 混元 TTS/ASR）、音乐生成（Lyria 3 / Music-01）
