@@ -329,7 +329,8 @@
 
 <div class="footer">
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
-  评分基于 Artificial Analysis Intelligence Index（2026年8月）· 多模态能力以官方文档为准
+  评分基于 Artificial Analysis Intelligence Index（2026年8月）· 多模态能力以官方文档为准<br>
+  DeepSeek 采用峰谷计价，表中为高峰价，空闲时段为高峰价的 50%
 </div>
 
 <script>
@@ -353,16 +354,23 @@ const models = [
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash",
     params: "284B MoE (13B active)", maxInput: "1M", maxOutput: "384K",
-    inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
+    inputPrice: "¥3.2", cachePrice: "¥0.1", outputPrice: "¥9.6",
     site: "https://platform.deepseek.com", tag: "cn,cheap",
     multimodal: ["text"], score: 50
   },
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
     params: "—", maxInput: "1M", maxOutput: "384K",
-    inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
+    inputPrice: "¥9.6", cachePrice: "¥0.32", outputPrice: "¥28.8",
     site: "https://platform.deepseek.com", tag: "cn,flagship",
     multimodal: ["text"], score: 53
+  },
+  {
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash Vision-Exp",
+    params: "—", maxInput: "1M", maxOutput: "384K",
+    inputPrice: "¥3.2", cachePrice: "¥0.1", outputPrice: "¥9.6",
+    site: "https://platform.deepseek.com", tag: "cn",
+    multimodal: ["text","image"], score: null
   },
   // ── xAI ──
   {
@@ -456,6 +464,20 @@ const models = [
   },
   // ── 智谱 GLM ──
   {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.3",
+    params: "753B", maxInput: "1M", maxOutput: "128K",
+    inputPrice: "¥8", cachePrice: "¥2", outputPrice: "¥28",
+    site: "https://open.bigmodel.cn", tag: "cn,flagship",
+    multimodal: ["text"], score: 60
+  },
+  {
+    vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.3-Flash",
+    params: "—", maxInput: "1M", maxOutput: "128K",
+    inputPrice: "¥2", cachePrice: "¥0.5", outputPrice: "¥8",
+    site: "https://open.bigmodel.cn", tag: "cn",
+    multimodal: ["text","image","video"], score: null
+  },
+  {
     vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.2",
     params: "~744B MoE", maxInput: "1M", maxOutput: "16K",
     inputPrice: "$2.5", cachePrice: "$0.5", outputPrice: "$10",
@@ -484,6 +506,13 @@ const models = [
     multimodal: ["text"], score: null
   },
   // ── 腾讯混元 ──
+  {
+    vendor: "腾讯混元", vendorClass: "v-tencent", model: "Hy4 preview",
+    params: "770B MoE (49B active)", maxInput: "1M", maxOutput: "—",
+    inputPrice: "¥6", cachePrice: "¥0.3", outputPrice: "¥18",
+    site: "https://hunyuan.tencent.com", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
   {
     vendor: "腾讯混元", vendorClass: "v-tencent", model: "Hy3",
     params: "295B MoE (21B active)", maxInput: "192K", maxOutput: "128K",
@@ -607,6 +636,13 @@ const models = [
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://ai.google.dev", tag: "intl,flagship",
     multimodal: ["text","image","audio","video"], score: 55.5
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.7 Flash",
+    params: "—", maxInput: "1M", maxOutput: "64K",
+    inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
+    site: "https://ai.google.dev", tag: "intl",
+    multimodal: ["text","image","audio","video"], score: null
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.6 Flash",
