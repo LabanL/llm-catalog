@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📦 2026 主流开源大模型清单</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2f3d;
+    --text: #e4e6eb;
+    --text2: #9ca3af;
+    --accent: #22c55e;
+    --accent2: #4ade80;
+    --indigo: #6366f1;
+    --indigo2: #818cf8;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --cyan: #06b6d4;
+    --purple: #a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    background: linear-gradient(135deg, rgba(34,197,94,.10), rgba(99,102,241,.08));
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+  .header p { color: var(--text2); font-size: .95rem; }
+  .header .update { color: var(--text2); font-size: .8rem; margin-top: 6px; opacity: .7; }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    padding: 6px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    font-size: .85rem;
+    transition: all .2s;
+  }
+  .nav-link:hover { color: var(--indigo2); border-color: var(--indigo2); }
+  .nav-link.active {
+    background: rgba(34,197,94,.15);
+    color: var(--accent2);
+    border-color: var(--accent);
+  }
+
+  /* 组织色块 */
+  .v-meta     { background: rgba(59,130,246,.15); color: #60a5fa; }
+  .v-openai   { background: rgba(16,185,129,.15); color: #34d399; }
+  .v-google   { background: rgba(234,179,8,.15);  color: #fde047; }
+  .v-mistral  { background: rgba(249,115,22,.15); color: #fdba74; }
+  .v-ms       { background: rgba(56,189,248,.15); color: #7dd3fc; }
+  .v-nvidia   { background: rgba(34,197,94,.15);  color: #4ade80; }
+  .v-deepseek { background: rgba(99,102,241,.15); color: #a5b4fc; }
+  .v-qwen     { background: rgba(168,85,247,.15); color: #c084fc; }
+  .v-glm      { background: rgba(74,222,128,.15); color: #86efac; }
+  .v-kimi     { background: rgba(56,189,248,.15); color: #7dd3fc; }
+  .v-minimax  { background: rgba(244,63,94,.15);  color: #fb7185; }
+  .v-tencent  { background: rgba(14,165,233,.15); color: #38bdf8; }
+  .v-baidu    { background: rgba(96,165,250,.15); color: #93c5fd; }
+  .v-xiaomi   { background: rgba(249,115,22,.15); color: #fdba74; }
+  .v-stepfun  { background: rgba(168,85,247,.15); color: #d8b4fe; }
+  .v-meituan  { background: rgba(250,204,21,.15); color: #fcd34d; }
+  .v-moonshot { background: rgba(45,212,191,.15); color: #5eead4; }
+  .v-shai     { background: rgba(129,140,248,.15);color: #a5b4fc; }
+  .v-others   { background: rgba(148,163,184,.15);color: #cbd5e1; }
+
+  /* 类别徽标 */
+  .cat-badge {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 6px;
+    font-size: .75rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .cat-text  { background: rgba(99,102,241,.18); color: var(--indigo2); }
+  .cat-omni  { background: rgba(168,85,247,.18); color: var(--purple); }
+  .cat-vlm   { background: rgba(6,182,212,.18);  color: var(--cyan); }
+  .cat-video { background: rgba(236,72,153,.18); color: #f472b6; }
+  .cat-image { background: rgba(245,158,11,.18); color: var(--orange); }
+  .cat-audio { background: rgba(20,184,166,.18); color: #2dd4bf; }
+  .cat-code  { background: rgba(34,197,94,.18);  color: var(--accent2); }
+
+  /* 协议徽标 */
+  .lic-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: .73rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .lic-open { background: rgba(34,197,94,.16);  color: var(--accent2); }
+  .lic-perm { background: rgba(99,102,241,.16); color: var(--indigo2); }
+  .lic-nc   { background: rgba(239,68,68,.16);  color: #f87171; }
+
+  .controls {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search {
+    flex: 1 1 240px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: .9rem;
+    outline: none;
+  }
+  .search:focus { border-color: var(--accent); }
+  .filter-btn {
+    padding: 6px 14px;
+    background: var(--surface);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .85rem;
+    transition: all .2s;
+  }
+  .filter-btn:hover { color: var(--text); border-color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    color: #06210f;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .stats {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: 0 24px 12px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    flex: 1 1 140px;
+  }
+  .stat-card .num { font-size: 1.4rem; font-weight: 700; color: var(--accent2); }
+  .stat-card .label { font-size: .75rem; color: var(--text2); }
+
+  .table-wrap {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .84rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  th {
+    background: rgba(34,197,94,.07);
+    color: var(--text2);
+    font-weight: 600;
+    font-size: .78rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: normal;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  th.no-sort { cursor: default; }
+  th.no-sort:hover { color: var(--text2); }
+  th:hover { color: var(--text); }
+  th.sort-asc::after  { content: " ↑"; color: var(--accent2); }
+  th.sort-desc::after { content: " ↓"; color: var(--accent2); }
+  tbody tr:hover { background: rgba(34,197,94,.05); }
+  td.vendor { font-weight: 600; }
+  td.model  { font-weight: 500; color: var(--text); overflow-wrap: anywhere; }
+  td.num    { font-variant-numeric: tabular-nums; }
+  .muted { color: var(--text2); }
+  /* 允许换行的窄列 */
+  td.wrap, th.wrap { white-space: normal; overflow-wrap: anywhere; }
+  .vendor-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .arch {
+    font-size: .72rem;
+    padding: 2px 7px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .arch.moe { border-color: rgba(168,85,247,.5); color: #c084fc; }
+  .links { display: flex; gap: 6px; flex-wrap: wrap; }
+  a.link {
+    color: var(--indigo2);
+    text-decoration: none;
+    font-size: .76rem;
+    border: 1px solid rgba(99,102,241,.3);
+    padding: 3px 9px;
+    border-radius: 6px;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  a.link:hover { background: rgba(99,102,241,.15); border-color: var(--indigo); }
+  .empty { text-align: center; color: var(--text2); padding: 28px 0; }
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text2);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.4rem; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .stats { flex-direction: column; }
+  }
+  /* 窄屏无法容纳整表时，回退为横向滚动 */
+  @media (max-width: 1024px) {
+    .table-wrap { overflow-x: auto; }
+    table { table-layout: auto; min-width: 1180px; }
+    td.wrap, th.wrap,
+    .cat-badge, .lic-badge, td.model { white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📦 2026 主流开源大模型清单</h1>
+  <p>开放权重 · 可私有化部署 · 覆盖文本 / 多模态 / 视觉生成 / 语音</p>
+  <div class="update">数据更新于 2026 年 8 月 · 显存为常见推理配置估算 · 以官方仓库为准</div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">🤖 文本模型 API</a>
+    <a href="media.html" class="nav-link">🎬 音视频模型 API</a>
+    <a href="open-source.html" class="nav-link active">📦 开源模型</a>
+  </div>
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat-card"><div class="num" id="count">0</div><div class="label">开源模型总数</div></div>
+  <div class="stat-card"><div class="num" id="cnCount">0</div><div class="label">🇨🇳 国产</div></div>
+  <div class="stat-card"><div class="num" id="ovsCount">0</div><div class="label">🌍 海外</div></div>
+  <div class="stat-card"><div class="num" id="moeCount">0</div><div class="label">⚡ MoE 架构</div></div>
+  <div class="stat-card"><div class="num" id="openCount">0</div><div class="label">✅ Apache/MIT 宽松协议</div></div>
+  <div class="stat-card"><div class="num" id="lightCount">0</div><div class="label">🪶 轻量可单卡 (&lt;40B)</div></div>
+</div>
+
+<div class="controls">
+  <input class="search" id="search" type="text" placeholder="🔍 搜索模型 / 组织 / 协议 / 能力…">
+  <button class="filter-btn active" data-filter="all">全部</button>
+  <button class="filter-btn" data-filter="cn">🇨🇳 国产</button>
+  <button class="filter-btn" data-filter="overseas">🌍 海外</button>
+  <button class="filter-btn" data-filter="moe">⚡ MoE</button>
+  <button class="filter-btn" data-filter="dense">🧱 Dense</button>
+  <button class="filter-btn" data-filter="comm">✅ 可商用</button>
+  <button class="filter-btn" data-filter="light">🪶 单卡可跑</button>
+  <button class="filter-btn" data-filter="flagship">🏆 旗舰 (&gt;200B)</button>
+  <button class="filter-btn" data-filter="multi">🖼️ 多模态/生成</button>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <colgroup>
+      <col style="width:9%">
+      <col style="width:13%">
+      <col style="width:8%">
+      <col style="width:8.5%">
+      <col style="width:7%">
+      <col style="width:9%">
+      <col style="width:8.5%">
+      <col style="width:28%">
+      <col style="width:9%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th data-sort="vendor">组织 / 厂商</th>
+        <th data-sort="model">模型</th>
+        <th data-sort="cat">类别</th>
+        <th data-sort="params" class="wrap">参数量（总/激活）</th>
+        <th data-sort="ctx" class="wrap">上下文</th>
+        <th data-sort="license" class="wrap">开源协议</th>
+        <th data-sort="deploy" class="wrap">部署门槛（显存）</th>
+        <th class="no-sort">特点</th>
+        <th class="no-sort">仓库</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty" id="empty" style="display:none;">没有匹配的模型</div>
+</div>
+
+<div class="footer">
+  数据来源：各组织官方仓库（Hugging Face / GitHub / ModelScope）与模型卡公开信息。
+  <br>「部署门槛」为社区常见推理精度（BF16 / FP8 / INT4 量化）下的显存估算，仅作选型参考。
+  <br>标注「可商用」以官方许可证为准，Llama / Gemma / 自定义许可通常附带月活或署名等附加条款，商用前请阅读原文。
+</div>
+
+<script>
+/* ─────────── 数据 ───────────
+   paramsNum : 总参数量（B，用于排序）
+   ctxNum    : 上下文长度（K tokens，用于排序）
+   deployNum : 部署显存估算（GB，用于排序）
+   licClass  : open=Apache/MIT 宽松 · perm=可商用附条款 · nc=非商用/限制
+   cat       : text / omni / vlm / video / image / audio / code
+─────────── */
+const models = [
+  /* ─────────── 海外 · Meta ─────────── */
+  {
+    vendor:"Meta", vendorClass:"v-meta", model:"Llama 4 Behemoth", cat:"omni", catLabel:"🌟 全模态",
+    params:"2T MoE (288B 激活)", paramsNum:2000, active:"288B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Llama 4 社区许可", licClass:"perm",
+    vram:"32×H100 以上集群", deployNum:4000,
+    feat:"Llama 系列最强旗舰，蒸馏教师模型", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meta-llama"}]
+  },
+  {
+    vendor:"Meta", vendorClass:"v-meta", model:"Llama 4 Maverick", cat:"omni", catLabel:"🌟 全模态",
+    params:"400B MoE (17B 激活)", paramsNum:400, active:"17B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Llama 4 社区许可", licClass:"perm",
+    vram:"8×H100 / FP8 ~400GB", deployNum:400,
+    feat:"通用旗舰，原生多模态 + 128 专家 MoE", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meta-llama"}]
+  },
+  {
+    vendor:"Meta", vendorClass:"v-meta", model:"Llama 4 Scout", cat:"omni", catLabel:"🌟 全模态",
+    params:"109B MoE (17B 激活)", paramsNum:109, active:"17B", arch:"moe",
+    ctx:"10M", ctxNum:10000, license:"Llama 4 社区许可", licClass:"perm",
+    vram:"4×H100 / INT4 单节点", deployNum:220,
+    feat:"超长上下文，单节点可部署", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meta-llama"}]
+  },
+
+  /* ─────────── 海外 · OpenAI ─────────── */
+  {
+    vendor:"OpenAI", vendorClass:"v-openai", model:"gpt-oss-120b", cat:"text", catLabel:"💬 文本/推理",
+    params:"117B MoE (5.1B 激活)", paramsNum:117, active:"5.1B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 H100 80GB (MXFP4)", deployNum:80,
+    feat:"OpenAI 开放权重旗舰，可调节推理强度", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/openai/gpt-oss-120b"},{t:"🐙 GitHub", u:"https://github.com/openai/gpt-oss"}]
+  },
+  {
+    vendor:"OpenAI", vendorClass:"v-openai", model:"gpt-oss-20b", cat:"text", catLabel:"💬 文本/推理",
+    params:"21B MoE (3.6B 激活)", paramsNum:21, active:"3.6B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 16GB (RTX 4080/4090)", deployNum:16,
+    feat:"消费级显卡可跑，Apache 2.0 无限制商用", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/openai/gpt-oss-20b"},{t:"🐙 GitHub", u:"https://github.com/openai/gpt-oss"}]
+  },
+
+  /* ─────────── 海外 · Google ─────────── */
+  {
+    vendor:"Google", vendorClass:"v-google", model:"Gemma 3 27B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"27B Dense", paramsNum:27, active:"27B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Gemma 许可（可商用）", licClass:"perm",
+    vram:"单卡 24GB (INT4) / 64GB BF16", deployNum:48,
+    feat:"140+ 语种、图像输入，单卡友好", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-3-27b-it"}]
+  },
+  {
+    vendor:"Google", vendorClass:"v-google", model:"Gemma 3 4B / 1B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"4B / 1B Dense", paramsNum:4, active:"4B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Gemma 许可（可商用）", licClass:"perm",
+    vram:"端侧 4–8GB", deployNum:8,
+    feat:"端侧小钢炮，手机 / 树莓派可跑", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/collections/google/gemma-3"}]
+  },
+  {
+    vendor:"Google", vendorClass:"v-google", model:"Gemma 3n E4B", cat:"omni", catLabel:"🌟 全模态",
+    params:"8B 总（4B 有效）", paramsNum:8, active:"4B", arch:"dense",
+    ctx:"32K", ctxNum:32, license:"Gemma 许可（可商用）", licClass:"perm",
+    vram:"端侧 4GB (MatFormer 分层)", deployNum:4,
+    feat:"端侧原生图 / 音 / 视频输入", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-3n-e4b-it"}]
+  },
+
+  /* ─────────── 海外 · Mistral ─────────── */
+  {
+    vendor:"Mistral", vendorClass:"v-mistral", model:"Mistral Small 3.2 24B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"24B Dense", paramsNum:24, active:"24B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"Apache 2.0 多模态，企业自建首选", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506"}]
+  },
+  {
+    vendor:"Mistral", vendorClass:"v-mistral", model:"Magistral Small 24B", cat:"text", catLabel:"💬 文本/推理",
+    params:"24B Dense", paramsNum:24, active:"24B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"推理 / 思维链模型，可商用", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/mistralai/Magistral-Small-2506"}]
+  },
+  {
+    vendor:"Mistral", vendorClass:"v-mistral", model:"Devstral 2 123B", cat:"code", catLabel:"💻 代码/Agent",
+    params:"123B Dense", paramsNum:123, active:"123B", arch:"dense",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"2×H100 / 单节点 FP8", deployNum:160,
+    feat:"开源代码 Agent SOTA，长上下文仓库级理解", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2506"}]
+  },
+  {
+    vendor:"Mistral", vendorClass:"v-mistral", model:"Ministral 8B", cat:"text", catLabel:"💬 文本/推理",
+    params:"8B Dense", paramsNum:8, active:"8B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 8GB", deployNum:8,
+    feat:"边缘 / 端侧推理，Apache 2.0", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/mistralai/Ministral-8B-Instruct-2410"}]
+  },
+
+  /* ─────────── 海外 · 其他 ─────────── */
+  {
+    vendor:"Microsoft", vendorClass:"v-ms", model:"Phi-4 14B", cat:"text", catLabel:"💬 文本/推理",
+    params:"14B Dense", paramsNum:14, active:"14B", arch:"dense",
+    ctx:"16K", ctxNum:16, license:"MIT", licClass:"open",
+    vram:"单卡 16GB", deployNum:16,
+    feat:"小模型强推理，合成数据训练", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/microsoft/phi-4"}]
+  },
+  {
+    vendor:"NVIDIA", vendorClass:"v-nvidia", model:"Nemotron Nano 2", cat:"text", catLabel:"💬 文本/推理",
+    params:"9B Hybrid Mamba-Transformer", paramsNum:9, active:"9B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"NVIDIA 开放模型许可（可商用）", licClass:"perm",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"混合 Mamba 架构，吞吐高、长文本省显存", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/nvidia"}]
+  },
+  {
+    vendor:"Allen AI", vendorClass:"v-others", model:"OLMo 3 32B", cat:"text", catLabel:"💬 文本/推理",
+    params:"32B Dense", paramsNum:32, active:"32B", arch:"dense",
+    ctx:"64K", ctxNum:64, license:"Apache 2.0（权重+数据+代码全开放）", licClass:"open",
+    vram:"单卡 80GB / 2×A100", deployNum:80,
+    feat:"真正 Open Science：训练数据、日志全公开", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/allenai/OLMo-3-32B-Think"}]
+  },
+  {
+    vendor:"IBM", vendorClass:"v-others", model:"Granite 4.0 32B", cat:"text", catLabel:"💬 文本/推理",
+    params:"32B Hybrid Mamba-2", paramsNum:32, active:"32B", arch:"dense",
+    ctx:"512K", ctxNum:512, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 80GB", deployNum:80,
+    feat:"企业级合规数据，超长上下文、显存占用低", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/ibm-granite"}]
+  },
+  {
+    vendor:"Liquid AI", vendorClass:"v-others", model:"LFM2-2.6B", cat:"text", catLabel:"💬 文本/推理",
+    params:"2.6B 液态基础模型", paramsNum:2.6, active:"2.6B", arch:"dense",
+    ctx:"32K", ctxNum:32, license:"LFM 开放许可（可商用）", licClass:"perm",
+    vram:"端侧 2–4GB", deployNum:4,
+    feat:"非 Transformer 架构，端侧低延迟", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/LiquidAI"}]
+  },
+  {
+    vendor:"Cohere", vendorClass:"v-others", model:"Command A 111B", cat:"text", catLabel:"💬 文本/推理",
+    params:"111B Dense", paramsNum:111, active:"111B", arch:"dense",
+    ctx:"256K", ctxNum:256, license:"CC-BY-NC-4.0（非商用）", licClass:"nc",
+    vram:"2×H100", deployNum:160,
+    feat:"企业 Agent / RAG 优化，仅研究与非商用", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/CohereLabs/command-a-03-2025"}]
+  },
+  {
+    vendor:"xAI", vendorClass:"v-others", model:"Grok-1", cat:"text", catLabel:"💬 文本/推理",
+    params:"314B MoE (86B 激活)", paramsNum:314, active:"86B", arch:"moe",
+    ctx:"8K", ctxNum:8, license:"Apache 2.0", licClass:"open",
+    vram:"8×H100", deployNum:640,
+    feat:"xAI 开源基础权重，JAX 实现", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/xai-org/grok-1"}]
+  },
+  {
+    vendor:"BFL", vendorClass:"v-others", model:"FLUX.1 [schnell] 12B", cat:"image", catLabel:"🖼️ 图像生成",
+    params:"12B 整流流 Transformer", paramsNum:12, active:"12B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"最宽松协议的图像生成模型，可商用 ([dev] 版为非商用)", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/black-forest-labs/FLUX.1-schnell"}]
+  },
+  {
+    vendor:"Stability AI", vendorClass:"v-others", model:"SD 3.5 Large 8B", cat:"image", catLabel:"🖼️ 图像生成",
+    params:"8B DiT", paramsNum:8, active:"8B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"Stability 社区许可（&lt;100 万美元营收免费商用）", licClass:"nc",
+    vram:"单卡 12GB", deployNum:12,
+    feat:"生态最全（LoRA/ControlNet），商用有营收门槛", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/stabilityai/stable-diffusion-3.5-large"}]
+  },
+  {
+    vendor:"TII", vendorClass:"v-others", model:"Falcon-H1 34B", cat:"text", catLabel:"💬 文本/推理",
+    params:"34B Hybrid Mamba-Attention", paramsNum:34, active:"34B", arch:"dense",
+    ctx:"256K", ctxNum:256, license:"Falcon LLM License 2.0（可商用）", licClass:"perm",
+    vram:"单卡 80GB", deployNum:80,
+    feat:"混合架构，多语种、长上下文", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/tiiuae"}]
+  },
+
+  /* ─────────── 国产 · DeepSeek ─────────── */
+  {
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4-Pro", cat:"text", catLabel:"💬 文本/推理",
+    params:"未公开（万亿级 MoE）", paramsNum:null, active:"—", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
+    vram:"大规模集群（16×H200 起）", deployNum:2000,
+    feat:"国产旗舰，MIT 协议可自由商用与蒸馏", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
+  },
+  {
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4-Flash", cat:"text", catLabel:"💬 文本/推理",
+    params:"284B MoE (13B 激活)", paramsNum:284, active:"13B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"激活参数仅 13B，推理成本极低", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
+  },
+  {
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-OCR 3B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"3B MoE (570M 激活)", paramsNum:3, active:"0.57B", arch:"moe",
+    ctx:"—", ctxNum:0, license:"MIT", licClass:"open",
+    vram:"单卡 8GB", deployNum:8,
+    feat:"文档 / 图表 OCR 与结构化解析，超轻量", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai/DeepSeek-OCR"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai/DeepSeek-OCR"}]
+  },
+
+  /* ─────────── 国产 · 阿里通义 ─────────── */
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-Coder-480B-A35B", cat:"code", catLabel:"💻 代码/Agent",
+    params:"480B MoE (35B 激活)", paramsNum:480, active:"35B", arch:"moe",
+    ctx:"256K（可扩 1M）", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"开源代码 & Agent 能力天花板", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3-Coder"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-Next-80B-A3B", cat:"text", catLabel:"💬 文本/推理",
+    params:"80B MoE (3B 激活)", paramsNum:80, active:"3B", arch:"moe",
+    ctx:"256K（可扩 1M）", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 H100 80GB", deployNum:80,
+    feat:"新一代架构，3B 激活跑出 30B 级效果", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-235B-A22B", cat:"text", catLabel:"💬 文本/推理",
+    params:"235B MoE (22B 激活)", paramsNum:235, active:"22B", arch:"moe",
+    ctx:"32K（可扩 131K）", ctxNum:32, license:"Apache 2.0", licClass:"open",
+    vram:"4×H100 / FP8 单节点", deployNum:320,
+    feat:"生态最全的开源旗舰，社区微调版本最多", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-30B-A3B-Instruct", cat:"text", catLabel:"💬 文本/推理",
+    params:"30B MoE (3B 激活)", paramsNum:30, active:"3B", arch:"moe",
+    ctx:"128K（可扩 1M）", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB (INT4) / 48GB BF16", deployNum:40,
+    feat:"性价比首选，单卡可部署", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-VL-235B-A22B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"235B MoE (22B 激活)", paramsNum:235, active:"22B", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"4×H100", deployNum:320,
+    feat:"视觉 Agent / GUI 操作 / 长视频理解", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3-VL"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-Omni-30B-A3B", cat:"omni", catLabel:"🌟 全模态",
+    params:"30B MoE (3B 激活)", paramsNum:30, active:"3B", arch:"moe",
+    ctx:"32K", ctxNum:32, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 80GB", deployNum:80,
+    feat:"文本 / 图 / 音 / 视频输入，语音直接输出", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3-Omni"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen-Image 20B", cat:"image", catLabel:"🖼️ 图像生成",
+    params:"20B MMDiT", paramsNum:20, active:"20B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB (可低配 12GB 量化)", deployNum:24,
+    feat:"中英文文字渲染强，支持图像编辑", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen-Image"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen-Image"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Wan2.7 (T2V / I2V)", cat:"video", catLabel:"🎥 视频生成",
+    params:"14B 级 DiT", paramsNum:14, active:"14B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB（消费级可跑 480p）", deployNum:24,
+    feat:"开源视频生成事实标准，ComfyUI 生态完善", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Wan-AI"},{t:"🐙 GitHub", u:"https://github.com/Wan-Video/Wan2.1"}]
+  },
+
+  /* ─────────── 国产 · 智谱 ─────────── */
+  {
+    vendor:"智谱", vendorClass:"v-glm", model:"GLM-5.3", cat:"text", catLabel:"💬 文本/推理",
+    params:"753B MoE", paramsNum:753, active:"40B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
+    vram:"16×H100 集群", deployNum:1280,
+    feat:"国产开源旗舰，AA 智能指数 60", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org"},{t:"🐙 GitHub", u:"https://github.com/zai-org"}]
+  },
+  {
+    vendor:"智谱", vendorClass:"v-glm", model:"GLM-4.6", cat:"code", catLabel:"💻 代码/Agent",
+    params:"355B MoE (32B 激活)", paramsNum:355, active:"32B", arch:"moe",
+    ctx:"200K", ctxNum:200, license:"MIT", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"Coding / Agent 能力突出，MIT 商用友好", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org/GLM-4.6"},{t:"🐙 GitHub", u:"https://github.com/zai-org/GLM-4.5"}]
+  },
+  {
+    vendor:"智谱", vendorClass:"v-glm", model:"GLM-4.5-Air 106B-A12B", cat:"text", catLabel:"💬 文本/推理",
+    params:"106B MoE (12B 激活)", paramsNum:106, active:"12B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"单卡 H100 80GB", deployNum:80,
+    feat:"混合推理（思考/非思考），单卡可商用部署", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org/GLM-4.5-Air"},{t:"🐙 GitHub", u:"https://github.com/zai-org/GLM-4.5"}]
+  },
+  {
+    vendor:"智谱", vendorClass:"v-glm", model:"GLM-4.1V-9B-Thinking", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"9B Dense", paramsNum:9, active:"9B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"单卡 16GB", deployNum:16,
+    feat:"轻量视觉推理，单卡即可跑", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org/GLM-4.1V-9B-Thinking"}]
+  },
+  {
+    vendor:"智谱", vendorClass:"v-glm", model:"CogVideoX-2", cat:"video", catLabel:"🎥 视频生成",
+    params:"13B DiT", paramsNum:13, active:"13B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"CogVideoX LICENSE（可商用）", licClass:"perm",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"文/图生视频，影视级运镜", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/THUDM/CogVideoX-5b"},{t:"🐙 GitHub", u:"https://github.com/THUDM/CogVideo"}]
+  },
+
+  /* ─────────── 国产 · 月之暗面 ─────────── */
+  {
+    vendor:"月之暗面", vendorClass:"v-kimi", model:"Kimi K3", cat:"text", catLabel:"💬 文本/推理",
+    params:"2.8T MoE", paramsNum:2800, active:"—", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Modified MIT（超阈值需商用授权）", licClass:"perm",
+    vram:"32×H100 以上集群", deployNum:3000,
+    feat:"万亿级开源旗舰，Agentic 能力强", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/moonshotai"},{t:"🐙 GitHub", u:"https://github.com/MoonshotAI"}]
+  },
+  {
+    vendor:"月之暗面", vendorClass:"v-kimi", model:"Kimi K2.5", cat:"code", catLabel:"💻 代码/Agent",
+    params:"1T MoE (32B 激活)", paramsNum:1000, active:"32B", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"Modified MIT（超阈值需商用授权）", licClass:"perm",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"开源 Agent 模型标杆，工具调用完善", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/moonshotai/Kimi-K2-Instruct"},{t:"🐙 GitHub", u:"https://github.com/MoonshotAI/Kimi-K2"}]
+  },
+  {
+    vendor:"月之暗面", vendorClass:"v-kimi", model:"Kimi-Dev-72B", cat:"code", catLabel:"💻 代码/Agent",
+    params:"72B Dense", paramsNum:72, active:"72B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"2×A100 / 单卡 H100", deployNum:80,
+    feat:"SWE-bench 级开源修 Bug 模型", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/moonshotai/Kimi-Dev-72B"}]
+  },
+  {
+    vendor:"月之暗面", vendorClass:"v-kimi", model:"Kimi-VL-A3B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"16B MoE (3B 激活)", paramsNum:16, active:"3B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"单卡 12GB", deployNum:12,
+    feat:"轻量多模态推理，长文档 / 视频理解", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/moonshotai/Kimi-VL-A3B-Thinking"}]
+  },
+
+  /* ─────────── 国产 · MiniMax / 腾讯混元 ─────────── */
+  {
+    vendor:"MiniMax", vendorClass:"v-minimax", model:"MiniMax-M2", cat:"code", catLabel:"💻 代码/Agent",
+    params:"230B MoE (10B 激活)", paramsNum:230, active:"10B", arch:"moe",
+    ctx:"200K", ctxNum:200, license:"MIT", licClass:"open",
+    vram:"4×H100 / FP8 单节点", deployNum:320,
+    feat:"低激活 + 长上下文，Agent 场景成本优势大", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/MiniMaxAI/MiniMax-M2"},{t:"🐙 GitHub", u:"https://github.com/MiniMax-AI"}]
+  },
+  {
+    vendor:"腾讯混元", vendorClass:"v-tencent", model:"Hy4 preview", cat:"text", catLabel:"💬 文本/推理",
+    params:"770B MoE (49B 激活)", paramsNum:770, active:"49B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Apache 2.0", licClass:"open",
+    vram:"16×H100 集群", deployNum:1280,
+    feat:"腾讯旗舰开源，百万上下文", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/tencent"},{t:"🐙 GitHub", u:"https://github.com/Tencent-Hunyuan"}]
+  },
+  {
+    vendor:"腾讯混元", vendorClass:"v-tencent", model:"Hy3 (Hunyuan-TurboS)", cat:"text", catLabel:"💬 文本/推理",
+    params:"295B MoE", paramsNum:295, active:"—", arch:"moe",
+    ctx:"192K", ctxNum:192, license:"Apache 2.0", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"Apache 2.0 商用无限制，快慢思考一体", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/tencent/Hunyuan-A13B-Instruct"}]
+  },
+  {
+    vendor:"腾讯混元", vendorClass:"v-tencent", model:"HunyuanVideo 13B", cat:"video", catLabel:"🎥 视频生成",
+    params:"13B DiT", paramsNum:13, active:"13B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"腾讯混元社区许可（可商用）", licClass:"perm",
+    vram:"单卡 24GB（量化）", deployNum:24,
+    feat:"开源视频生成，物理运动表现优秀", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/tencent/HunyuanVideo"},{t:"🐙 GitHub", u:"https://github.com/Tencent-Hunyuan/HunyuanVideo"}]
+  },
+  {
+    vendor:"腾讯混元", vendorClass:"v-tencent", model:"Hunyuan3D 2.5", cat:"image", catLabel:"🖼️ 3D 生成",
+    params:"未公开（形状 + 纹理双流）", paramsNum:null, active:"—", arch:"dense",
+    ctx:"—", ctxNum:0, license:"腾讯混元社区许可（可商用）", licClass:"perm",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"文/图生 3D 网格，GLB / USDZ 导出", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/tencent/Hunyuan3D-2"},{t:"🐙 GitHub", u:"https://github.com/Tencent-Hunyuan/Hunyuan3D-2"}]
+  },
+
+  /* ─────────── 国产 · 百度 / 小米 / 阶跃 / 美团 / 其他 ─────────── */
+  {
+    vendor:"百度 (文心)", vendorClass:"v-baidu", model:"ERNIE-4.5-300B-A47B", cat:"text", catLabel:"💬 文本/推理",
+    params:"300B MoE (47B 激活)", paramsNum:300, active:"47B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"百度全面开源，Apache 2.0 可商用", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Base-PT"},{t:"🐙 GitHub", u:"https://github.com/PaddlePaddle/ERNIE"}]
+  },
+  {
+    vendor:"百度 (文心)", vendorClass:"v-baidu", model:"ERNIE-4.5-21B-A3B", cat:"text", catLabel:"💬 文本/推理",
+    params:"21B MoE (3B 激活)", paramsNum:21, active:"3B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB", deployNum:24,
+    feat:"轻量可商用，适合私有化落地", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Base-PT"}]
+  },
+  {
+    vendor:"小米", vendorClass:"v-xiaomi", model:"MiMo-VL-7B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"7B Dense", paramsNum:7, active:"7B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"单卡 16GB", deployNum:16,
+    feat:"小模型视觉推理，端侧 / 车载友好", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/XiaomiMiMo/MiMo-VL-7B-RL"},{t:"🐙 GitHub", u:"https://github.com/XiaomiMiMo"}]
+  },
+  {
+    vendor:"阶跃星辰", vendorClass:"v-stepfun", model:"Step-3", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"321B MoE (38B 激活)", paramsNum:321, active:"38B", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"8×H100 / FP8 单节点", deployNum:640,
+    feat:"视觉推理 + 低解码成本（MFA 注意力）", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/stepfun-ai/step3"},{t:"🐙 GitHub", u:"https://github.com/stepfun-ai/Step3"}]
+  },
+  {
+    vendor:"美团", vendorClass:"v-meituan", model:"LongCat-2.0", cat:"text", catLabel:"💬 文本/推理",
+    params:"1.6T MoE (48B 激活)", paramsNum:1600, active:"48B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
+    vram:"32×H100 以上集群", deployNum:2500,
+    feat:"万亿级开源，MIT 协议", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat"}]
+  },
+  {
+    vendor:"美团", vendorClass:"v-meituan", model:"LongCat-Flash", cat:"text", catLabel:"💬 文本/推理",
+    params:"560B MoE (27B 激活)", paramsNum:560, active:"27B", arch:"moe",
+    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
+    vram:"单节点 H800 × 8", deployNum:640,
+    feat:"高吞吐 MoE，推理速度快", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat/LongCat-Flash-Chat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat/LongCat-Flash-Chat"}]
+  },
+  {
+    vendor:"面壁智能", vendorClass:"v-others", model:"MiniCPM-V 4.5 / MiniCPM-4", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"8B Dense", paramsNum:8, active:"8B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 8GB（手机可跑）", deployNum:8,
+    feat:"端侧多模态标杆，可跑在手机 / 车机", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/openbmb/MiniCPM-V-4_5"},{t:"🐙 GitHub", u:"https://github.com/OpenBMB/MiniCPM-V"}]
+  },
+  {
+    vendor:"上海 AI Lab", vendorClass:"v-shai", model:"InternVL3 78B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"78B Dense", paramsNum:78, active:"78B", arch:"dense",
+    ctx:"32K", ctxNum:32, license:"Apache 2.0", licClass:"open",
+    vram:"2×A100 / 单卡 H100", deployNum:80,
+    feat:"多模态评测常青树，文档 / 图表理解强", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/OpenGVLab/InternVL3-78B"},{t:"🐙 GitHub", u:"https://github.com/OpenGVLab/InternVL"}]
+  },
+];
+
+/* ─────────── 渲染 ─────────── */
+const tbody  = document.getElementById('tbody');
+const empty  = document.getElementById('empty');
+const searchInput = document.getElementById('search');
+const filterBtns  = document.querySelectorAll('.filter-btn');
+
+let currentFilter = 'all';
+let currentSearch = '';
+let sortKey = null;
+let sortDir = 1;
+
+const numKeys = { params: 'paramsNum', ctx: 'ctxNum', deploy: 'deployNum' };
+
+function render() {
+  let rows = models.filter(m => {
+    switch (currentFilter) {
+      case 'cn':       return m.tag === 'cn';
+      case 'overseas': return m.tag === 'overseas';
+      case 'moe':      return m.arch === 'moe';
+      case 'dense':    return m.arch === 'dense';
+      case 'comm':     return m.licClass === 'open' || m.licClass === 'perm';
+      case 'light':    return m.deployNum !== null && m.deployNum <= 80;
+      case 'flagship': return m.paramsNum !== null && m.paramsNum > 200;
+      case 'multi':    return ['omni','vlm','video','image','audio'].includes(m.cat);
+      default:         return true;
+    }
+  });
+
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    rows = rows.filter(m =>
+      (m.vendor + ' ' + m.model + ' ' + m.feat + ' ' + m.license + ' ' + m.catLabel + ' ' + m.params).toLowerCase().includes(q)
+    );
+  }
+
+  if (sortKey) {
+    const key = numKeys[sortKey] || sortKey;
+    rows.sort((a, b) => {
+      const av = a[key], bv = b[key];
+      const an = (av === null || av === undefined), bn = (bv === null || bv === undefined);
+      if (an && bn) return 0;
+      if (an) return 1;            // 未公开参数始终排在最后
+      if (bn) return -1;
+      if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * sortDir;
+      return String(av).localeCompare(String(bv), 'zh') * sortDir;
+    });
+  }
+
+  tbody.innerHTML = rows.map(m => `
+    <tr>
+      <td class="vendor"><span class="vendor-tag ${m.vendorClass}">${m.vendor}</span></td>
+      <td class="model">${m.model}</td>
+      <td><span class="cat-badge cat-${m.cat}">${m.catLabel}</span></td>
+      <td class="num wrap">${m.params}<br><span class="muted" style="font-size:.75rem">${
+        m.arch === 'moe' ? '激活 ' + m.active : '<span class="arch">Dense</span>'
+      }</span></td>
+      <td class="num wrap">${m.ctx}</td>
+      <td class="wrap"><span class="lic-badge lic-${m.licClass}">${m.license}</span></td>
+      <td class="num wrap">${m.vram}</td>
+      <td class="muted" style="font-size:.8rem">${m.feat}</td>
+      <td><div class="links">${m.links.map(l =>
+        `<a class="link" href="${l.u}" target="_blank" rel="noopener">${l.t}</a>`).join('')}</div></td>
+    </tr>
+  `).join('');
+
+  empty.style.display = rows.length === 0 ? 'block' : 'none';
+}
+
+function updateStats() {
+  document.getElementById('count').textContent      = models.length;
+  document.getElementById('cnCount').textContent    = models.filter(m => m.tag === 'cn').length;
+  document.getElementById('ovsCount').textContent   = models.filter(m => m.tag === 'overseas').length;
+  document.getElementById('moeCount').textContent   = models.filter(m => m.arch === 'moe').length;
+  document.getElementById('openCount').textContent  = models.filter(m => m.licClass === 'open').length;
+  document.getElementById('lightCount').textContent = models.filter(m => m.deployNum !== null && m.deployNum <= 80).length;
+}
+
+/* ─────────── 事件 ─────────── */
+searchInput.addEventListener('input', e => { currentSearch = e.target.value; render(); });
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    render();
+  });
+});
+
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    document.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc', 'sort-desc'));
+    const key = th.dataset.sort;
+    if (sortKey === key) { sortDir = -sortDir; } else { sortKey = key; sortDir = 1; }
+    th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    render();
+  });
+});
+
+updateStats();
+render();
+</script>
+</body>
+</html>

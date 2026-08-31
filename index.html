@@ -95,24 +95,24 @@
     max-width: 1400px;
     margin: 20px auto;
     padding: 0 24px 48px;
-    overflow-x: auto;
   }
   table {
     width: 100%;
     border-collapse: collapse;
     font-size: .85rem;
-    min-width: 1350px;
+    table-layout: fixed;
   }
   thead th {
     position: sticky;
     top: 0;
     background: var(--surface);
-    padding: 14px 12px;
+    padding: 14px 10px;
     text-align: left;
     font-weight: 600;
     color: var(--text2);
     border-bottom: 2px solid var(--border);
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.35;
     cursor: pointer;
     user-select: none;
     transition: color .2s;
@@ -127,17 +127,22 @@
   }
   tbody tr:hover { background: rgba(99,102,241,.06); }
   td {
-    padding: 12px 12px;
+    padding: 12px 8px;
     vertical-align: middle;
     white-space: nowrap;
   }
+  /* 允许换行的窄列：参数量 / 多模态 */
+  td.wrap, th.wrap { white-space: normal; overflow-wrap: anywhere; }
+  td.wrap { line-height: 1.9; }
 
   .vendor-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 3px 8px;
     border-radius: 6px;
     font-size: .78rem;
     font-weight: 600;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   .v-openai   { background: rgba(16,163,127,.15); color: #34d399; }
   .v-anthropic { background: rgba(217,119,87,.15); color: #fb923c; }
@@ -159,18 +164,19 @@
     padding: 2px 6px;
     border-radius: 4px;
     font-size: .72rem;
-    margin-right: 2px;
+    margin: 0 3px 4px 0;
     background: rgba(99,102,241,.1);
     color: var(--accent2);
+    white-space: nowrap;
   }
   .multi-video { background: rgba(244,63,94,.12); color: #fb7185; }
   .multi-audio { background: rgba(34,197,94,.12); color: #4ade80; }
 
   .score-badge {
     display: inline-block;
-    padding: 3px 8px;
+    padding: 3px 6px;
     border-radius: 6px;
-    font-size: .8rem;
+    font-size: .78rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
   }
@@ -204,10 +210,11 @@
     text-decoration: none;
     font-size: .8rem;
     border: 1px solid rgba(99,102,241,.3);
-    padding: 3px 10px;
+    padding: 3px 8px;
     border-radius: 6px;
     transition: all .2s;
     white-space: nowrap;
+    display: inline-block;
   }
   a.link:hover {
     background: rgba(99,102,241,.15);
@@ -273,6 +280,12 @@
     .controls { flex-direction: column; }
     .stats { flex-direction: column; }
   }
+  /* 窄屏无法容纳整表时，回退为横向滚动 */
+  @media (max-width: 1024px) {
+    .table-wrap { overflow-x: auto; }
+    table { table-layout: auto; min-width: 1100px; }
+    td.wrap, th.wrap { white-space: nowrap; }
+  }
 </style>
 </head>
 <body>
@@ -283,7 +296,8 @@
   <div class="update">数据更新于 2026 年 8 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
-    <a href="media.html" class="nav-link">🎬 音视频模型 →</a>
+    <a href="media.html" class="nav-link">🎬 音视频模型</a>
+    <a href="open-source.html" class="nav-link">📦 开源模型 →</a>
   </div>
 </div>
 
@@ -308,17 +322,30 @@
 
 <div class="table-wrap">
 <table id="modelTable">
+<colgroup>
+  <col style="width:9%">
+  <col style="width:27.5%">
+  <col style="width:9.5%">
+  <col style="width:5.2%">
+  <col style="width:5.2%">
+  <col style="width:6.2%">
+  <col style="width:6.2%">
+  <col style="width:6.2%">
+  <col style="width:11.5%">
+  <col style="width:6%">
+  <col style="width:7.5%">
+</colgroup>
 <thead>
 <tr>
   <th data-col="vendor">厂商 <span class="sort-icon">⇅</span></th>
   <th data-col="model">模型名称 <span class="sort-icon">⇅</span></th>
-  <th data-col="params">参数量 <span class="sort-icon">⇅</span></th>
+  <th data-col="params" class="wrap">参数量 <span class="sort-icon">⇅</span></th>
   <th data-col="maxInput">最大输入 <span class="sort-icon">⇅</span></th>
   <th data-col="maxOutput">最大输出 <span class="sort-icon">⇅</span></th>
   <th data-col="inputPrice">输入价格 <span class="sort-icon">⇅</span></th>
   <th data-col="cachePrice">缓存命中 <span class="sort-icon">⇅</span></th>
   <th data-col="outputPrice">输出价格 <span class="sort-icon">⇅</span></th>
-  <th data-col="multimodal">多模态 <span class="sort-icon">⇅</span></th>
+  <th data-col="multimodal" class="wrap">多模态 <span class="sort-icon">⇅</span></th>
   <th data-col="score">评分 <span class="sort-icon">⇅</span></th>
   <th data-col="site">官网</th>
 </tr>
@@ -697,14 +724,14 @@ function renderTable(data) {
     tr.dataset.tag = m.tag;
     tr.innerHTML = `
       <td><span class="vendor-badge ${m.vendorClass}">${m.vendor}</span></td>
-      <td><strong>${m.model}</strong></td>
-      <td>${m.params}</td>
+      <td class="wrap"><strong>${m.model}</strong></td>
+      <td class="wrap">${m.params}</td>
       <td><span class="ctx-badge">${m.maxInput}</span></td>
       <td>${m.maxOutput}</td>
       <td class="price ${priceClass(m.inputPrice)}">${formatPrice(m.inputPrice)}</td>
       <td class="price ${priceClass(m.cachePrice)}">${formatPrice(m.cachePrice)}</td>
       <td class="price ${priceClass(m.outputPrice)}">${formatPrice(m.outputPrice)}</td>
-      <td>${renderMulti(m.multimodal)}</td>
+      <td class="wrap">${renderMulti(m.multimodal)}</td>
       <td>${renderScore(m.score)}</td>
       <td><a class="link" href="${m.site}" target="_blank" rel="noopener">官网 →</a></td>
     `;
