@@ -237,7 +237,7 @@
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
   <p>覆盖 13 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
-  <div class="update">数据更新于 2026 年 7 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
+  <div class="update">数据更新于 2026 年 9 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型</a>
     <a href="media.html" class="nav-link active">🎬 音视频模型</a>
@@ -484,17 +484,10 @@ const media = [
 
   /* ── 阿里通义 Qwen ── */
   {
-    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan2.7-I2V-2026-04-25", type: "video",
-    typeLabel: "🎥 视频", cap: "图生视频 · 运镜丝滑 · 情绪表现升级",
-    inSpec: "图片 + 文本 prompt", outSpec: "720p/1080p · 5–10s",
-    outputPrice: "¥0.6/秒 (1080p)",
-    site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
-  },
-  {
-    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan2.7-VideoEdit", type: "video",
-    typeLabel: "🎥 视频", cap: "指令编辑 · 创意复刻",
-    inSpec: "视频 + 文本指令", outSpec: "原分辨率输出",
-    outputPrice: "¥0.5/秒",
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Wan3.0-Video", type: "video",
+    typeLabel: "🎥 视频", cap: "All-in-One 全能参考 · 音画一体 · 单次 30 秒长叙事",
+    inSpec: "文本 / 图像 / 视频 / 音频 / 文件", outSpec: "480P/720P/1080P · ≤30s",
+    outputPrice: "¥0.3/秒 (480P) · ¥0.6/秒 (720P) · ¥1.2/秒 (1080P)",
     site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
   },
   {
@@ -505,10 +498,10 @@ const media = [
     site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
   },
   {
-    vendor: "通义千问", vendorClass: "v-qwen", model: "Qwen-Image-2.0", type: "image",
-    typeLabel: "🖼️ 图像", cap: "融合图像生成与编辑",
+    vendor: "通义千问", vendorClass: "v-qwen", model: "Qwen-Image-3.0", type: "image",
+    typeLabel: "🖼️ 图像", cap: "融合图像生成与编辑 · 4.5K token 超长提示词 · 10px 小字精准渲染",
     inSpec: "文本/图像", outSpec: "≤2048×2048",
-    outputPrice: "¥0.15/张 (1024px)",
+    outputPrice: "¥0.18/张起 (文生图)",
     site: "https://bailian.console.aliyun.com/?tab=model#/model-market", tag: "cn"
   },
   {

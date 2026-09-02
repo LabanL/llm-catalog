@@ -272,7 +272,7 @@
 <div class="header">
   <h1>📦 2026 主流开源大模型清单</h1>
   <p>开放权重 · 可私有化部署 · 覆盖文本 / 多模态 / 视觉生成 / 语音</p>
-  <div class="update">数据更新于 2026 年 8 月 · 显存为常见推理配置估算 · 以官方仓库为准</div>
+  <div class="update">数据更新于 2026 年 9 月 · 显存为常见推理配置估算 · 以官方仓库为准</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型 API</a>
     <a href="media.html" class="nav-link">🎬 音视频模型 API</a>
@@ -561,6 +561,30 @@ const models = [
   },
 
   /* ─────────── 国产 · 阿里通义 ─────────── */
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3.8-2.4T-A95B", cat:"text", catLabel:"💬 文本/推理",
+    params:"2.4T MoE (95B 激活)", paramsNum:2400, active:"95B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Qwen 社区许可（可商用附条款）", licClass:"perm",
+    vram:"32×H100 以上集群", deployNum:3000,
+    feat:"Qwen3.8 Max 开源版，GPQA-D 92.6 / PaperBench 93.0 / CodeArena 全球第 4", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3.8-Flash-Next", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"125B MoE (6B 激活)", paramsNum:125, active:"6B", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"Qwen Community License 1.0（可商用附条款）", licClass:"perm",
+    vram:"2×H100 / FP8 约 125GB 权重", deployNum:160,
+    feat:"Qwen4 架构预览版，多模态 MoE，AA 智能指数 56", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
+  },
+  {
+    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3.8-27B", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"27B Dense", paramsNum:27, active:"27B", arch:"dense",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 48GB BF16 / 24GB INT4", deployNum:48,
+    feat:"原生视觉语言 Dense 模型，编程与办公场景强化，Apache 2.0 可商用", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3-VL"}]
+  },
   {
     vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-Coder-480B-A35B", cat:"code", catLabel:"💻 代码/Agent",
     params:"480B MoE (35B 激活)", paramsNum:480, active:"35B", arch:"moe",
