@@ -350,6 +350,14 @@
 const models = [
   /* ─────────── 海外 · Meta ─────────── */
   {
+    vendor:"Meta", vendorClass:"v-meta", model:"Muse Glimmer", cat:"omni", catLabel:"🌟 全模态",
+    params:"30B Dense", paramsNum:30, active:"30B", arch:"dense",
+    ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 24GB（INT4 可更低）", deployNum:24,
+    feat:"MSL 首个开放权重模型，端侧 Agent 定位，自 Muse Spark 蒸馏", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meta-models"},{t:"🏠 官网", u:"https://developer.meta.com/ai/models/muse-glimmer/"}]
+  },
+  {
     vendor:"Meta", vendorClass:"v-meta", model:"Llama 4 Behemoth", cat:"omni", catLabel:"🌟 全模态",
     params:"2T MoE (288B 激活)", paramsNum:2000, active:"288B", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"Llama 4 社区许可", licClass:"perm",

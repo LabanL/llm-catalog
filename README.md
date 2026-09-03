@@ -1,11 +1,11 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 14 家厂商、40+ 主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 15 家厂商、47 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：14 家厂商，47 款模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：15 家厂商，47 款模型
 - **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，30+ 模型
-- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：26 家组织，58 款模型
+- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：26 家组织，59 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -15,7 +15,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Anthropic / Google / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
+| 模型厂商 | OpenAI / Anthropic / Google / Meta / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
 | 模型名称 | 含版本号 |
 | 模型参数量 | 已公开的标注 |
 | 最大输入 | 上下文窗口长度 |
@@ -71,6 +71,11 @@
 
 ## 🗓️ 更新记录
 
+- **2026-09-03**：
+  - 新增 Meta 厂商：Muse Spark 1.3（9/2 发布，1M 上下文，文本 + 图像输入，$1.25 / $0.15 缓存 / $4.25，AA 智能指数 61，与 GPT-5.6 Sol、Grok 4.6 并列第三）
+  - Google：新增 Gemini 3.8 Flash（9/2 GA，1M 输入 / 64K 输出，文本 / 图像 / 音频 / 视频，$0.75 / $0.075 缓存 / $3.75 年底前推广价，AA 59）；Gemini 3.7 Flash 补充 AA 56
+  - 开源模型：新增 Meta Muse Glimmer（30B Dense 开放权重，Apache 2.0，端侧 Agent 定位）
+  - 移除 Google 两款旧模型：Gemini 3.5 Flash、Gemini 3.5 Flash-Lite（Flash 线已迭代至 3.8，Google 段保留 3.8 Flash / 3.7 Flash / 3.6 Flash / 3.1 Pro 共 4 款）
 - **2026-09-02**：
   - Anthropic：新增 Claude Fable 5.1（Mythos 级旗舰，1M 输入 / 128K 输出，$10 / $0.25 缓存 / $50，AA 智能指数 66，登顶 AA 榜单）；新增 Claude Mythos 5.1（同权重低防护版，仅面向网络安全与生命科学的可信访问计划开放）；新增 Claude Opus 5（1M / 128K，$5 / $0.5 缓存 / $25，AA 63）
   - 移除 Claude Fable 5 与 Claude Opus 4.8（分别由 Fable 5.1、Opus 5 接替）；Fable 5.1 缓存读取较上代降价 75%（$1 → $0.25）
@@ -78,7 +83,7 @@
   - 开源模型：新增 Qwen3.8-2.4T-A95B（2.4T MoE / 95B 激活，1M 上下文，Qwen 社区许可）、Qwen3.8-Flash-Next（125B MoE / 6B 激活，Qwen4 架构预览，256K，AA 56）、Qwen3.8-27B（27B Dense 原生视觉语言，Apache 2.0）
   - 音视频：万相升级至 Wan3.0-Video（All-in-One 全能参考，支持文本/图像/视频/音频/文件输入，单次 30 秒，¥0.3–1.2 元/秒），图像升级至 Qwen-Image-3.0（¥0.18/张起）；移除 Wan2.7-I2V、Wan2.7-VideoEdit、Qwen-Image-2.0
   - 智谱：GLM-5.3-Flash 补充参数量 320B MoE（18B 激活）
-  - 已核查 OpenAI / Google / DeepSeek / 月之暗面 / MiniMax / 字节豆包 / 腾讯混元 / xAI，本周期内无新文本模型发布
+  - 已核查 OpenAI / DeepSeek / 月之暗面 / MiniMax / 字节豆包 / 腾讯混元 / xAI，本周期内无新文本模型发布（Google Gemini 3.8 Flash 与 Meta Muse Spark 1.3 于 9/2 夜间发布，见 9-03 记录）
 - **2026-08-31**：
   - 新增开源模型清单页面 [`open-source.html`](./open-source.html)：覆盖 26 家组织、55 款开放权重模型，含参数量 / 激活参数 / 上下文 / 开源协议 / 部署显存估算 / 仓库链接
   - 支持按 国产 / 海外 / MoE / Dense / 可商用 / 单卡可跑 / 旗舰 / 多模态 快捷筛选，表头可按参数量、上下文、显存数值排序

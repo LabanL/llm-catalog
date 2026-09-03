@@ -158,6 +158,7 @@
   .v-tencent  { background: rgba(0,150,255,.15); color: #38bdf8; }
   .v-meituan  { background: rgba(249,115,22,.15); color: #fb923c; }
   .v-sensenova{ background: rgba(0,200,160,.15); color: #2dd4bf; }
+  .v-meta     { background: rgba(8,102,255,.15); color: #4d8dff; }
 
   .multi-badge {
     display: inline-block;
@@ -292,7 +293,7 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 14 家厂商 · 40+ 主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 15 家厂商 · 47 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -304,7 +305,7 @@
 <div class="stats" id="stats">
   <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
   <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
-  <div class="stat-card"><div class="num" id="vendors">14</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="vendors">15</div><div class="label">厂商数量</div></div>
   <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
 </div>
 
@@ -638,6 +639,20 @@ const models = [
   },
   // ── Gemini ──
   {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Flash",
+    params: "—", maxInput: "1M", maxOutput: "64K",
+    inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
+    site: "https://ai.google.dev", tag: "intl,flagship",
+    multimodal: ["text","image","audio","video"], score: 59
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.7 Flash",
+    params: "—", maxInput: "1M", maxOutput: "64K",
+    inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
+    site: "https://ai.google.dev", tag: "intl",
+    multimodal: ["text","image","audio","video"], score: 56
+  },
+  {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Pro",
     params: "—", maxInput: "1M", maxOutput: "64K",
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
@@ -645,32 +660,11 @@ const models = [
     multimodal: ["text","image","audio","video"], score: 55.5
   },
   {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.7 Flash",
-    params: "—", maxInput: "1M", maxOutput: "64K",
-    inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
-    site: "https://ai.google.dev", tag: "intl",
-    multimodal: ["text","image","audio","video"], score: null
-  },
-  {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.6 Flash",
     params: "—", maxInput: "1M", maxOutput: "32K",
     inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$7.5",
     site: "https://ai.google.dev", tag: "intl",
     multimodal: ["text","image","audio","video"], score: 52
-  },
-  {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.5 Flash",
-    params: "—", maxInput: "1M", maxOutput: "32K",
-    inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$9",
-    site: "https://ai.google.dev", tag: "intl",
-    multimodal: ["text","image","audio","video"], score: 45.0
-  },
-  {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.5 Flash-Lite",
-    params: "—", maxInput: "1M", maxOutput: "16K",
-    inputPrice: "$0.3", cachePrice: "$0.03", outputPrice: "$2.5",
-    site: "https://ai.google.dev", tag: "intl,cheap",
-    multimodal: ["text","image"], score: 37
   },
   // ── GPT ──
   {
@@ -707,6 +701,14 @@ const models = [
     inputPrice: "$30", cachePrice: "—", outputPrice: "$180",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
     multimodal: ["text","image"], score: null
+  },
+  // ── Meta ──
+  {
+    vendor: "Meta", vendorClass: "v-meta", model: "Muse Spark 1.3",
+    params: "—", maxInput: "1M", maxOutput: "—",
+    inputPrice: "$1.25", cachePrice: "$0.15", outputPrice: "$4.25",
+    site: "https://developer.meta.com/ai/models/muse-spark", tag: "intl,flagship",
+    multimodal: ["text","image"], score: 61
   },
 ];
 
