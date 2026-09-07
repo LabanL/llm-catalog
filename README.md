@@ -1,11 +1,11 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 15 家厂商、47 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 16 家厂商、49 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：15 家厂商，47 款模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：16 家厂商，49 款模型
 - **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，30+ 模型
-- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：26 家组织，59 款模型
+- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，61 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -15,7 +15,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Anthropic / Google / Meta / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 |
+| 模型厂商 | OpenAI / Anthropic / Google / Meta / DeepSeek / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 月之暗面 / 小米 / 腾讯混元 / xAI / 美团 / 讯飞星火 |
 | 模型名称 | 含版本号 |
 | 模型参数量 | 已公开的标注 |
 | 最大输入 | 上下文窗口长度 |
@@ -44,7 +44,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 组织 / 厂商 | Meta / OpenAI / Google / Mistral / DeepSeek / 阿里通义 / 智谱 / 月之暗面 / MiniMax / 腾讯混元 / 百度文心 / 小米 / 阶跃星辰 / 美团 / 面壁 / 上海 AI Lab / 微软 / NVIDIA / IBM / xAI 等 |
+| 组织 / 厂商 | Meta / OpenAI / Google / Mistral / DeepSeek / 阿里通义 / 智谱 / 月之暗面 / MiniMax / 腾讯混元 / 百度文心 / 小米 / 阶跃星辰 / 美团 / 讯飞星火 / 面壁 / 上海 AI Lab / 微软 / NVIDIA / IBM / xAI 等 |
 | 模型 | 含版本与规模标识 |
 | 类别 | 💬 文本/推理 · 🌟 全模态 · 👁️ 视觉语言 · 🎥 视频生成 · 🖼️ 图像/3D 生成 · 💻 代码/Agent |
 | 参数量 | 总参数 / MoE 激活参数 |
@@ -71,6 +71,11 @@
 
 ## 🗓️ 更新记录
 
+- **2026-09-07**：
+  - OpenAI：新增 GPT-6 Astra（9/3 发布、9/5 上线 API，`gpt-6-astra`，1.05M 输入 / 128K 输出，$10 / $1 缓存 / $50，文本 + 图像输入，AA v4.2 智能指数 61.2，位列第二仅次于 Claude Fable 5.1）
+  - OpenAI：同步修正 GPT-5.6 系列价格——Sol $5/$30 → $4/$20（8/21 官降）、Terra $2.5/$15 → $2/$12、Luna $1/$6 → $0.2/$1.2（7/31 官降 80%）
+  - 新增厂商「讯飞星火」：Spark X2.5（9/7 发布，293B MoE / 30B 激活，全国产算力训练，256K 上下文，覆盖 200+ 语种，强化代码与 Agent，¥1.6 / ¥0.24 缓存 / ¥6，已上线讯飞星辰 MaaS）
+  - 开源模型：新增讯飞（词元星火）Spark-X2.5-4B 与 Spark-X2.5-1.7B（9/1 开源，Apache 2.0，混合注意力架构，端侧首个原生 100 万 Token 上下文）
 - **2026-09-03**：
   - 新增 Meta 厂商：Muse Spark 1.3（9/2 发布，1M 上下文，文本 + 图像输入，$1.25 / $0.15 缓存 / $4.25，AA 智能指数 61，与 GPT-5.6 Sol、Grok 4.6 并列第三）
   - Google：新增 Gemini 3.8 Flash（9/2 GA，1M 输入 / 64K 输出，文本 / 图像 / 音频 / 视频，$0.75 / $0.075 缓存 / $3.75 年底前推广价，AA 59）；Gemini 3.7 Flash 补充 AA 56

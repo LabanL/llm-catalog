@@ -82,6 +82,7 @@
   .v-moonshot { background: rgba(45,212,191,.15); color: #5eead4; }
   .v-shai     { background: rgba(129,140,248,.15);color: #a5b4fc; }
   .v-others   { background: rgba(148,163,184,.15);color: #cbd5e1; }
+  .v-iflytek  { background: rgba(163,230,53,.15); color: #a3e635; }
 
   /* 类别徽标 */
   .cat-badge {
@@ -776,7 +777,7 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/tencent/Hunyuan3D-2"},{t:"🐙 GitHub", u:"https://github.com/Tencent-Hunyuan/Hunyuan3D-2"}]
   },
 
-  /* ─────────── 国产 · 百度 / 小米 / 阶跃 / 美团 / 其他 ─────────── */
+  /* ─────────── 国产 · 百度 / 小米 / 阶跃 / 美团 / 讯飞 / 其他 ─────────── */
   {
     vendor:"百度 (文心)", vendorClass:"v-baidu", model:"ERNIE-4.5-300B-A47B", cat:"text", catLabel:"💬 文本/推理",
     params:"300B MoE (47B 激活)", paramsNum:300, active:"47B", arch:"moe",
@@ -832,6 +833,22 @@ const models = [
     vram:"端侧 8GB（手机可跑）", deployNum:8,
     feat:"端侧多模态标杆，可跑在手机 / 车机", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/openbmb/MiniCPM-V-4_5"},{t:"🐙 GitHub", u:"https://github.com/OpenBMB/MiniCPM-V"}]
+  },
+  {
+    vendor:"讯飞星火", vendorClass:"v-iflytek", model:"Spark-X2.5-4B", cat:"text", catLabel:"💬 文本/推理",
+    params:"4B Dense", paramsNum:4, active:"4B", arch:"dense",
+    ctx:"1M", ctxNum:1000, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 8GB（INT4）/ 16GB BF16", deployNum:8,
+    feat:"端侧首个原生 100 万 Token 上下文，混合注意力架构，强化代码 / Agent / 指令遵循", tag:"cn",
+    links:[{t:"🐙 GitHub", u:"https://github.com/XHToken/Spark-X2.5"}]
+  },
+  {
+    vendor:"讯飞星火", vendorClass:"v-iflytek", model:"Spark-X2.5-1.7B", cat:"text", catLabel:"💬 文本/推理",
+    params:"1.7B Dense", paramsNum:1.7, active:"1.7B", arch:"dense",
+    ctx:"1M", ctxNum:1000, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 4GB（INT4）", deployNum:4,
+    feat:"全国产算力训练，车载 / 智能家居等端侧场景，与 4B 同系列同步开源", tag:"cn",
+    links:[{t:"🐙 GitHub", u:"https://github.com/XHToken/Spark-X2.5"}]
   },
   {
     vendor:"上海 AI Lab", vendorClass:"v-shai", model:"InternVL3 78B", cat:"vlm", catLabel:"👁️ 视觉语言",

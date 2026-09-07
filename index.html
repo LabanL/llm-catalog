@@ -159,6 +159,7 @@
   .v-meituan  { background: rgba(249,115,22,.15); color: #fb923c; }
   .v-sensenova{ background: rgba(0,200,160,.15); color: #2dd4bf; }
   .v-meta     { background: rgba(8,102,255,.15); color: #4d8dff; }
+  .v-iflytek  { background: rgba(163,230,53,.15); color: #a3e635; }
 
   .multi-badge {
     display: inline-block;
@@ -293,7 +294,7 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 15 家厂商 · 47 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 16 家厂商 · 49 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -305,7 +306,7 @@
 <div class="stats" id="stats">
   <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
   <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
-  <div class="stat-card"><div class="num" id="vendors">15</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="vendors">16</div><div class="label">厂商数量</div></div>
   <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
 </div>
 
@@ -358,6 +359,9 @@
 <div class="footer">
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
   评分基于 Artificial Analysis Intelligence Index v4.1.1（2026年9月）· 多模态能力以官方文档为准<br>
+  GPT-6 Astra 评分为 AA Intelligence Index v4.2 口径（61.2），其余模型为 v4.1.1<br>
+  GPT-6 Astra 表中为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
+  OpenAI 已下调 GPT-5.6 系列价格：Sol $5/$30 → $4/$20（8/21），Terra、Luna 此前分别降 20%、80%<br>
   DeepSeek 采用峰谷计价，表中为高峰价，空闲时段为高峰价的 50%<br>
   Claude Fable 5.1 缓存读取较 Fable 5 降价 75%（$1 → $0.25），典型负载综合成本约降 25%
 </div>
@@ -579,6 +583,14 @@ const models = [
     site: "https://www.sensenova.cn", tag: "cn",
     multimodal: ["text","image","video"], score: null
   },
+  // ── 讯飞星火 Spark ──
+  {
+    vendor: "讯飞星火", vendorClass: "v-iflytek", model: "Spark X2.5",
+    params: "293B MoE (30B active)", maxInput: "256K", maxOutput: "—",
+    inputPrice: "¥1.6", cachePrice: "¥0.24", outputPrice: "¥6",
+    site: "https://maas.xfyun.cn", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
   // ── Kimi ──
   {
     vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K3",
@@ -668,23 +680,30 @@ const models = [
   },
   // ── GPT ──
   {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-6 Astra",
+    params: "—", maxInput: "1.05M", maxOutput: "128K",
+    inputPrice: "$10", cachePrice: "$1", outputPrice: "$50",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: 61.2
+  },
+  {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Sol",
     params: "—", maxInput: "1M", maxOutput: "32K",
-    inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$30",
+    inputPrice: "$4", cachePrice: "$0.4", outputPrice: "$20",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
     multimodal: ["text","image"], score: 61
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Terra",
     params: "—", maxInput: "1M", maxOutput: "32K",
-    inputPrice: "$2.5", cachePrice: "$0.25", outputPrice: "$15",
+    inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://openai.com/api/pricing", tag: "intl",
     multimodal: ["text","image"], score: 57
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Luna",
     params: "—", maxInput: "1M", maxOutput: "32K",
-    inputPrice: "$1", cachePrice: "$0.1", outputPrice: "$6",
+    inputPrice: "$0.2", cachePrice: "$0.02", outputPrice: "$1.2",
     site: "https://openai.com/api/pricing", tag: "intl,cheap",
     multimodal: ["text","image"], score: 52
   },
