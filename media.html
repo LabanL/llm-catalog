@@ -285,7 +285,9 @@
 
 <div class="footer">
   数据来源：各厂商官方定价页面（OpenAI · Google · Anthropic · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 腾讯混元）
-  <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务。
+  <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务（DeepSeek V4.1 Flash 支持图片输入，但仅输出文本）。
+  <br>GPT-Live-1（9/10 上线 API）取代「STT + 打断判定 + TTS」级联方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费。
+  <br>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改。
 </div>
 
 <script>
@@ -305,6 +307,13 @@ const media = [
     inSpec: "文本/图像 prompt", outSpec: "1024/2048/4096 px",
     outputPrice: "图片 token 计费 (~$0.04/张 起)",
     site: "https://platform.openai.com/docs/models/gpt-image-2", tag: "overseas"
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-Live-1", type: "audio",
+    typeLabel: "🔊 全双工语音", cap: "单模型边听边说 · 可被打断 · 推理/工具委派给后端模型 · 支持电话场景",
+    inSpec: "实时音频流 + 文本上下文", outSpec: "实时音频流 · 原生 ASR 转写与轮次检测",
+    outputPrice: "语音层 $0.05/分钟（按秒计费）· 后端模型与工具调用另计",
+    site: "https://platform.openai.com/docs/guides/live", tag: "overseas"
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-Realtime-1.5", type: "audio",
@@ -386,10 +395,10 @@ const media = [
     site: "https://ai.google.dev/gemini-api/docs/imagen", tag: "overseas"
   },
   {
-    vendor: "Google", vendorClass: "v-google", model: "Lyria 3", type: "music",
-    typeLabel: "🎵 音乐", cap: "AI 音乐生成 · 30s 片段 / 完整歌曲",
-    inSpec: "文本/风格 prompt", outSpec: "MP3 30s / 完整歌曲",
-    outputPrice: "Clip $0.04/首 · Pro $0.08/首",
+    vendor: "Google", vendorClass: "v-google", model: "Lyria 3.5", type: "music",
+    typeLabel: "🎵 音乐", cap: "完整曲式（主歌/副歌/桥段）· 可提交自写歌词 · 44.1kHz 立体声 · 含 SynthID 水印",
+    inSpec: "文本 / 图片 prompt（最多 10 张）", outSpec: "MP3 或带封面 MP4 · 最长 3 分钟",
+    outputPrice: "每首 $0.08（lyria-3.5）· 30s 预览 lyria-3-clip-preview",
     site: "https://ai.google.dev/gemini-api/docs/music-generation", tag: "overseas"
   },
   {

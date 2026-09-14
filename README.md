@@ -1,10 +1,10 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 16 家厂商、49 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 16 家厂商、48 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：16 家厂商，49 款模型
-- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，30+ 模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：16 家厂商，48 款模型
+- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，44 款模型
 - **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，61 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
@@ -24,7 +24,7 @@
 | 缓存命中价格 | Prompt Cache 折扣价 |
 | 输出价格 | 每百万 token |
 | 多模态 | 支持的输入类型（文本/图片/音频/视频） |
-| 评分 | Artificial Analysis Intelligence Index v4.1.1（2026年9月） |
+| 评分 | Artificial Analysis Intelligence Index v4.3（2026-09-14 快照，全表统一口径，取各模型最高推理强度档） |
 | 官网地址 | 各厂商官方定价页面 |
 
 ### 音视频模型 (media.html)
@@ -65,12 +65,25 @@
 ## 📊 数据来源
 
 - 定价数据：各厂商官方定价页面
-- 评分数据：[Artificial Analysis](https://artificialanalysis.ai/) Intelligence Index v4.1.1（2026年9月）
+- 评分数据：[Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index) Intelligence Index **v4.3**（2026-09-14 快照，全表统一口径，取各模型最高推理强度档 max / high）
 - 多模态能力：各厂商官方文档
 - 开源模型：各组织官方模型卡与仓库 README（协议与参数以官方为准）
 
 ## 🗓️ 更新记录
 
+- **2026-09-14**（本轮核查窗口 9/7–9/14）：
+  - DeepSeek：新增 **V4.1 Flash**（9/10 12:00 发布并同步生效新价，API 模型名 `deepseek-flash`；552B MoE + CED 因果编码-解码非对称架构，输入激活 8B / 输出激活 16B，1M 上下文 / 384K 输出，原生文本 + 图像输入，MIT 开源，AA v4.3 智能指数 40）
+  - DeepSeek 定价：高峰 ¥2 输入 / ¥0.04 缓存命中 / ¥8 输出，空闲时段半价（¥1 / ¥0.02 / ¥4）；相比 V4 Flash 缓存命中降 7 倍多、输出降三分之二
+  - DeepSeek 移除 2 款已下线模型：V4 Flash、V4 Flash Vision-Exp（9/10 下线，旧模型名暂时路由到 V4.1 Flash）
+  - DeepSeek：**保留 V4 Pro 0813**（处下线过渡期，自 9/14 12:00 起 `deepseek-v4-pro` 请求统一路由至 V4.1 Flash 并按新价计费；条目标注该状态，V4.1 Pro 上线后恢复独立计费）
+  - 月之暗面：Kimi K2.7 Code → **Kimi K2.8 Preview**（9/11 全量上线 Kimi Code，综合性能接近 K3，thinking 效率较 K2.7 Code 显著改善，1M 上下文对全部会员档位开放；Model ID `kimi-for-coding` 不变、计费沿用原档位）
+  - 智谱：修正 GLM-5.3-Flash 价格 ¥2 / ¥0.5 缓存 / ¥8 → **¥0.8 / ¥0.23 缓存 / ¥2.8**（与官方文档及 8/26 发布口径一致）
+  - 音视频：新增 OpenAI **GPT-Live-1**（9/10 上线 API，全双工语音，单模型边听边说、可被打断、推理与工具调用委派给后端模型、支持电话场景；语音层 $0.05/分钟按秒计费，后端模型与工具调用另计）；Google Lyria 3 → **Lyria 3.5**（9/4 上线 Gemini 与 API，完整曲式 + 可提交自写歌词 + 44.1kHz 立体声，$0.08/首）
+  - 开源模型：新增 DeepSeek-V4.1-Flash（MIT，原生视觉理解，全局 KV Cache 压至 890 bytes/token，官方面向约 2000 卡级部署合作）；移除被其取代的 DeepSeek-V4-Flash，保留 DeepSeek-V4-Pro（下线过渡期）
+  - **评分口径统一**：全部 48 款文本模型改用 Artificial Analysis Intelligence Index **v4.3**（2026-09-14 快照），取各模型最高推理强度档（max / high）分数，原先 v4.1.1 / v4.2 / v4.3 混用导致的跨版本不可比问题已消除
+  - 评分变化（v4.1.1/v4.2 → v4.3）：Claude Fable 5.1 66 → 53、GPT-6 Astra 61.2 → 53、Claude Opus 5 63 → 51、Meta Muse Spark 1.3 61 → 48、GPT-5.6 Sol 61 → 47、GLM-5.3 60 → 45、Grok 4.6 61 → 44、Kimi K3 60 → 44、GPT-5.6 Terra 57 → 42、Gemini 3.8 Flash 59 → 41、Qwen3.8 Max 58 → 40、DeepSeek V4.1 Flash 40、GLM-5.3-Flash 补充 42；GLM-5.2 53 → 34、Gemini 3.7 Flash 56 → 39、Claude Sonnet 5 55 → 38、DeepSeek V4 Pro 53 → 36、MiniMax M3 43.4 → 30、Hy3 42 → 26、MiMo V2.5 Pro 45.5 → 26、LongCat-2.0 34 → 20 等
+  - 评分留空：AA v4.3 未收录或无可对应档位的模型（Qwen3.7 Max、GPT-5.5、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2.5、Hy4 preview、MiniMax M2.7、Kimi K2.8 Preview、Claude Mythos 5.1、GPT-5.5 Pro）
+  - 已核查 OpenAI / Anthropic / Google / Meta / xAI / 阿里通义 / 智谱 / MiniMax / 豆包 / 腾讯混元 / 商汤 / 小米 / 美团 / 讯飞星火：本窗口内除上述条目外无新文本模型发布。Google Gemini 3.8 Flash Cyber（9/2）仅通过 Fairwind Program 向受信任防御方开放、未公开定价，暂不收录
 - **2026-09-07**：
   - OpenAI：新增 GPT-6 Astra（9/3 发布、9/5 上线 API，`gpt-6-astra`，1.05M 输入 / 128K 输出，$10 / $1 缓存 / $50，文本 + 图像输入，AA v4.2 智能指数 61.2，位列第二仅次于 Claude Fable 5.1）
   - OpenAI：同步修正 GPT-5.6 系列价格——Sol $5/$30 → $4/$20（8/21 官降）、Terra $2.5/$15 → $2/$12、Luna $1/$6 → $0.2/$1.2（7/31 官降 80%）

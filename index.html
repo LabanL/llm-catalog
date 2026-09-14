@@ -43,7 +43,7 @@
   .header .update { color: var(--text2); font-size: .8rem; margin-top: 6px; opacity: .7; }
 
   .controls {
-    max-width: 1400px;
+    max-width: 1560px;
     margin: 0 auto;
     padding: 20px 24px 0;
     display: flex;
@@ -92,7 +92,7 @@
   }
 
   .table-wrap {
-    max-width: 1400px;
+    max-width: 1560px;
     margin: 20px auto;
     padding: 0 24px 48px;
   }
@@ -224,7 +224,7 @@
   }
 
   .stats {
-    max-width: 1400px;
+    max-width: 1560px;
     margin: 0 auto;
     padding: 0 24px 12px;
     display: flex;
@@ -294,7 +294,7 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 16 家厂商 · 49 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 16 家厂商 · 48 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -325,15 +325,15 @@
 <div class="table-wrap">
 <table id="modelTable">
 <colgroup>
-  <col style="width:9%">
-  <col style="width:27.5%">
+  <col style="width:12%">
+  <col style="width:16%">
   <col style="width:9.5%">
   <col style="width:5.2%">
   <col style="width:5.2%">
   <col style="width:6.2%">
   <col style="width:6.2%">
   <col style="width:6.2%">
-  <col style="width:11.5%">
+  <col style="width:20%">
   <col style="width:6%">
   <col style="width:7.5%">
 </colgroup>
@@ -358,12 +358,13 @@
 
 <div class="footer">
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
-  评分基于 Artificial Analysis Intelligence Index v4.1.1（2026年9月）· 多模态能力以官方文档为准<br>
-  GPT-6 Astra 评分为 AA Intelligence Index v4.2 口径（61.2），其余模型为 v4.1.1<br>
-  GPT-6 Astra 表中为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
-  OpenAI 已下调 GPT-5.6 系列价格：Sol $5/$30 → $4/$20（8/21），Terra、Luna 此前分别降 20%、80%<br>
-  DeepSeek 采用峰谷计价，表中为高峰价，空闲时段为高峰价的 50%<br>
-  Claude Fable 5.1 缓存读取较 Fable 5 降价 75%（$1 → $0.25），典型负载综合成本约降 25%
+  评分依据：Artificial Analysis Intelligence Index <strong>v4.3</strong>（2026-09-14 快照），取各模型最高推理强度档（max / high）分数<br>
+  v4.3 由 10 项评测合成：AA-Briefcase、GDPval-AA v2、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1<br>
+  评分列留空（AA v4.3 未收录或无可对应档位）：Qwen3.7 Max、GPT-5.5、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2.5、Hy4 preview、MiniMax M2.7、Kimi K2.8 Preview、Claude Mythos 5.1、GPT-5.5 Pro<br>
+  Claude Sonnet 4.6 在 AA v4.3 仅有 Non-reasoning low 档（23），暂按该值记录<br>
+  DeepSeek V4 Pro 处下线过渡期：自 9/14 12:00 起 <code>deepseek-v4-pro</code> 请求统一路由至 V4.1 Flash 并按 V4.1 Flash 单价计费<br>
+  GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
+  DeepSeek 采用峰谷计价，表中为高峰价，空闲时段按高峰价的 50% 计费
 </div>
 
 <script>
@@ -374,36 +375,29 @@ const models = [
     params: "1.02T MoE (42B active)", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
     site: "https://platform.xiaomimimo.com", tag: "cn,flagship",
-    multimodal: ["text"], score: 45.5
+    multimodal: ["text"], score: 26
   },
   {
     vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5",
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
     site: "https://platform.xiaomimimo.com", tag: "cn,cheap",
-    multimodal: ["text","image","audio","video"], score: 38
+    multimodal: ["text","image","audio","video"], score: 22
   },
   // ── DeepSeek ──
   {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash",
-    params: "284B MoE (13B active)", maxInput: "1M", maxOutput: "384K",
-    inputPrice: "¥3.2", cachePrice: "¥0.1", outputPrice: "¥9.6",
-    site: "https://platform.deepseek.com", tag: "cn,cheap",
-    multimodal: ["text"], score: 50
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4.1 Flash",
+    params: "552B MoE (输入 8B / 输出 16B 激活)", maxInput: "1M", maxOutput: "384K",
+    inputPrice: "¥2", cachePrice: "¥0.04", outputPrice: "¥8",
+    site: "https://platform.deepseek.com", tag: "cn,flagship,cheap",
+    multimodal: ["text","image"], score: 40
   },
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
     params: "—", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥9.6", cachePrice: "¥0.32", outputPrice: "¥28.8",
     site: "https://platform.deepseek.com", tag: "cn,flagship",
-    multimodal: ["text"], score: 53
-  },
-  {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Flash Vision-Exp",
-    params: "—", maxInput: "1M", maxOutput: "384K",
-    inputPrice: "¥3.2", cachePrice: "¥0.1", outputPrice: "¥9.6",
-    site: "https://platform.deepseek.com", tag: "cn",
-    multimodal: ["text","image"], score: null
+    multimodal: ["text"], score: 36
   },
   // ── xAI ──
   {
@@ -411,14 +405,14 @@ const models = [
     params: "—", maxInput: "500K", maxOutput: "—",
     inputPrice: "$2.00", cachePrice: "—", outputPrice: "$6.00",
     site: "https://x.ai", tag: "intl,flagship",
-    multimodal: ["text"], score: 61
+    multimodal: ["text"], score: 44
   },
   {
     vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.5",
     params: "—", maxInput: "500K", maxOutput: "—",
     inputPrice: "$2.00", cachePrice: "$0.30", outputPrice: "$6.00",
     site: "https://x.ai", tag: "intl",
-    multimodal: ["text"], score: 56
+    multimodal: ["text"], score: 39
   },
   // ── 美团 ──
   {
@@ -426,7 +420,7 @@ const models = [
     params: "1.6T MoE (48B active)", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥2.00", cachePrice: "¥0.04", outputPrice: "¥8.00",
     site: "https://github.com/meituan-longcat", tag: "cn,flagship",
-    multimodal: ["text"], score: 34
+    multimodal: ["text"], score: 20
   },
 
   // ── 豆包 Doubao ──
@@ -472,28 +466,28 @@ const models = [
     params: "125B MoE (6B active) · Qwen4 架构预览", maxInput: "992K", maxOutput: "128K",
     inputPrice: "¥0.8", cachePrice: "¥0.1", outputPrice: "¥2.7",
     site: "https://bailian.console.aliyun.com", tag: "cn,cheap",
-    multimodal: ["text","image","video"], score: 56
+    multimodal: ["text","image","video"], score: 40
   },
   {
     vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.7 Plus",
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥2", cachePrice: "—", outputPrice: "¥8",
     site: "https://bailian.console.aliyun.com", tag: "cn",
-    multimodal: ["text","image","video"], score: 46.5
+    multimodal: ["text","image","video"], score: 26
   },
   {
     vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.7 Max",
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥12", cachePrice: "—", outputPrice: "¥36",
     site: "https://bailian.console.aliyun.com", tag: "cn,flagship",
-    multimodal: ["text"], score: 50.1
+    multimodal: ["text"], score: null
   },
   {
     vendor: "阿里 (通义)", vendorClass: "v-qwen", model: "Qwen3.8 Max",
     params: "2.4T MoE", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥12", cachePrice: "¥1.5", outputPrice: "¥36",
     site: "https://bailian.console.aliyun.com", tag: "cn,flagship",
-    multimodal: ["text","image","video"], score: 58
+    multimodal: ["text","image","video"], score: 40
   },
   // ── 智谱 GLM ──
   {
@@ -501,21 +495,21 @@ const models = [
     params: "753B", maxInput: "1M", maxOutput: "128K",
     inputPrice: "¥8", cachePrice: "¥2", outputPrice: "¥28",
     site: "https://open.bigmodel.cn", tag: "cn,flagship",
-    multimodal: ["text"], score: 60
+    multimodal: ["text"], score: 45
   },
   {
     vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.3-Flash",
     params: "320B MoE (18B active)", maxInput: "1M", maxOutput: "128K",
-    inputPrice: "¥2", cachePrice: "¥0.5", outputPrice: "¥8",
+    inputPrice: "¥0.8", cachePrice: "¥0.23", outputPrice: "¥2.8",
     site: "https://open.bigmodel.cn", tag: "cn",
-    multimodal: ["text","image","video"], score: null
+    multimodal: ["text","image","video"], score: 42
   },
   {
     vendor: "智谱 AI", vendorClass: "v-glm", model: "GLM-5.2",
     params: "~744B MoE", maxInput: "1M", maxOutput: "16K",
     inputPrice: "$2.5", cachePrice: "$0.5", outputPrice: "$10",
     site: "https://z.ai", tag: "cn,flagship",
-    multimodal: ["text"], score: 53
+    multimodal: ["text"], score: 34
   },
   // ── 腾讯混元 ──
   {
@@ -530,7 +524,7 @@ const models = [
     params: "295B MoE (21B active)", maxInput: "192K", maxOutput: "128K",
     inputPrice: "¥1", cachePrice: "¥0.25", outputPrice: "¥4",
     site: "https://hunyuan.tencent.com", tag: "cn,cheap",
-    multimodal: ["text"], score: 42
+    multimodal: ["text"], score: 26
   },
   // ── MiniMax ──
   {
@@ -538,7 +532,7 @@ const models = [
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
     site: "https://platform.minimaxi.com", tag: "cn",
-    multimodal: ["text","image","video"], score: 43.4
+    multimodal: ["text","image","video"], score: 30
   },
   {
     vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M2.7",
@@ -597,14 +591,14 @@ const models = [
     params: "2.8T MoE", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥20", cachePrice: "¥2", outputPrice: "¥100",
     site: "https://platform.moonshot.cn", tag: "cn,flagship",
-    multimodal: ["text","image"], score: 60
+    multimodal: ["text","image"], score: 44
   },
   {
-    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.7 Code",
-    params: "1T MoE (32B active)", maxInput: "256K", maxOutput: "16K",
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K2.8 Preview",
+    params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥6.5", cachePrice: "¥1.3", outputPrice: "¥27",
     site: "https://platform.moonshot.cn", tag: "cn,flagship",
-    multimodal: ["text","image","video"], score: 43
+    multimodal: ["text","image"], score: null
   },
   // ── Claude ──
   {
@@ -612,7 +606,7 @@ const models = [
     params: "Mythos-class", maxInput: "1M", maxOutput: "128K",
     inputPrice: "$10", cachePrice: "$0.25", outputPrice: "$50",
     site: "https://platform.claude.com", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 66
+    multimodal: ["text","image"], score: 53
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Mythos 5.1",
@@ -626,28 +620,28 @@ const models = [
     params: "—", maxInput: "1M", maxOutput: "128K",
     inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$25",
     site: "https://platform.claude.com", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 63
+    multimodal: ["text","image"], score: 51
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 5",
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$10",
     site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 55
+    multimodal: ["text","image"], score: 38
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 4.6",
     params: "—", maxInput: "200K", maxOutput: "16K",
     inputPrice: "$3", cachePrice: "$0.3", outputPrice: "$15",
     site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 50.9
+    multimodal: ["text","image"], score: 23
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Haiku 4.5",
     params: "—", maxInput: "200K", maxOutput: "8K",
     inputPrice: "$1", cachePrice: "$0.1", outputPrice: "$5",
     site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 32.6
+    multimodal: ["text","image"], score: 18
   },
   // ── Gemini ──
   {
@@ -655,28 +649,28 @@ const models = [
     params: "—", maxInput: "1M", maxOutput: "64K",
     inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
     site: "https://ai.google.dev", tag: "intl,flagship",
-    multimodal: ["text","image","audio","video"], score: 59
+    multimodal: ["text","image","audio","video"], score: 41
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.7 Flash",
     params: "—", maxInput: "1M", maxOutput: "64K",
     inputPrice: "$0.75", cachePrice: "$0.075", outputPrice: "$3.75",
     site: "https://ai.google.dev", tag: "intl",
-    multimodal: ["text","image","audio","video"], score: 56
+    multimodal: ["text","image","audio","video"], score: 39
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Pro",
     params: "—", maxInput: "1M", maxOutput: "64K",
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://ai.google.dev", tag: "intl,flagship",
-    multimodal: ["text","image","audio","video"], score: 55.5
+    multimodal: ["text","image","audio","video"], score: 30
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.6 Flash",
     params: "—", maxInput: "1M", maxOutput: "32K",
     inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$7.5",
     site: "https://ai.google.dev", tag: "intl",
-    multimodal: ["text","image","audio","video"], score: 52
+    multimodal: ["text","image","audio","video"], score: 34
   },
   // ── GPT ──
   {
@@ -684,35 +678,35 @@ const models = [
     params: "—", maxInput: "1.05M", maxOutput: "128K",
     inputPrice: "$10", cachePrice: "$1", outputPrice: "$50",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 61.2
+    multimodal: ["text","image"], score: 53
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Sol",
     params: "—", maxInput: "1M", maxOutput: "32K",
     inputPrice: "$4", cachePrice: "$0.4", outputPrice: "$20",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 61
+    multimodal: ["text","image"], score: 47
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Terra",
     params: "—", maxInput: "1M", maxOutput: "32K",
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://openai.com/api/pricing", tag: "intl",
-    multimodal: ["text","image"], score: 57
+    multimodal: ["text","image"], score: 42
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.6 Luna",
     params: "—", maxInput: "1M", maxOutput: "32K",
     inputPrice: "$0.2", cachePrice: "$0.02", outputPrice: "$1.2",
     site: "https://openai.com/api/pricing", tag: "intl,cheap",
-    multimodal: ["text","image"], score: 52
+    multimodal: ["text","image"], score: 38
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5",
     params: "—", maxInput: "256K", maxOutput: "32K",
     inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$30",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 59.1
+    multimodal: ["text","image"], score: null
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5 Pro",
@@ -727,7 +721,7 @@ const models = [
     params: "—", maxInput: "1M", maxOutput: "—",
     inputPrice: "$1.25", cachePrice: "$0.15", outputPrice: "$4.25",
     site: "https://developer.meta.com/ai/models/muse-spark", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 61
+    multimodal: ["text","image"], score: 48
   },
 ];
 
@@ -864,7 +858,7 @@ function renderMulti(m) {
 }
 function renderScore(s) {
   if (!s) return '<span style="opacity:.4">—</span>';
-  const c = s >= 55 ? 'score-s' : s >= 45 ? 'score-a' : s >= 35 ? 'score-b' : 'score-c';
+  const c = s >= 48 ? 'score-s' : s >= 40 ? 'score-a' : s >= 30 ? 'score-b' : 'score-c';
   return `<span class="score-badge ${c}">${s}</span>`;
 }
 function priceNum(p) {

@@ -549,16 +549,16 @@ const models = [
     params:"未公开（万亿级 MoE）", paramsNum:null, active:"—", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
     vram:"大规模集群（16×H200 起）", deployNum:2000,
-    feat:"国产旗舰，MIT 协议可自由商用与蒸馏", tag:"cn",
+    feat:"国产旗舰，MIT 协议可自由商用与蒸馏；处下线过渡期，9/14 起 API 请求路由至 V4.1 Flash", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
   },
   {
-    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4-Flash", cat:"text", catLabel:"💬 文本/推理",
-    params:"284B MoE (13B 激活)", paramsNum:284, active:"13B", arch:"moe",
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4.1-Flash", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"552B MoE (输入 8B / 输出 16B 激活)", paramsNum:552, active:"8B / 16B", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
-    vram:"8×H100 / FP8 单节点", deployNum:640,
-    feat:"激活参数仅 13B，推理成本极低", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
+    vram:"8×H100 / FP8 约 552GB 权重", deployNum:640,
+    feat:"CED 因果编码-解码非对称架构，原生文本+图像输入，全局 KV Cache 压至 890 bytes/token；AA v4.3 智能指数 40", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
   },
   {
     vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-OCR 3B", cat:"vlm", catLabel:"👁️ 视觉语言",
