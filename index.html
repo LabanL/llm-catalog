@@ -294,7 +294,7 @@
 
 <div class="header">
   <h1>🤖 2026 大模型 API 清单</h1>
-  <p>覆盖 16 家厂商 · 48 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 16 家厂商 · 51 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -360,7 +360,9 @@
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
   评分依据：Artificial Analysis Intelligence Index <strong>v4.3</strong>（2026-09-14 快照），取各模型最高推理强度档（max / high）分数<br>
   v4.3 由 10 项评测合成：AA-Briefcase、GDPval-AA v2、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1<br>
-  评分列留空（AA v4.3 未收录或无可对应档位）：Qwen3.7 Max、GPT-5.5、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2.5、Hy4 preview、MiniMax M2.7、Kimi K2.8 Preview、Claude Mythos 5.1、GPT-5.5 Pro<br>
+  评分列留空（AA v4.3 未收录或无可对应档位）：MiMo V2.6 Flash、Grok 4.7、Qwen3.7 Max、GPT-5.5、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2.5、Hy4 preview、MiniMax M2.7、Kimi K2.8 Preview、Claude Mythos 5.1、GPT-5.5 Pro<br>
+  MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）沿用 V2.5 API 定价，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）<br>
+  Grok 4.7 于 9/21 发布（晚于 AA v4.3 快照 9/14），评分待下一版指数收录；另提供输出速度两倍、价格两倍的高速变体
   Claude Sonnet 4.6 在 AA v4.3 仅有 Non-reasoning low 档（23），暂按该值记录<br>
   DeepSeek V4 Pro 处下线过渡期：自 9/14 12:00 起 <code>deepseek-v4-pro</code> 请求统一路由至 V4.1 Flash 并按 V4.1 Flash 单价计费<br>
   GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
@@ -370,6 +372,20 @@
 <script>
 const models = [
   // ── 小米 MiMo ──
+  {
+    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.6 Pro",
+    params: "1.02T MoE (42B active)", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
+    site: "https://mimo.mi.com", tag: "cn,flagship",
+    multimodal: ["text","image","audio","video"], score: 46
+  },
+  {
+    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.6 Flash",
+    params: "309B MoE (15B active)", maxInput: "1M", maxOutput: "16K",
+    inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
+    site: "https://mimo.mi.com", tag: "cn,cheap",
+    multimodal: ["text","image","audio","video"], score: null
+  },
   {
     vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5 Pro",
     params: "1.02T MoE (42B active)", maxInput: "1M", maxOutput: "16K",
@@ -400,6 +416,13 @@ const models = [
     multimodal: ["text"], score: 36
   },
   // ── xAI ──
+  {
+    vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.7",
+    params: "2.1T", maxInput: "500K", maxOutput: "—",
+    inputPrice: "$2.00", cachePrice: "—", outputPrice: "$6.00",
+    site: "https://x.ai", tag: "intl,flagship",
+    multimodal: ["text"], score: null
+  },
   {
     vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.6",
     params: "—", maxInput: "500K", maxOutput: "—",
