@@ -163,6 +163,8 @@
   .v-sensenova{ background: rgba(0,200,160,.15); color: #2dd4bf; }
   .v-meta     { background: rgba(8,102,255,.15); color: #4d8dff; }
   .v-iflytek  { background: rgba(163,230,53,.15); color: #a3e635; }
+  .v-stepfun  { background: rgba(139,92,246,.15); color: #a78bfa; }
+  .v-agnes    { background: rgba(236,72,153,.15); color: #f472b6; }
 
   .multi-badge {
     display: inline-block;
@@ -297,7 +299,7 @@
 
 <div class="header">
   <h1><span class="emoji">🤖</span> <span class="title-text">2026 大模型 API 清单</span></h1>
-  <p>覆盖 16 家厂商 · 54 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 18 家厂商 · 53 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -309,7 +311,7 @@
 <div class="stats" id="stats">
   <div class="stat-card"><div class="num" id="count">0</div><div class="label">模型总数</div></div>
   <div class="stat-card"><div class="num" id="cheapest">—</div><div class="label">最低输入价</div></div>
-  <div class="stat-card"><div class="num" id="vendors">16</div><div class="label">厂商数量</div></div>
+  <div class="stat-card"><div class="num" id="vendors">18</div><div class="label">厂商数量</div></div>
   <div class="stat-card"><div class="num" id="maxctx">—</div><div class="label">最大上下文</div></div>
 </div>
 
@@ -363,11 +365,9 @@
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
   评分依据：Artificial Analysis Intelligence Index <strong>v4.3.2</strong>（2026-09-24 快照），取各模型最高推理强度档（max / high / xhigh）分数<br>
   v4.3.2 由 10 项评测合成：AA-Briefcase v1.1、GDPval-AA v2.1、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1<br>
-  评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2.5、Hy4 preview、Kimi K2.8 Preview、GPT-5.5 Pro、Claude Mythos 5.1（受限访问模型，AA 未评测）<br>
-  MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）沿用 V2.5 API 定价，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）<br>
+  评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2 系列（X2 / X2 Flash / X2.5）、LongCat-2.5-Preview（9/25 上线，暂无公开评测）、Hy4 preview、Kimi K2.8 Preview、阶跃 Step 3.5 Flash、Agnes 系列、Claude Sonnet 5.5（发布初期 AA 未收录）、Claude Mythos 5.1（受限访问模型，AA 未评测）<br>
+  MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）API 价格与前代持平，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）<br>
   Grok 4.7（9/21 发布）另提供输出速度两倍、价格两倍的高速变体<br>
-  Claude Sonnet 4.6 在 AA v4.3 仅有 Non-reasoning low 档（23），暂按该值记录<br>
-  DeepSeek V4 Pro 处下线过渡期：自 9/14 12:00 起 <code>deepseek-v4-pro</code> 请求统一路由至 V4.1 Flash 并按 V4.1 Flash 单价计费<br>
   GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
   DeepSeek 采用峰谷计价，表中为高峰价，空闲时段按高峰价的 50% 计费
 </div>
@@ -389,30 +389,16 @@ const models = [
     site: "https://mimo.mi.com", tag: "cn,cheap",
     multimodal: ["text","image","audio","video"], score: null
   },
-  {
-    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5 Pro",
-    params: "1.02T MoE (42B active)", maxInput: "1M", maxOutput: "16K",
-    inputPrice: "¥3", cachePrice: "¥0.025", outputPrice: "¥6",
-    site: "https://platform.xiaomimimo.com", tag: "cn,flagship",
-    multimodal: ["text"], score: 26
-  },
-  {
-    vendor: "小米", vendorClass: "v-xiaomi", model: "MiMo V2.5",
-    params: "—", maxInput: "1M", maxOutput: "16K",
-    inputPrice: "¥1", cachePrice: "¥0.02", outputPrice: "¥2",
-    site: "https://platform.xiaomimimo.com", tag: "cn,cheap",
-    multimodal: ["text","image","audio","video"], score: 22
-  },
   // ── DeepSeek ──
   {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4.1 Flash",
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek Flash",
     params: "552B MoE (输入 8B / 输出 16B 激活)", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥2", cachePrice: "¥0.04", outputPrice: "¥8",
     site: "https://platform.deepseek.com", tag: "cn,flagship,cheap",
     multimodal: ["text","image"], score: 40
   },
   {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek V4 Pro",
+    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek 4 Pro",
     params: "—", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥9.6", cachePrice: "¥0.32", outputPrice: "¥28.8",
     site: "https://platform.deepseek.com", tag: "cn,flagship",
@@ -431,22 +417,22 @@ const models = [
     params: "—", maxInput: "500K", maxOutput: "—",
     inputPrice: "$2.00", cachePrice: "—", outputPrice: "$6.00",
     site: "https://x.ai", tag: "intl,flagship",
-    multimodal: ["text"], score: 44
-  },
-  {
-    vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.5",
-    params: "—", maxInput: "500K", maxOutput: "—",
-    inputPrice: "$2.00", cachePrice: "$0.30", outputPrice: "$6.00",
-    site: "https://x.ai", tag: "intl",
-    multimodal: ["text"], score: 39
+    multimodal: ["text"], score: 45
   },
   // ── 美团 ──
   {
     vendor: "美团", vendorClass: "v-meituan", model: "LongCat-2.0",
     params: "1.6T MoE (48B active)", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥2.00", cachePrice: "¥0.04", outputPrice: "¥8.00",
-    site: "https://github.com/meituan-longcat", tag: "cn,flagship",
+    site: "https://github.com/meituan-longcat", tag: "cn",
     multimodal: ["text"], score: 20
+  },
+  {
+    vendor: "美团", vendorClass: "v-meituan", model: "LongCat-2.5-Preview",
+    params: "1.6T MoE (48B active)", maxInput: "1M", maxOutput: "128K",
+    inputPrice: "$0.30", cachePrice: "$0.015", outputPrice: "$1.20",
+    site: "https://longcat.ai", tag: "cn,flagship",
+    multimodal: ["text","image"], score: null
   },
 
   // ── 豆包 Doubao ──
@@ -472,18 +458,11 @@ const models = [
     multimodal: ["text","image","video"], score: null
   },
   {
-    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Lite",
+    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Lite",
     params: "—", maxInput: "256K", maxOutput: "128K",
     inputPrice: "¥0.6", cachePrice: "¥0.12", outputPrice: "¥3.6",
     site: "https://www.volcengine.com/product/doubao", tag: "cn",
     multimodal: ["text","image","video","audio"], score: null
-  },
-  {
-    vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.0 Mini",
-    params: "—", maxInput: "256K", maxOutput: "128K",
-    inputPrice: "¥0.2", cachePrice: "¥0.04", outputPrice: "¥2",
-    site: "https://www.volcengine.com/product/doubao", tag: "cn,cheap",
-    multimodal: ["text","image","video"], score: null
   },
   // ── 通义千问 Qwen ──
   // (Doubao Seed 系列无 AA 公开评分，保持 null)
@@ -576,20 +555,6 @@ const models = [
     multimodal: ["text","image"], score: null
   },
   {
-    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 Fast",
-    params: "—", maxInput: "256K", maxOutput: "8K",
-    inputPrice: "¥1.5", cachePrice: "—", outputPrice: "¥6",
-    site: "https://www.sensenova.cn", tag: "cn",
-    multimodal: ["text","image"], score: null
-  },
-  {
-    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 PRO",
-    params: "—", maxInput: "256K", maxOutput: "8K",
-    inputPrice: "¥6", cachePrice: "—", outputPrice: "¥24",
-    site: "https://www.sensenova.cn", tag: "cn,flagship",
-    multimodal: ["text","image"], score: null
-  },
-  {
     vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova V6 Pro",
     params: "620B MoE", maxInput: "200K", maxOutput: "8K",
     inputPrice: "¥10", cachePrice: "—", outputPrice: "¥30",
@@ -604,6 +569,20 @@ const models = [
     multimodal: ["text","image","video"], score: null
   },
   // ── 讯飞星火 Spark ──
+  {
+    vendor: "讯飞星火", vendorClass: "v-iflytek", model: "Spark X2",
+    params: "—", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "¥0.8", cachePrice: "¥0.16", outputPrice: "¥3.2",
+    site: "https://maas.xfyun.cn", tag: "cn",
+    multimodal: ["text"], score: null
+  },
+  {
+    vendor: "讯飞星火", vendorClass: "v-iflytek", model: "Spark X2 Flash",
+    params: "—", maxInput: "256K", maxOutput: "8K",
+    inputPrice: "¥0.2", cachePrice: "¥0.04", outputPrice: "¥0.8",
+    site: "https://maas.xfyun.cn", tag: "cn,cheap",
+    multimodal: ["text"], score: null
+  },
   {
     vendor: "讯飞星火", vendorClass: "v-iflytek", model: "Spark X2.5",
     params: "293B MoE (30B active)", maxInput: "256K", maxOutput: "—",
@@ -656,18 +635,11 @@ const models = [
     multimodal: ["text","image"], score: 58
   },
   {
-    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 5",
-    params: "—", maxInput: "1M", maxOutput: "16K",
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 5.5",
+    params: "—", maxInput: "1M", maxOutput: "64K",
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$10",
-    site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 38
-  },
-  {
-    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 4.6",
-    params: "—", maxInput: "200K", maxOutput: "16K",
-    inputPrice: "$3", cachePrice: "$0.3", outputPrice: "$15",
-    site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 23
+    site: "https://platform.claude.com", tag: "intl,flagship",
+    multimodal: ["text","image"], score: null
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Haiku 4.5",
@@ -697,13 +669,6 @@ const models = [
     inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$12",
     site: "https://ai.google.dev", tag: "intl,flagship",
     multimodal: ["text","image","audio","video"], score: 30
-  },
-  {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.6 Flash",
-    params: "—", maxInput: "1M", maxOutput: "32K",
-    inputPrice: "$1.5", cachePrice: "$0.15", outputPrice: "$7.5",
-    site: "https://ai.google.dev", tag: "intl",
-    multimodal: ["text","image","audio","video"], score: 34
   },
   // ── GPT ──
   {
@@ -748,18 +713,48 @@ const models = [
     site: "https://openai.com/api/pricing", tag: "intl,cheap",
     multimodal: ["text","image"], score: 38
   },
+  // ── 阶跃星辰 ──
   {
-    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5",
-    params: "—", maxInput: "256K", maxOutput: "32K",
-    inputPrice: "$5", cachePrice: "$0.5", outputPrice: "$30",
-    site: "https://openai.com/api/pricing", tag: "intl,flagship",
-    multimodal: ["text","image"], score: 38
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "Step 5 Preview",
+    params: "600B MoE (27B active)", maxInput: "1M", maxOutput: "32K",
+    inputPrice: "¥7", cachePrice: "¥0.35", outputPrice: "¥20",
+    site: "https://platform.stepfun.com", tag: "cn,flagship",
+    multimodal: ["text","image"], score: 44
   },
   {
-    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-5.5 Pro",
-    params: "—", maxInput: "256K", maxOutput: "32K",
-    inputPrice: "$30", cachePrice: "—", outputPrice: "$180",
-    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "Step 3.7 Flash",
+    params: "198B MoE (11B active)", maxInput: "256K", maxOutput: "16K",
+    inputPrice: "—", cachePrice: "—", outputPrice: "—",
+    site: "https://platform.stepfun.com", tag: "cn",
+    multimodal: ["text","image"], score: 19
+  },
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "Step 3.5 Flash",
+    params: "196B MoE (11B active)", maxInput: "128K", maxOutput: "16K",
+    inputPrice: "—", cachePrice: "—", outputPrice: "—",
+    site: "https://platform.stepfun.com", tag: "cn",
+    multimodal: ["text","image"], score: null
+  },
+  // ── Agnes AI ──
+  {
+    vendor: "Agnes AI", vendorClass: "v-agnes", model: "Agnes 3.0 Flash",
+    params: "—", maxInput: "512K", maxOutput: "65.5K",
+    inputPrice: "免费", cachePrice: "—", outputPrice: "免费",
+    site: "https://agnes-ai.com", tag: "intl",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "Agnes AI", vendorClass: "v-agnes", model: "Agnes 2.5 Flash",
+    params: "—", maxInput: "512K", maxOutput: "65.5K",
+    inputPrice: "免费", cachePrice: "—", outputPrice: "免费",
+    site: "https://agnes-ai.com", tag: "intl",
+    multimodal: ["text","image"], score: null
+  },
+  {
+    vendor: "Agnes AI", vendorClass: "v-agnes", model: "Agnes 2.5 Pro",
+    params: "—", maxInput: "256K", maxOutput: "64K",
+    inputPrice: "$0.45", cachePrice: "—", outputPrice: "$0.90",
+    site: "https://agnes-ai.com", tag: "intl",
     multimodal: ["text","image"], score: null
   },
   // ── Meta ──

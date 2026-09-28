@@ -79,6 +79,10 @@
   .v-tencent { background: rgba(14,165,233,.15); color: #38bdf8; }
   .v-meituan { background: rgba(249,115,22,.15); color: #fb923c; }
   .v-xai      { background: rgba(88,105,224,.15); color: #8b5cf6; }
+  .v-meta     { background: rgba(8,102,255,.15); color: #4d8dff; }
+  .v-sensenova{ background: rgba(0,200,160,.15); color: #2dd4bf; }
+  .v-stepfun  { background: rgba(139,92,246,.15); color: #a78bfa; }
+  .v-agnes    { background: rgba(236,72,153,.15); color: #f472b6; }
 
   /* 类型徽标 */
   .type-badge {
@@ -236,7 +240,7 @@
 
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
-  <p>覆盖 13 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
+  <p>覆盖 17 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
   <div class="update">数据更新于 2026 年 9 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型</a>
@@ -284,7 +288,7 @@
 </div>
 
 <div class="footer">
-  数据来源：各厂商官方定价页面（OpenAI · Google · Anthropic · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 腾讯混元）
+  数据来源：各厂商官方定价页面（OpenAI · Google · Anthropic · Meta · xAI · Agnes AI · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 商汤 · 阶跃星辰 · 腾讯混元）
   <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务（DeepSeek V4.1 Flash 支持图片输入，但仅输出文本）。
   <br>GPT-Live-1（9/10 上线 API）取代「STT + 打断判定 + TTS」级联方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费。
   <br>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改。
@@ -358,6 +362,22 @@ const media = [
     site: "https://x.ai", tag: "intl"
   },
 
+  /* ── Meta ── */
+  {
+    vendor: "Meta", vendorClass: "v-meta", model: "Muse Image（代号 Mango）", type: "image",
+    typeLabel: "🖼️ 图像", cap: "MSL 首个图像生成模型 · 文生图 Arena 榜第二（仅次于 GPT Image 2）· 面向创作者与广告客户",
+    inSpec: "文本/图片 prompt", outSpec: "多档分辨率分级服务",
+    outputPrice: "订阅制（Meta One Premium $19.99/月）· API 按量定价暂未公开",
+    site: "https://ai.meta.com", tag: "overseas"
+  },
+  {
+    vendor: "Meta", vendorClass: "v-meta", model: "Muse Video", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图生视频（预览版）· 画面质量对标 Seedance 2.0",
+    inSpec: "文本/图片 prompt", outSpec: "预览版 · 逐步开放中",
+    outputPrice: "暂无公开 API 定价",
+    site: "https://ai.meta.com", tag: "overseas"
+  },
+
   /* ── Google ── */
   {
     vendor: "Google", vendorClass: "v-google", model: "Veo 3.1", type: "video",
@@ -386,13 +406,6 @@ const media = [
     inSpec: "文本/图像", outSpec: "0.5K/1K/2K/4K",
     outputPrice: "$60/MTok 图 (≈ $0.045/0.5K · $0.151/4K)",
     site: "https://ai.google.dev/gemini-api/docs/image-generation", tag: "overseas"
-  },
-  {
-    vendor: "Google", vendorClass: "v-google", model: "Imagen 4", type: "image",
-    typeLabel: "🖼️ 图像", cap: "原生图像生成 · 强文字渲染 (2026/8 关停)",
-    inSpec: "文本 prompt", outSpec: "≤1024px",
-    outputPrice: "Fast $0.02 · Std $0.04 · Ultra $0.06/张",
-    site: "https://ai.google.dev/gemini-api/docs/imagen", tag: "overseas"
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Lyria 3.5", type: "music",
@@ -442,6 +455,13 @@ const media = [
 
   /* ── 豆包 Doubao ── */
   {
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedance 2.5", type: "video",
+    typeLabel: "🎥 视频", cap: "满血版 · 音画同步一镜生成最长 30s · 支持片段重拍 / 多素材参考 · 角色 场景 镜头一致性锁定",
+    inSpec: "文本/图片/视频/参考素材", outSpec: "720p/1080p · ≤30s",
+    outputPrice: "以火山引擎定价页为准",
+    site: "https://www.volcengine.com/docs/82379/1521309", tag: "cn"
+  },
+  {
     vendor: "豆包", vendorClass: "v-doubao", model: "Seedance 2.0 Pro", type: "video",
     typeLabel: "🎥 视频", cap: "文/图生视频 · 影视级运镜",
     inSpec: "文本/图片 prompt", outSpec: "720p/1080p · 5–12s",
@@ -463,11 +483,11 @@ const media = [
     site: "https://www.volcengine.com/docs/82379/1521309", tag: "cn"
   },
   {
-    vendor: "豆包", vendorClass: "v-doubao", model: "Seedream 3.0", type: "image",
-    typeLabel: "🖼️ 图像", cap: "文生图 · 中文 prompt 友好",
-    inSpec: "文本/参考图", outSpec: "≤2048×2048",
-    outputPrice: "¥0.25/张 (1024px)",
-    site: "https://www.volcengine.com/docs/82379/1541523", tag: "cn"
+    vendor: "豆包", vendorClass: "v-doubao", model: "Seedream 4.0", type: "image",
+    typeLabel: "🖼️ 图像", cap: "图像生成与编辑统一架构 · 秒级文生图 · 文字渲染强 · 中文 prompt 友好",
+    inSpec: "文本/参考图", outSpec: "≤4096×4096",
+    outputPrice: "¥0.2/张 (1024px)",
+    site: "https://seed.bytedance.com/zh/seedream4_0", tag: "cn"
   },
   {
     vendor: "豆包", vendorClass: "v-doubao", model: "Doubao 语音合成 1.0", type: "tts",
@@ -544,13 +564,6 @@ const media = [
     site: "https://bigmodel.cn/pricing", tag: "cn"
   },
   {
-    vendor: "智谱", vendorClass: "v-glm", model: "CogVideoX-5B", type: "video",
-    typeLabel: "🎥 视频", cap: "轻量版视频生成",
-    inSpec: "文本 prompt", outSpec: "720p · 6s",
-    outputPrice: "¥0.25/秒",
-    site: "https://bigmodel.cn/pricing", tag: "cn"
-  },
-  {
     vendor: "智谱", vendorClass: "v-glm", model: "CogView-3", type: "image",
     typeLabel: "🖼️ 图像", cap: "文生图 · 中文理解强",
     inSpec: "文本 prompt", outSpec: "1024×1024",
@@ -593,6 +606,75 @@ const media = [
     inSpec: "风格/主题 prompt", outSpec: "MP3 · 30–60s",
     outputPrice: "¥0.1/首",
     site: "https://platform.minimaxi.com/docs/api-reference/llms/music-01", tag: "cn"
+  },
+
+  /* ── 商汤 SenseNova ── */
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 Fast", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 / 图生图 · 快速出图",
+    inSpec: "文本/图片 prompt", outSpec: "≤2048×2048",
+    outputPrice: "输入 ¥1.5/MTok · 输出 ¥6/MTok",
+    site: "https://www.sensenova.cn", tag: "cn"
+  },
+  {
+    vendor: "商汤 SenseNova", vendorClass: "v-sensenova", model: "SenseNova U1 PRO", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 / 图生图 · 高质量旗舰",
+    inSpec: "文本/图片 prompt", outSpec: "≤2048×2048",
+    outputPrice: "输入 ¥6/MTok · 输出 ¥24/MTok",
+    site: "https://www.sensenova.cn", tag: "cn"
+  },
+
+  /* ── 阶跃星辰 ── */
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "StepAudio 3 Realtime", type: "audio",
+    typeLabel: "🔊 实时语音", cap: "原生全双工对话 · 自主判断回应时机与打断 · 语音推理 · 工具调用 · AA 对话动态榜 98.9% / 语音推理榜 99.7% 全球第一",
+    inSpec: "实时音频流 + 文本上下文", outSpec: "实时音频流",
+    outputPrice: "以阶跃开放平台定价为准",
+    site: "https://platform.stepfun.com", tag: "cn"
+  },
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "StepAudio 3 TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "真人级语音 · 笑声/迟疑/改口等副语言细节 · 流式生成与播放同步低延迟",
+    inSpec: "文本", outSpec: "音频流",
+    outputPrice: "以阶跃开放平台定价为准",
+    site: "https://platform.stepfun.com", tag: "cn"
+  },
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "StepAudio 3 ASR", type: "asr",
+    typeLabel: "🔊 ASR", cap: "融合 LLM 上下文理解 · 中英文/方言/混说/专业领域 · 非流式 WER 1.7% 并列全球第一",
+    inSpec: "音频文件 / 流", outSpec: "文本 + 时间戳",
+    outputPrice: "以阶跃开放平台定价为准",
+    site: "https://platform.stepfun.com", tag: "cn"
+  },
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "StepAudio 3 Gen", type: "audio",
+    typeLabel: "🔊 音频生成", cap: "自然语言一次生成人声/音效/环境声/背景音乐四类音轨 · 角色音色/情绪/时序精细控制",
+    inSpec: "自然语言描述", outSpec: "多音轨音频",
+    outputPrice: "以阶跃开放平台定价为准",
+    site: "https://platform.stepfun.com", tag: "cn"
+  },
+  {
+    vendor: "阶跃星辰", vendorClass: "v-stepfun", model: "StepAudio 3 Music", type: "music",
+    typeLabel: "🎵 音乐", cap: "完整歌曲创作 · 清唱自动配乐 · 歌曲翻唱 · ABC 记谱法多轮交互创作",
+    inSpec: "文本 / 哼唱 / 歌词", outSpec: "完整歌曲",
+    outputPrice: "以阶跃开放平台定价为准",
+    site: "https://platform.stepfun.com", tag: "cn"
+  },
+
+  /* ── Agnes AI ── */
+  {
+    vendor: "Agnes AI", vendorClass: "v-agnes", model: "Agnes Image 2.1 Flash", type: "image",
+    typeLabel: "🖼️ 图像", cap: "文生图 / 图生图 · 高密度视觉生成 · 图像编辑 · 灵活尺寸",
+    inSpec: "文本/图片", outSpec: "URL / Base64 · 多分辨率",
+    outputPrice: "免费（订阅配额：每日 4,000 张）",
+    site: "https://agnes-ai.com", tag: "overseas"
+  },
+  {
+    vendor: "Agnes AI", vendorClass: "v-agnes", model: "Agnes Video v2.0", type: "video",
+    typeLabel: "🎥 视频", cap: "文/图/多图生视频 · 关键帧动画 · 异步任务 API",
+    inSpec: "文本/图片/多图", outSpec: "异步任务返回",
+    outputPrice: "免费（订阅配额：每日 500 秒）",
+    site: "https://agnes-ai.com", tag: "overseas"
   },
 
   /* ── Kimi ── */

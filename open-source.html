@@ -403,28 +403,20 @@ const models = [
 
   /* ─────────── 海外 · Google ─────────── */
   {
-    vendor:"Google", vendorClass:"v-google", model:"Gemma 3 27B", cat:"vlm", catLabel:"👁️ 视觉语言",
-    params:"27B Dense", paramsNum:27, active:"27B", arch:"dense",
-    ctx:"128K", ctxNum:128, license:"Gemma 许可（可商用）", licClass:"perm",
-    vram:"单卡 24GB (INT4) / 64GB BF16", deployNum:48,
-    feat:"140+ 语种、图像输入，单卡友好", tag:"overseas",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-3-27b-it"}]
+    vendor:"Google", vendorClass:"v-google", model:"Gemma 4 26B MoE / 31B Dense", cat:"omni", catLabel:"🌟 全模态",
+    params:"26B MoE / 31B Dense", paramsNum:31, active:"—", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 48GB BF16 / 24GB INT4", deployNum:48,
+    feat:"Gemini 3 同源技术下放（2026/4 发布），原生文本+图像+音频三模态，首次引入 MoE，免费商用", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-4"}]
   },
   {
-    vendor:"Google", vendorClass:"v-google", model:"Gemma 3 4B / 1B", cat:"vlm", catLabel:"👁️ 视觉语言",
-    params:"4B / 1B Dense", paramsNum:4, active:"4B", arch:"dense",
-    ctx:"128K", ctxNum:128, license:"Gemma 许可（可商用）", licClass:"perm",
-    vram:"端侧 4–8GB", deployNum:8,
-    feat:"端侧小钢炮，手机 / 树莓派可跑", tag:"overseas",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/collections/google/gemma-3"}]
-  },
-  {
-    vendor:"Google", vendorClass:"v-google", model:"Gemma 3n E4B", cat:"omni", catLabel:"🌟 全模态",
-    params:"8B 总（4B 有效）", paramsNum:8, active:"4B", arch:"dense",
-    ctx:"32K", ctxNum:32, license:"Gemma 许可（可商用）", licClass:"perm",
-    vram:"端侧 4GB (MatFormer 分层)", deployNum:4,
-    feat:"端侧原生图 / 音 / 视频输入", tag:"overseas",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-3n-e4b-it"}]
+    vendor:"Google", vendorClass:"v-google", model:"Gemma 4 E2B / E4B", cat:"omni", catLabel:"🌟 全模态",
+    params:"E4B 有效 4B / E2B", paramsNum:4, active:"4B", arch:"dense",
+    ctx:"256K", ctxNum:256, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 2–4GB", deployNum:4,
+    feat:"端侧全模态小钢炮，手机 / IoT 可跑，Apache 2.0", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/google/gemma-4"}]
   },
 
   /* ─────────── 海外 · Mistral ─────────── */
@@ -545,20 +537,20 @@ const models = [
 
   /* ─────────── 国产 · DeepSeek ─────────── */
   {
-    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4-Pro", cat:"text", catLabel:"💬 文本/推理",
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-4-Pro", cat:"text", catLabel:"💬 文本/推理",
     params:"未公开（万亿级 MoE）", paramsNum:null, active:"—", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
     vram:"大规模集群（16×H200 起）", deployNum:2000,
-    feat:"国产旗舰，MIT 协议可自由商用与蒸馏；处下线过渡期，9/14 起 API 请求路由至 V4.1 Flash", tag:"cn",
+    feat:"国产旗舰，MIT 协议可自由商用与蒸馏", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
   },
   {
-    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-V4.1-Flash", cat:"vlm", catLabel:"👁️ 视觉语言",
+    vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-Flash", cat:"vlm", catLabel:"👁️ 视觉语言",
     params:"552B MoE (输入 8B / 输出 16B 激活)", paramsNum:552, active:"8B / 16B", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
     vram:"8×H100 / FP8 约 552GB 权重", deployNum:640,
     feat:"CED 因果编码-解码非对称架构，原生文本+图像输入，全局 KV Cache 压至 890 bytes/token；AA v4.3 智能指数 40", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
+    links:[{t:"🤗 HF", u:"https://huggingface.co/deepseek-ai/DeepSeek-Flash"},{t:"🐙 GitHub", u:"https://github.com/deepseek-ai"}]
   },
   {
     vendor:"DeepSeek", vendorClass:"v-deepseek", model:"DeepSeek-OCR 3B", cat:"vlm", catLabel:"👁️ 视觉语言",
@@ -601,30 +593,6 @@ const models = [
     vram:"8×H100 / FP8 单节点", deployNum:640,
     feat:"开源代码 & Agent 能力天花板", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3-Coder"}]
-  },
-  {
-    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-Next-80B-A3B", cat:"text", catLabel:"💬 文本/推理",
-    params:"80B MoE (3B 激活)", paramsNum:80, active:"3B", arch:"moe",
-    ctx:"256K（可扩 1M）", ctxNum:256, license:"Apache 2.0", licClass:"open",
-    vram:"单卡 H100 80GB", deployNum:80,
-    feat:"新一代架构，3B 激活跑出 30B 级效果", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
-  },
-  {
-    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-235B-A22B", cat:"text", catLabel:"💬 文本/推理",
-    params:"235B MoE (22B 激活)", paramsNum:235, active:"22B", arch:"moe",
-    ctx:"32K（可扩 131K）", ctxNum:32, license:"Apache 2.0", licClass:"open",
-    vram:"4×H100 / FP8 单节点", deployNum:320,
-    feat:"生态最全的开源旗舰，社区微调版本最多", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
-  },
-  {
-    vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-30B-A3B-Instruct", cat:"text", catLabel:"💬 文本/推理",
-    params:"30B MoE (3B 激活)", paramsNum:30, active:"3B", arch:"moe",
-    ctx:"128K（可扩 1M）", ctxNum:128, license:"Apache 2.0", licClass:"open",
-    vram:"单卡 24GB (INT4) / 48GB BF16", deployNum:40,
-    feat:"性价比首选，单卡可部署", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507"},{t:"🐙 GitHub", u:"https://github.com/QwenLM/Qwen3"}]
   },
   {
     vendor:"阿里 (通义)", vendorClass:"v-qwen", model:"Qwen3-VL-235B-A22B", cat:"vlm", catLabel:"👁️ 视觉语言",
@@ -675,14 +643,6 @@ const models = [
     vram:"8×H100 / FP8 单节点", deployNum:640,
     feat:"Coding / Agent 能力突出，MIT 商用友好", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org/GLM-4.6"},{t:"🐙 GitHub", u:"https://github.com/zai-org/GLM-4.5"}]
-  },
-  {
-    vendor:"智谱", vendorClass:"v-glm", model:"GLM-4.5-Air 106B-A12B", cat:"text", catLabel:"💬 文本/推理",
-    params:"106B MoE (12B 激活)", paramsNum:106, active:"12B", arch:"moe",
-    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
-    vram:"单卡 H100 80GB", deployNum:80,
-    feat:"混合推理（思考/非思考），单卡可商用部署", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/zai-org/GLM-4.5-Air"},{t:"🐙 GitHub", u:"https://github.com/zai-org/GLM-4.5"}]
   },
   {
     vendor:"智谱", vendorClass:"v-glm", model:"GLM-4.1V-9B-Thinking", cat:"vlm", catLabel:"👁️ 视觉语言",
@@ -819,12 +779,12 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat"}]
   },
   {
-    vendor:"美团", vendorClass:"v-meituan", model:"LongCat-Flash", cat:"text", catLabel:"💬 文本/推理",
-    params:"560B MoE (27B 激活)", paramsNum:560, active:"27B", arch:"moe",
-    ctx:"128K", ctxNum:128, license:"MIT", licClass:"open",
-    vram:"单节点 H800 × 8", deployNum:640,
-    feat:"高吞吐 MoE，推理速度快", tag:"cn",
-    links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat/LongCat-Flash-Chat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat/LongCat-Flash-Chat"}]
+    vendor:"美团", vendorClass:"v-meituan", model:"LongCat-2.5-Preview", cat:"text", catLabel:"💬 文本/推理",
+    params:"1.6T MoE (48B 激活)", paramsNum:1600, active:"48B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
+    vram:"32×H100 以上集群", deployNum:2500,
+    feat:"万亿级开源最新 Preview，MIT 协议", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat"}]
   },
   {
     vendor:"面壁智能", vendorClass:"v-others", model:"MiniCPM-V 4.5 / MiniCPM-4", cat:"vlm", catLabel:"👁️ 视觉语言",
