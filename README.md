@@ -1,11 +1,11 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 16 家厂商、54 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 18 家厂商、55 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：16 家厂商，54 款模型
-- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，44 款模型
-- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，61 款模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，55 款模型
+- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：17 家厂商，60 款模型
+- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，56 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -24,7 +24,7 @@
 | 缓存命中价格 | Prompt Cache 折扣价 |
 | 输出价格 | 每百万 token |
 | 多模态 | 支持的输入类型（文本/图片/音频/视频） |
-| 评分 | Artificial Analysis Intelligence Index v4.3（2026-09-14 快照，全表统一口径，取各模型最高推理强度档） |
+| 评分 | Artificial Analysis Intelligence Index v4.3.2（2026-09-24 快照，全表统一口径，取各模型最高推理强度档） |
 | 官网地址 | 各厂商官方定价页面 |
 
 ### 音视频模型 (media.html)
@@ -65,12 +65,21 @@
 ## 📊 数据来源
 
 - 定价数据：各厂商官方定价页面
-- 评分数据：[Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index) Intelligence Index **v4.3**（2026-09-14 快照，全表统一口径，取各模型最高推理强度档 max / high）
+- 评分数据：[Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index) Intelligence Index **v4.3.2**（2026-09-24 快照，全表统一口径，取各模型最高推理强度档 max / high / xhigh）
 - 多模态能力：各厂商官方文档
 - 开源模型：各组织官方模型卡与仓库 README（协议与参数以官方为准）
 
 ## 🗓️ 更新记录
 
+- **2026-10-08**：
+  - OpenAI：新增 **GPT-6.1 Sol**（9/29 DevDay 发布，模型 ID `gpt-6.1-sol`，GPT-6 Sol 升级版，1M 输入 / 64K 输出、文本 + 图像输入；实际公布定价为 **$2 / $0.1 缓存 / $10**（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一）；GPT-6 Sol 仍可调用（`gpt-6-sol`）但已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移；官方未单独披露上下文，沿用 GPT-6 Sol 档位；评分待 AA 收录
+  - Anthropic：新增 **Claude Haiku 5.5**（10/7 发布，`claude-haiku-5-5`，按 prompt 长度分档计价——≤100K token 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01，>100K token 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05，缓存写入 $0.125 / $0.625；较 Haiku 4.5 短上下文降 90%，典型负载平均成本降约 75%；官方未披露上下文与最大输出，表中沿用 Haiku 档位 200K / 8K）；移除 **Claude Haiku 4.5**（已下线）；评分待 AA 收录
+  - Anthropic：**Claude Sonnet 5.5 缓存读取 $0.20 → $0.10**（10/7 宣布减半，输入 $2 / 输出 $10 不变）；补齐最大输出 64K → **128K**（上下文 1M 原生）
+  - Google：新增 **Gemini 4 Argon**（9/30 发布，旗舰，最大输出由 64K 提升至 **1M**，官方主打的“百万 token”即输出上限，输入窗口未单独披露；尝鲜期 $2 / $0.1 缓存 / $10，结束后恢复标准价 $4 / $20；首批经 Fairwind 计划向可信网络安全防御方开放，逐步放量至付费 API 与 Google AI Ultra；18 项基准 13 项领先，DeepSWE v1.1 77.9%、AutomationBench 51.3%）；评分待 AA 收录
+  - 豆包：**Doubao Seed 2.1 Pro 更新至 0915 版本**（`doubao-seed-2-1-pro-260915`），输入上下文 256K → **1M**，图像 / 视频推理 token 消耗较上一代降低 30% 以上；定价维持 ¥6 / ¥1.2 缓存 / ¥30
+  - xAI：补齐 **Grok 4.7 缓存命中价$0.50**（此前留空）；标注单次输入超 200K token 时整次请求切换长上下文费率
+  - 音视频：Google **Nano Banana 2.1**（`gemini-nano-banana-2.1`，10/6 GA）取代已弃用的 Gemini 3.1 Flash Image（输出降至 $30/MTok，1K ≈ $0.034、4K ≈ $0.076，输入涨至 $1.5/MTok，取消 512px 档）；新增 **Gemini 3.8 Live / Live Extended Thinking**（9/15 GA，实时音频转音频，音频输入 $0.005/分钟、输出 $0.018/分钟，ET 版实际成本约 4 倍）；**Gemini 3.8 Flash TTS / Flash-Lite TTS**（9/22 GA，取代 Gemini 2.5 TTS 与 `gemini-3.1-flash-tts-preview`），促销价有效至2026-12-31
+  - 本轮已核查但**暂不收录**：MiniMax M3.1-Flash-Preview（9/27 仅在 MiniMax Code 上线，未开放公开 API、未公布定价）、Kimi K3.1（平台已出现占位定价，预计 10 月正式官宣）、xAI Grok 4.8（9 月仍在训练 / RL 阶段）、腾讯混元 Hy4 正式版（8/28 仍为 preview）、商汤 SenseNova U1 Pro（7/18 发布的多模态基座，非文本 API）
 - **2026-09-23**：
   - OpenAI：新增 **GPT-6 Sol / GPT-6 Luna**（GPT-6 系列常规档与低价档，均 1M 输入 / 64K 输出、文本 + 图像输入；定价沿用 GPT-5.6 对应档位口径——Sol $4 / $0.4 缓存 / $20，Luna $0.2 / $0.02 / $1.2）；GPT-5.6 系列暂保留；评分待 AA 下一版指数收录
   - Anthropic：新增 **Claude Opus 5.5**（1M 输入 / 128K 输出，$5 / $0.5 缓存 / $25，定价与 Opus 5 持平）；Opus 5 保留；评分待 AA 下一版指数收录

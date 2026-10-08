@@ -241,7 +241,7 @@
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
   <p>覆盖 17 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
-  <div class="update">数据更新于 2026 年 9 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
+  <div class="update">数据更新于 2026 年 10 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型</a>
     <a href="media.html" class="nav-link active">🎬 音视频模型</a>
@@ -292,6 +292,7 @@
   <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务（DeepSeek V4.1 Flash 支持图片输入，但仅输出文本）。
   <br>GPT-Live-1（9/10 上线 API）取代「STT + 打断判定 + TTS」级联方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费。
   <br>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改。
+  <br>Google 近况：<strong>gemini-nano-banana-2.1</strong>（10/6 GA）取代 <code>gemini-3.1-flash-image</code>（同日弃用），输出降至 $30/MTok（1K ≈ $0.034、4K ≈ $0.076），但输入涨至 $1.5/MTok，且取消 512px 档；<strong>Gemini 3.8 Flash TTS / Flash-Lite TTS</strong>（9/22 GA）取代 Gemini 2.5 TTS 与 <code>gemini-3.1-flash-tts-preview</code>，促销价至 2026-12-31；<strong>Gemini 3.8 Live / Live Extended Thinking</strong>（9/15 GA）按分钟计费（音频输入 $0.005、输出 $0.018），Extended Thinking 实际成本约为基础版 4 倍。
 </div>
 
 <script>
@@ -401,10 +402,10 @@ const media = [
     site: "https://ai.google.dev/gemini-api/docs/veo", tag: "overseas"
   },
   {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.1 Flash Image (Nano Banana 2)", type: "image",
-    typeLabel: "🖼️ 图像", cap: "文/图生图 · 4K 输出 · 一致性优",
-    inSpec: "文本/图像", outSpec: "0.5K/1K/2K/4K",
-    outputPrice: "$60/MTok 图 (≈ $0.045/0.5K · $0.151/4K)",
+    vendor: "Google", vendorClass: "v-google", model: "Nano Banana 2.1 (gemini-nano-banana-2.1)", type: "image",
+    typeLabel: "🖼️ 图像", cap: "GA 10/6 · 取代 Gemini 3.1 Flash Image · 底层 Gemini 3.6 Flash · 1K/2K/4K + 宽屏全景比例",
+    inSpec: "文本/图像", outSpec: "1K/2K/4K · 1:4 / 4:1 / 1:8 / 8:1",
+    outputPrice: "输出 $30/MTok（1K ≈ $0.034 · 4K ≈ $0.076）· 输入 $1.5/MTok",
     site: "https://ai.google.dev/gemini-api/docs/image-generation", tag: "overseas"
   },
   {
@@ -415,17 +416,31 @@ const media = [
     site: "https://ai.google.dev/gemini-api/docs/music-generation", tag: "overseas"
   },
   {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 2.5 Flash TTS", type: "tts",
-    typeLabel: "🔊 TTS", cap: "可控语音生成 · 多语种",
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Live", type: "audio",
+    typeLabel: "🎙️ 实时语音", cap: "GA 9/15 · 音频转音频低延迟 · 交错推理 + 默认异步函数调用 · 视觉理解",
+    inSpec: "实时音频流 + 文本/图片上下文", outSpec: "实时音频流 · 原生轮次检测",
+    outputPrice: "音频输入 $0.005/分钟 · 音频输出 $0.018/分钟（≈$0.84/小时输入）",
+    site: "https://ai.google.dev/gemini-api/docs/live", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Live Extended Thinking", type: "audio",
+    typeLabel: "🎙️ 实时语音", cap: "GA 9/15 · 实时音频过程中后台推理 · 复杂任务边想边说",
+    inSpec: "实时音频流 + 文本/图片上下文", outSpec: "实时音频流 · 后台推理",
+    outputPrice: "音频输入 $0.005/分钟 · 音频输出 $0.018/分钟（含推理实际约为基础版 4 倍）",
+    site: "https://ai.google.dev/gemini-api/docs/live", tag: "overseas"
+  },
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Flash TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "GA 9/22 · 录音室级保真 · 逐句控制语速/停顿/情绪/重音 · 150+ 预置音色",
     inSpec: "文本", outSpec: "音频流 (24kHz)",
-    outputPrice: "音频 $10/MTok (≈ $0.004/分钟)",
+    outputPrice: "音频 $9/MTok · 文本输入 $0.5/MTok（促销价至 2026-12-31，2027 起 $18 / $1）",
     site: "https://ai.google.dev/gemini-api/docs/speech-generation", tag: "overseas"
   },
   {
-    vendor: "Google", vendorClass: "v-google", model: "Gemini 2.5 Pro TTS", type: "tts",
-    typeLabel: "🔊 TTS", cap: "高品质低延迟语音",
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Flash-Lite TTS", type: "tts",
+    typeLabel: "🔊 TTS", cap: "GA 9/22 · 低延迟低成本 · 高吞吐生产与语音代理级联 · 取代 gemini-3.1-flash-tts-preview",
     inSpec: "文本", outSpec: "音频流 (24kHz)",
-    outputPrice: "音频 $20/MTok (≈ $0.008/分钟)",
+    outputPrice: "音频 $6/MTok（≈$0.54/小时）· 批处理半价",
     site: "https://ai.google.dev/gemini-api/docs/speech-generation", tag: "overseas"
   },
 

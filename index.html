@@ -299,8 +299,8 @@
 
 <div class="header">
   <h1><span class="emoji">🤖</span> <span class="title-text">2026 大模型 API 清单</span></h1>
-  <p>覆盖 18 家厂商 · 53 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
-  <div class="update">数据更新于 2026 年 9 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
+  <p>覆盖 18 家厂商 · 55 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <div class="update">数据更新于 2026 年 10 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
     <a href="media.html" class="nav-link">🎬 音视频模型</a>
@@ -365,9 +365,14 @@
   数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
   评分依据：Artificial Analysis Intelligence Index <strong>v4.3.2</strong>（2026-09-24 快照），取各模型最高推理强度档（max / high / xhigh）分数<br>
   v4.3.2 由 10 项评测合成：AA-Briefcase v1.1、GDPval-AA v2.1、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1<br>
-  评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2 系列（X2 / X2 Flash / X2.5）、LongCat-2.5-Preview（9/25 上线，暂无公开评测）、Hy4 preview、Kimi K2.8 Preview、阶跃 Step 3.5 Flash、Agnes 系列、Claude Sonnet 5.5（发布初期 AA 未收录）、Claude Mythos 5.1（受限访问模型，AA 未评测）<br>
+  评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2 系列（X2 / X2 Flash / X2.5）、LongCat-2.5-Preview（9/25 上线，暂无公开评测）、Hy4 preview、Kimi K2.8 Preview、阶跃 Step 3.5 Flash、Agnes 系列、Claude Sonnet 5.5（发布初期 AA 未收录）、Claude Mythos 5.1（受限访问模型，AA 未评测）、GPT-6.1 Sol、Claude Haiku 5.5、Gemini 4 Argon（9/30 发布，Fairwind 受控开放，AA 未评测）<br>
+  GPT-6.1 Sol（9/29 DevDay 发布，`gpt-6.1-sol`）为 GPT-6 Sol 的升级版，定价 $2 / $0.1 缓存 / $10（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一；官方未单独披露上下文，沿用 GPT-6 Sol 档位（1M 输入 / 64K 输出）；GPT-6 Sol 仍可调用（`gpt-6-sol`），已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移<br>
+  Claude Haiku 5.5（10/7 发布，`claude-haiku-5-5`）按 prompt 长度分两档计价：≤100K token 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01，&gt;100K token 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05（缓存写入 $0.125 / $0.625），较 Haiku 4.5 短上下文降 90%、典型负载平均成本降约 75%；官方未披露上下文与最大输出，表中沿用 Haiku 档位（200K / 8K）；Haiku 4.5 已下线<br>
+  Claude Sonnet 5.5 缓存读取 10/7 起由 $0.20 减半至 $0.10（输入 $2 / 输出 $10 不变），上下文 1M、最大输出 128K<br>
+  Gemini 4 Argon（9/30 发布）为 Gemini 4 旗舰，最大输出由 64K 提升至 1M（官方主打的“百万 token”指输出上限，输入窗口未单独披露，表中按 1M 计）；尝鲜期定价 $2 / $0.1 缓存 / $10，尝鲜期结束后恢复标准价 $4 / $20；首批经Fairwind 计划向可信网络安全防御方开放，逐步放量至付费 API 与 Google AI Ultra；官方称 18 项基准中 13 项领先（DeepSWE v1.1 77.9%、AutomationBench 51.3%）<br>
   MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）API 价格与前代持平，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）<br>
-  Grok 4.7（9/21 发布）另提供输出速度两倍、价格两倍的高速变体<br>
+  Grok 4.7（9/21 发布）定价 $2 / $0.5 缓存 / $6，缓存价此前留空已补齐；另提供输出速度两倍、价格两倍的高速变体；单次输入超 200K token 时整次请求切换长上下文费率<br>
+  Doubao Seed 2.1 Pro 更新至 0915 版本（`doubao-seed-2-1-pro-260915`），输入上下文由 256K 提升至 1M，图像 / 视频推理 token 消耗较上一代降低 30% 以上；定价维持 ¥6 / ¥1.2 缓存 / ¥30<br>
   GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
   DeepSeek 采用峰谷计价，表中为高峰价，空闲时段按高峰价的 50% 计费
 </div>
@@ -408,7 +413,7 @@ const models = [
   {
     vendor: "xAI", vendorClass: "v-xai", model: "Grok 4.7",
     params: "2.1T", maxInput: "500K", maxOutput: "—",
-    inputPrice: "$2.00", cachePrice: "—", outputPrice: "$6.00",
+    inputPrice: "$2.00", cachePrice: "$0.50", outputPrice: "$6.00",
     site: "https://x.ai", tag: "intl,flagship",
     multimodal: ["text"], score: 46
   },
@@ -445,7 +450,7 @@ const models = [
   },
   {
     vendor: "豆包 (字节)", vendorClass: "v-doubao", model: "Doubao Seed 2.1 Pro",
-    params: "—", maxInput: "256K", maxOutput: "256K",
+    params: "—", maxInput: "1M", maxOutput: "256K",
     inputPrice: "¥6", cachePrice: "¥1.2", outputPrice: "¥30",
     site: "https://www.volcengine.com/product/doubao", tag: "cn,flagship",
     multimodal: ["text","image","video"], score: null
@@ -636,19 +641,26 @@ const models = [
   },
   {
     vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Sonnet 5.5",
-    params: "—", maxInput: "1M", maxOutput: "64K",
-    inputPrice: "$2", cachePrice: "$0.2", outputPrice: "$10",
+    params: "—", maxInput: "1M", maxOutput: "128K",
+    inputPrice: "$2", cachePrice: "$0.1", outputPrice: "$10",
     site: "https://platform.claude.com", tag: "intl,flagship",
     multimodal: ["text","image"], score: null
   },
   {
-    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Haiku 4.5",
+    vendor: "Anthropic", vendorClass: "v-anthropic", model: "Claude Haiku 5.5",
     params: "—", maxInput: "200K", maxOutput: "8K",
-    inputPrice: "$1", cachePrice: "$0.1", outputPrice: "$5",
+    inputPrice: "$0.10 / $0.50", cachePrice: "$0.01 / $0.05", outputPrice: "$0.50 / $2.50",
     site: "https://platform.claude.com", tag: "intl",
-    multimodal: ["text","image"], score: 18
+    multimodal: ["text","image"], score: null
   },
   // ── Gemini ──
+  {
+    vendor: "Google", vendorClass: "v-google", model: "Gemini 4 Argon",
+    params: "—", maxInput: "1M", maxOutput: "1M",
+    inputPrice: "$2", cachePrice: "$0.1", outputPrice: "$10",
+    site: "https://ai.google.dev", tag: "intl,flagship",
+    multimodal: ["text"], score: null
+  },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Flash",
     params: "—", maxInput: "1M", maxOutput: "64K",
@@ -677,6 +689,13 @@ const models = [
     inputPrice: "$10", cachePrice: "$1", outputPrice: "$50",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
     multimodal: ["text","image"], score: 53
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-6.1 Sol",
+    params: "—", maxInput: "1M", maxOutput: "64K",
+    inputPrice: "$2", cachePrice: "$0.1", outputPrice: "$10",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: null
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-6 Sol",
