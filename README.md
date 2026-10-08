@@ -4,7 +4,7 @@
 
 本仓库包含三份数据清单：
 - **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，55 款模型
-- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：17 家厂商，60 款模型
+- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，56 款模型
 - **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，56 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
@@ -31,7 +31,7 @@
 
 | 字段 | 说明 |
 |------|------|
-| 模型厂商 | OpenAI / Google / 豆包 / 通义千问 / 智谱AI / MiniMax / xAI / 腾讯混元 / 美团（Anthropic / DeepSeek / Kimi / MiMo 暂未提供相应 API） |
+| 模型厂商 | OpenAI / Google / Meta / xAI / Agnes AI / 豆包 / 通义千问 / 智谱AI / MiniMax / 商汤 SenseNova / 阶跃星辰 / 腾讯混元 / 美团 |
 | 模型名称 | 含版本号 |
 | 类型 | 🎥 视频 / 🖼️ 图像 / 🔊 TTS/ASR / 🎵 音乐 |
 | 关键能力 | 模型特性描述 |
@@ -72,6 +72,7 @@
 ## 🗓️ 更新记录
 
 - **2026-10-08**：
+  - 页面维护：三页页脚改为居左对齐；清理页脚与表格中针对已下线条目 / 占位行的说明，音视频页移除 Anthropic / DeepSeek / 月之暗面 / 小米 4 条「暂无 API」占位行（该页厂商数按实际收录计为 13 家）
   - OpenAI：新增 **GPT-6.1 Sol**（9/29 DevDay 发布，模型 ID `gpt-6.1-sol`，GPT-6 Sol 升级版，1M 输入 / 64K 输出、文本 + 图像输入；实际公布定价为 **$2 / $0.1 缓存 / $10**（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一）；GPT-6 Sol 仍可调用（`gpt-6-sol`）但已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移；官方未单独披露上下文，沿用 GPT-6 Sol 档位；评分待 AA 收录
   - Anthropic：新增 **Claude Haiku 5.5**（10/7 发布，`claude-haiku-5-5`，按 prompt 长度分档计价——≤100K token 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01，>100K token 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05，缓存写入 $0.125 / $0.625；较 Haiku 4.5 短上下文降 90%，典型负载平均成本降约 75%；官方未披露上下文与最大输出，表中沿用 Haiku 档位 200K / 8K）；移除 **Claude Haiku 4.5**（已下线）；评分待 AA 收录
   - Anthropic：**Claude Sonnet 5.5 缓存读取 $0.20 → $0.10**（10/7 宣布减半，输入 $2 / 输出 $10 不变）；补齐最大输出 64K → **128K**（上下文 1M 原生）

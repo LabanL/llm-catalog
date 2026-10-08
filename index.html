@@ -275,12 +275,20 @@
     border-color: var(--accent2);
   }
   .footer {
-    text-align: center;
+    text-align: left;
+    max-width: 1560px;
+    margin: 0 auto;
     padding: 24px;
     color: var(--text2);
     font-size: .75rem;
     border-top: 1px solid var(--border);
   }
+  .footer ul {
+    margin: 0;
+    padding-left: 1.15em;
+    list-style: disc outside;
+  }
+  .footer li { margin: 3px 0; }
 
   @media (max-width: 768px) {
     .header h1 { font-size: 1.5rem; }
@@ -362,19 +370,21 @@
 </div>
 
 <div class="footer">
-  数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准<br>
-  评分依据：Artificial Analysis Intelligence Index <strong>v4.3.2</strong>（2026-09-24 快照），取各模型最高推理强度档（max / high / xhigh）分数<br>
-  v4.3.2 由 10 项评测合成：AA-Briefcase v1.1、GDPval-AA v2.1、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1<br>
-  评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2 系列（X2 / X2 Flash / X2.5）、LongCat-2.5-Preview（9/25 上线，暂无公开评测）、Hy4 preview、Kimi K2.8 Preview、阶跃 Step 3.5 Flash、Agnes 系列、Claude Sonnet 5.5（发布初期 AA 未收录）、Claude Mythos 5.1（受限访问模型，AA 未评测）、GPT-6.1 Sol、Claude Haiku 5.5、Gemini 4 Argon（9/30 发布，Fairwind 受控开放，AA 未评测）<br>
-  GPT-6.1 Sol（9/29 DevDay 发布，`gpt-6.1-sol`）为 GPT-6 Sol 的升级版，定价 $2 / $0.1 缓存 / $10（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一；官方未单独披露上下文，沿用 GPT-6 Sol 档位（1M 输入 / 64K 输出）；GPT-6 Sol 仍可调用（`gpt-6-sol`），已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移<br>
-  Claude Haiku 5.5（10/7 发布，`claude-haiku-5-5`）按 prompt 长度分两档计价：≤100K token 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01，&gt;100K token 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05（缓存写入 $0.125 / $0.625），较 Haiku 4.5 短上下文降 90%、典型负载平均成本降约 75%；官方未披露上下文与最大输出，表中沿用 Haiku 档位（200K / 8K）；Haiku 4.5 已下线<br>
-  Claude Sonnet 5.5 缓存读取 10/7 起由 $0.20 减半至 $0.10（输入 $2 / 输出 $10 不变），上下文 1M、最大输出 128K<br>
-  Gemini 4 Argon（9/30 发布）为 Gemini 4 旗舰，最大输出由 64K 提升至 1M（官方主打的“百万 token”指输出上限，输入窗口未单独披露，表中按 1M 计）；尝鲜期定价 $2 / $0.1 缓存 / $10，尝鲜期结束后恢复标准价 $4 / $20；首批经Fairwind 计划向可信网络安全防御方开放，逐步放量至付费 API 与 Google AI Ultra；官方称 18 项基准中 13 项领先（DeepSWE v1.1 77.9%、AutomationBench 51.3%）<br>
-  MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）API 价格与前代持平，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）<br>
-  Grok 4.7（9/21 发布）定价 $2 / $0.5 缓存 / $6，缓存价此前留空已补齐；另提供输出速度两倍、价格两倍的高速变体；单次输入超 200K token 时整次请求切换长上下文费率<br>
-  Doubao Seed 2.1 Pro 更新至 0915 版本（`doubao-seed-2-1-pro-260915`），输入上下文由 256K 提升至 1M，图像 / 视频推理 token 消耗较上一代降低 30% 以上；定价维持 ¥6 / ¥1.2 缓存 / ¥30<br>
-  GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）<br>
-  DeepSeek 采用峰谷计价，表中为高峰价，空闲时段按高峰价的 50% 计费
+  <ul>
+    <li>数据来源：Artificial Analysis · 各厂商官方定价页面 · 价格可能随时调整，以官网为准</li>
+    <li>评分依据：Artificial Analysis Intelligence Index <strong>v4.3.2</strong>（2026-09-24 快照），取各模型最高推理强度档（max / high / xhigh）分数</li>
+    <li>v4.3.2 由 10 项评测合成：AA-Briefcase v1.1、GDPval-AA v2.1、AutomationBench-AA、Terminal-Bench v4.0、SciCode、HLE、GDP.pdf、CritPt、AA-Omniscience、AA-LCR v1.1</li>
+    <li>评分列留空（AA v4.3.2 未收录或暂无公开分数）：MiMo V2.6 Flash、豆包 Seed 系列、商汤 SenseNova 系列、Spark X2 系列（X2 / X2 Flash / X2.5）、LongCat-2.5-Preview（9/25 上线，暂无公开评测）、Hy4 preview、Kimi K2.8 Preview、阶跃 Step 3.5 Flash、Agnes 系列、Claude Sonnet 5.5（发布初期 AA 未收录）、Claude Mythos 5.1（受限访问模型，AA 未评测）、GPT-6.1 Sol、Claude Haiku 5.5、Gemini 4 Argon（9/30 发布，Fairwind 受控开放，AA 未评测）</li>
+    <li>GPT-6.1 Sol（9/29 DevDay 发布，`gpt-6.1-sol`）为 GPT-6 Sol 的升级版，定价 $2 / $0.1 缓存 / $10（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一；官方未单独披露上下文，沿用 GPT-6 Sol 档位（1M 输入 / 64K 输出）；GPT-6 Sol 仍可调用（`gpt-6-sol`），已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移</li>
+    <li>Claude Haiku 5.5（10/7 发布，`claude-haiku-5-5`）按 prompt 长度分两档计价：≤100K token 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01，&gt;100K token 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05（缓存写入 $0.125 / $0.625），官方称典型负载平均成本较上代降约 75%；官方未披露上下文与最大输出，表中沿用 Haiku 档位（200K / 8K）</li>
+    <li>Claude Sonnet 5.5 缓存读取 10/7 起减半至 $0.10（输入 $2 / 输出 $10 不变），上下文 1M、最大输出 128K</li>
+    <li>Gemini 4 Argon（9/30 发布）为 Gemini 4 旗舰，最大输出由 64K 提升至 1M（官方主打的“百万 token”指输出上限，输入窗口未单独披露，表中按 1M 计）；尝鲜期定价 $2 / $0.1 缓存 / $10，尝鲜期结束后恢复标准价 $4 / $20；首批经 Fairwind 计划向可信网络安全防御方开放，逐步放量至付费 API 与 Google AI Ultra；官方称 18 项基准中 13 项领先（DeepSWE v1.1 77.9%、AutomationBench 51.3%）</li>
+    <li>MiMo V2.6 Pro AA 智能指数 46（官方公布，当前最强开源模型，超过 Kimi K3 与 Qwen3.8 Max）；MiMo V2.6 系列（9/22 发布并开源）API 价格与前代持平，Pro 另有 UltraSpeed 高速档（最高 20 倍推理速度）</li>
+    <li>Grok 4.7（9/21 发布）定价 $2 输入 / $0.5 缓存 / $6 输出，另提供输出速度两倍、价格两倍的高速变体；单次输入超 200K token 时整次请求切换长上下文费率</li>
+    <li>Doubao Seed 2.1 Pro 更新至 0915 版本（`doubao-seed-2-1-pro-260915`），输入上下文由 256K 提升至 1M，图像 / 视频推理 token 消耗较上一代降低 30% 以上；定价维持 ¥6 / ¥1.2 缓存 / ¥30</li>
+    <li>GPT-6 Astra 为标准档价格，单次输入超过 272K token 后进入长上下文档（输入 / 缓存 ×2、输出 ×1.5）</li>
+    <li>DeepSeek 采用峰谷计价，表中为高峰价，空闲时段按高峰价的 50% 计费</li>
+  </ul>
 </div>
 
 <script>

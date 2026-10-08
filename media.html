@@ -222,12 +222,20 @@
   a.link:hover { background: rgba(99,102,241,.15); border-color: var(--accent); }
   .empty { text-align: center; color: var(--text2); padding: 28px 0; }
   .footer {
-    text-align: center;
+    text-align: left;
+    max-width: 1500px;
+    margin: 0 auto;
     padding: 24px;
     color: var(--text2);
     font-size: .75rem;
     border-top: 1px solid var(--border);
   }
+  .footer ul {
+    margin: 0;
+    padding-left: 1.15em;
+    list-style: disc outside;
+  }
+  .footer li { margin: 3px 0; }
 
   @media (max-width: 768px) {
     .header h1 { font-size: 1.4rem; }
@@ -240,7 +248,7 @@
 
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
-  <p>覆盖 17 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
+  <p>覆盖 13 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
   <div class="update">数据更新于 2026 年 10 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型</a>
@@ -288,11 +296,15 @@
 </div>
 
 <div class="footer">
-  数据来源：各厂商官方定价页面（OpenAI · Google · Anthropic · Meta · xAI · Agnes AI · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 商汤 · 阶跃星辰 · 腾讯混元）
-  <br>仅整理具备原生音视频 / 图像生成 API 的厂商；DeepSeek / Kimi / MiMo / Anthropic 暂未提供相应服务（DeepSeek V4.1 Flash 支持图片输入，但仅输出文本）。
-  <br>GPT-Live-1（9/10 上线 API）取代「STT + 打断判定 + TTS」级联方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费。
-  <br>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改。
-  <br>Google 近况：<strong>gemini-nano-banana-2.1</strong>（10/6 GA）取代 <code>gemini-3.1-flash-image</code>（同日弃用），输出降至 $30/MTok（1K ≈ $0.034、4K ≈ $0.076），但输入涨至 $1.5/MTok，且取消 512px 档；<strong>Gemini 3.8 Flash TTS / Flash-Lite TTS</strong>（9/22 GA）取代 Gemini 2.5 TTS 与 <code>gemini-3.1-flash-tts-preview</code>，促销价至 2026-12-31；<strong>Gemini 3.8 Live / Live Extended Thinking</strong>（9/15 GA）按分钟计费（音频输入 $0.005、输出 $0.018），Extended Thinking 实际成本约为基础版 4 倍。
+  <ul>
+    <li>数据来源：各厂商官方定价页面（OpenAI · Google · Meta · xAI · Agnes AI · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 商汤 · 阶跃星辰 · 腾讯混元 · 美团）</li>
+    <li>本清单仅收录具备原生音视频 / 图像生成 API 的厂商与模型</li>
+    <li>GPT-Live-1（9/10 上线 API）为全双工语音方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费</li>
+    <li>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改</li>
+    <li>Google：<strong>Nano Banana 2.1</strong>（<code>gemini-nano-banana-2.1</code>，10/6 GA）底层为 Gemini 3.6 Flash，支持 1K/2K/4K 与 1:4 / 4:1 / 1:8 / 8:1 宽屏比例，输出 $30/MTok（1K ≈ $0.034、4K ≈ $0.076）、输入 $1.5/MTok</li>
+    <li>Google：<strong>Gemini 3.8 Flash TTS / Flash-Lite TTS</strong>（9/22 GA）分别面向高品质语音设计与高吞吐低成本场景，促销价有效至 2026-12-31</li>
+    <li>Google：<strong>Gemini 3.8 Live / Live Extended Thinking</strong>（9/15 GA）按分钟计费（音频输入 $0.005、输出 $0.018），Extended Thinking 版实际成本约为基础版 4 倍</li>
+  </ul>
 </div>
 
 <script>
@@ -403,7 +415,7 @@ const media = [
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Nano Banana 2.1 (gemini-nano-banana-2.1)", type: "image",
-    typeLabel: "🖼️ 图像", cap: "GA 10/6 · 取代 Gemini 3.1 Flash Image · 底层 Gemini 3.6 Flash · 1K/2K/4K + 宽屏全景比例",
+    typeLabel: "🖼️ 图像", cap: "GA 10/6 · 底层 Gemini 3.6 Flash · 1K/2K/4K + 宽屏全景比例 · 信息图事实准确度显著提升",
     inSpec: "文本/图像", outSpec: "1K/2K/4K · 1:4 / 4:1 / 1:8 / 8:1",
     outputPrice: "输出 $30/MTok（1K ≈ $0.034 · 4K ≈ $0.076）· 输入 $1.5/MTok",
     site: "https://ai.google.dev/gemini-api/docs/image-generation", tag: "overseas"
@@ -438,27 +450,13 @@ const media = [
   },
   {
     vendor: "Google", vendorClass: "v-google", model: "Gemini 3.8 Flash-Lite TTS", type: "tts",
-    typeLabel: "🔊 TTS", cap: "GA 9/22 · 低延迟低成本 · 高吞吐生产与语音代理级联 · 取代 gemini-3.1-flash-tts-preview",
+    typeLabel: "🔊 TTS", cap: "GA 9/22 · 低延迟低成本 · 高吞吐生产与实时语音代理级联 · 150+ 预置音色",
     inSpec: "文本", outSpec: "音频流 (24kHz)",
     outputPrice: "音频 $6/MTok（≈$0.54/小时）· 批处理半价",
     site: "https://ai.google.dev/gemini-api/docs/speech-generation", tag: "overseas"
   },
 
-  /* ── Anthropic ── */
-  {
-    vendor: "Anthropic", vendorClass: "v-anthropic", model: "—", type: "video",
-    typeLabel: "—", cap: "暂无原生音视频生成 API",
-    inSpec: "—", outSpec: "—", outputPrice: "—",
-    site: "https://docs.claude.com", tag: "overseas"
-  },
-
-  /* ── DeepSeek ── */
-  {
-    vendor: "DeepSeek", vendorClass: "v-deepseek", model: "—", type: "video",
-    typeLabel: "—", cap: "仅文本模型 · 无音视频 API",
-    inSpec: "—", outSpec: "—", outputPrice: "—",
-    site: "https://api-docs.deepseek.com", tag: "overseas"
-  },
+  /* ── 美团 ── */
   {
     vendor: "美团", vendorClass: "v-meituan", model: "LongCat-Video",
     type: "video", typeLabel: "🎥 视频",
@@ -690,22 +688,6 @@ const media = [
     inSpec: "文本/图片/多图", outSpec: "异步任务返回",
     outputPrice: "免费（订阅配额：每日 500 秒）",
     site: "https://agnes-ai.com", tag: "overseas"
-  },
-
-  /* ── Kimi ── */
-  {
-    vendor: "月之暗面", vendorClass: "v-kimi", model: "—", type: "video",
-    typeLabel: "—", cap: "暂无原生音视频生成 API",
-    inSpec: "—", outSpec: "—", outputPrice: "—",
-    site: "https://platform.kimi.com", tag: "cn"
-  },
-
-  /* ── 小米 MiMo ── */
-  {
-    vendor: "小米", vendorClass: "v-xiaomi", model: "—", type: "video",
-    typeLabel: "—", cap: "暂无原生音视频生成 API",
-    inSpec: "—", outSpec: "—", outputPrice: "—",
-    site: "https://xiaomi.com", tag: "cn"
   },
 
   /* ── 腾讯混元 ── */

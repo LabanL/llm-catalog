@@ -246,13 +246,21 @@
   a.link:hover { background: rgba(99,102,241,.15); border-color: var(--indigo); }
   .empty { text-align: center; color: var(--text2); padding: 28px 0; }
   .footer {
-    text-align: center;
+    text-align: left;
+    max-width: 1560px;
+    margin: 0 auto;
     padding: 24px;
     color: var(--text2);
     font-size: .75rem;
     border-top: 1px solid var(--border);
     line-height: 1.8;
   }
+  .footer ul {
+    margin: 0;
+    padding-left: 1.15em;
+    list-style: disc outside;
+  }
+  .footer li { margin: 3px 0; }
 
   @media (max-width: 768px) {
     .header h1 { font-size: 1.4rem; }
@@ -335,9 +343,11 @@
 </div>
 
 <div class="footer">
-  数据来源：各组织官方仓库（Hugging Face / GitHub / ModelScope）与模型卡公开信息。
-  <br>「部署门槛」为社区常见推理精度（BF16 / FP8 / INT4 量化）下的显存估算，仅作选型参考。
-  <br>标注「可商用」以官方许可证为准，Llama / Gemma / 自定义许可通常附带月活或署名等附加条款，商用前请阅读原文。
+  <ul>
+    <li>数据来源：各组织官方仓库（Hugging Face / GitHub / ModelScope）与模型卡公开信息</li>
+    <li>「部署门槛」为社区常见推理精度（BF16 / FP8 / INT4 量化）下的显存估算，仅作选型参考</li>
+    <li>标注「可商用」以官方许可证为准，Llama / Gemma / 自定义许可通常附带月活或署名等附加条款，商用前请阅读原文</li>
+  </ul>
 </div>
 
 <script>
