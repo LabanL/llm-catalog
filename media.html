@@ -249,7 +249,7 @@
 <div class="header">
   <h1>🎬 2026 音视频大模型 API 清单</h1>
   <p>覆盖 13 家厂商 · 视频生成 / 图像生成 / 语音合成 / 语音识别 / 音乐创作</p>
-  <div class="update">数据更新于 2026 年 10 月 · 按官方定价页面 · 价格以原币种 / 美元显示</div>
+  <div class="update">数据更新于 2026 年 10 月 · 按官方定价页面 · 价格以原币种 / 美元显示（10/16 移除已停止服务的 Sora 2）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型</a>
     <a href="media.html" class="nav-link active">🎬 音视频模型</a>
@@ -299,6 +299,8 @@
   <ul>
     <li>数据来源：各厂商官方定价页面（OpenAI · Google · Meta · xAI · Agnes AI · 豆包火山 · 阿里百炼 · 智谱 · MiniMax · 商汤 · 阶跃星辰 · 腾讯混元 · 美团）</li>
     <li>本清单仅收录具备原生音视频 / 图像生成 API 的厂商与模型</li>
+    <li><strong>Sora 2 已移除</strong>：OpenAI 于 2026-03-24 宣布全面终止 Sora 业务，网页 / App 端 4/26 停运、API 已于 9/24 停止服务；10 月中旬 The Information 报道 OpenAI 拟以股权合作方式将 Sora 交由好莱坞背景初创公司改造为面向影视制作的专业工具，尚无公开 API，待正式上线后再评估收录</li>
+    <li>可灵 Kling 4.0（10/16 全量开放创作界面并新增 MCP / CLI 接入，4K / 10-bit HDR 输出即将推出）暂未收录：面向企业与开发者的 API 访问尚未开放</li>
     <li>GPT-Live-1（9/10 上线 API）为全双工语音方案，$0.05/分钟仅为前端语音层，后端模型与工具调用单独计费</li>
     <li>Lyria 3.5（9/4 上线）按请求计费 $0.08/首，免费层不提供；单轮生成不可迭代修改</li>
     <li>Google：<strong>Nano Banana 2.1</strong>（<code>gemini-nano-banana-2.1</code>，10/6 GA）底层为 Gemini 3.6 Flash，支持 1K/2K/4K 与 1:4 / 4:1 / 1:8 / 8:1 宽屏比例，输出 $30/MTok（1K ≈ $0.034、4K ≈ $0.076）、输入 $1.5/MTok</li>
@@ -311,13 +313,6 @@
 /* ─────────── 数据 ─────────── */
 const media = [
   /* ── OpenAI ── */
-  {
-    vendor: "OpenAI", vendorClass: "v-openai", model: "Sora 2", type: "video",
-    typeLabel: "🎥 视频", cap: "文生视频 · 图生视频 · 视频续写",
-    inSpec: "文本/图片 prompt", outSpec: "1080p · 5–25s",
-    outputPrice: "$0.10/秒 (720p) · $0.30/秒 (1080p)",
-    site: "https://openai.com/sora", tag: "overseas"
-  },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-Image-2", type: "image",
     typeLabel: "🖼️ 图像", cap: "SOTA 图像生成与编辑",

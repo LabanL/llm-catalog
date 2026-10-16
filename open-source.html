@@ -83,6 +83,7 @@
   .v-shai     { background: rgba(129,140,248,.15);color: #a5b4fc; }
   .v-others   { background: rgba(148,163,184,.15);color: #cbd5e1; }
   .v-iflytek  { background: rgba(163,230,53,.15); color: #a3e635; }
+  .v-kunlun   { background: rgba(6,182,212,.15);  color: #22d3ee; }
 
   /* 类别徽标 */
   .cat-badge {
@@ -281,7 +282,7 @@
 <div class="header">
   <h1>📦 2026 主流开源大模型清单</h1>
   <p>开放权重 · 可私有化部署 · 覆盖文本 / 多模态 / 视觉生成 / 语音</p>
-  <div class="update">数据更新于 2026 年 9 月 · 显存为常见推理配置估算 · 以官方仓库为准</div>
+  <div class="update">数据更新于 2026 年 10 月 · 显存为常见推理配置估算 · 以官方仓库为准</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link">🤖 文本模型 API</a>
     <a href="media.html" class="nav-link">🎬 音视频模型 API</a>
@@ -367,6 +368,14 @@ const models = [
     vram:"单卡 24GB（INT4 可更低）", deployNum:24,
     feat:"MSL 首个开放权重模型，端侧 Agent 定位，自 Muse Spark 蒸馏", tag:"overseas",
     links:[{t:"🤗 HF", u:"https://huggingface.co/meta-models"},{t:"🏠 官网", u:"https://developer.meta.com/ai/models/muse-glimmer/"}]
+  },
+  {
+    vendor:"Meta", vendorClass:"v-meta", model:"Muse Spark Open", cat:"omni", catLabel:"🌟 全模态",
+    params:"816B MoE (42B 激活)", paramsNum:816, active:"42B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"Muse Model License", licClass:"perm",
+    vram:"NVFP4 ≥700GB · BF16 约 2TB", deployNum:700,
+    feat:"MSL 迄今最强开放权重（官方称美国最强，10/15 上线 HF / OpenRouter），256 专家每 token 激活 8 个，编码与 Agentic 定位，较 Muse Spark 增加安全后训练；原生文本 / 图像 / 视频 / 音频输入，支持 2×Mac Studio (M5 Ultra) + MLX 本地运行", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B"},{t:"🏠 官网", u:"https://ai.meta.com"}]
   },
   {
     vendor:"Meta", vendorClass:"v-meta", model:"Llama 4 Behemoth", cat:"omni", catLabel:"🌟 全模态",
@@ -481,6 +490,22 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/nvidia"}]
   },
   {
+    vendor:"NVIDIA", vendorClass:"v-nvidia", model:"Nemotron 3.5 Super VL", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"120B MoE (12B 激活)", paramsNum:120, active:"12B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"OpenMDW-1.1（权重+数据+配方开放）", licClass:"perm",
+    vram:"4×H100 / BF16（另有 NVFP4 量化版）", deployNum:320,
+    feat:"10/15 发布：Mamba-2/Transformer 混合 MoE + C-RADIO 视觉编码器，文本 / 图像 / 文档 / 视频理解，蒸馏自 Nemotron 3 Ultra，官方称单 GPU 智能体任务吞吐为同类 5 倍", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/nvidia"},{t:"🏠 官网", u:"https://developer.nvidia.com"}]
+  },
+  {
+    vendor:"NVIDIA", vendorClass:"v-nvidia", model:"Nemotron 3.5 Bolt 74B-A9B", cat:"code", catLabel:"💻 代码/Agent",
+    params:"74B MoE (9B 激活)", paramsNum:74, active:"9B", arch:"moe",
+    ctx:"256K", ctxNum:256, license:"OpenMDW-1.1", licClass:"perm",
+    vram:"24GB（原生 2-bit 量化）", deployNum:24,
+    feat:"面向 RTX / DGX Spark 的本地 Agent 模型，IQ2+QAT 量化感知训练塞进 24GB 显存，llama.cpp / Ollama / LM Studio 即装即用；Bolt E4B（4GB）将于 10/23 上线", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/nvidia"}]
+  },
+  {
     vendor:"Allen AI", vendorClass:"v-others", model:"OLMo 3 32B", cat:"text", catLabel:"💬 文本/推理",
     params:"32B Dense", paramsNum:32, active:"32B", arch:"dense",
     ctx:"64K", ctxNum:64, license:"Apache 2.0（权重+数据+代码全开放）", licClass:"open",
@@ -502,6 +527,14 @@ const models = [
     ctx:"32K", ctxNum:32, license:"LFM 开放许可（可商用）", licClass:"perm",
     vram:"端侧 2–4GB", deployNum:4,
     feat:"非 Transformer 架构，端侧低延迟", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/LiquidAI"}]
+  },
+  {
+    vendor:"Liquid AI", vendorClass:"v-others", model:"LFM2.5-24B-A2B", cat:"text", catLabel:"💬 文本/推理",
+    params:"24B MoE (2.45B 激活)", paramsNum:24, active:"2.45B", arch:"moe",
+    ctx:"131K", ctxNum:131, license:"LFM 开放许可（可商用）", licClass:"perm",
+    vram:"单卡 24GB / 笔记本可跑", deployNum:24,
+    feat:"LFM2.5 家族旗舰（10/13 发布），33T token 预训练、16 语种，思维链 + 工具调用，面向设备端连续运行的私密 Agent；base 与后训练权重均已开源", tag:"overseas",
     links:[{t:"🤗 HF", u:"https://huggingface.co/LiquidAI"}]
   },
   {
@@ -529,6 +562,14 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/black-forest-labs/FLUX.1-schnell"}]
   },
   {
+    vendor:"BFL", vendorClass:"v-others", model:"FLUX 3 Image Klein", cat:"image", catLabel:"🖼️ 图像生成",
+    params:"5.6B（图像 Transformer · 外挂 Qwen3-VL-4B 编码器）", paramsNum:5.6, active:"5.6B", arch:"dense",
+    ctx:"—", ctxNum:0, license:"FLUX Kommunity License", licClass:"nc",
+    vram:"单卡 12GB（蒸馏版 BF16 ~11.2GB · INT8 8GB）", deployNum:12,
+    feat:"10/15 开放权重：文生图 / 指令式编辑 / 最多 10 图参考三任务统一权重，原生 4K、0–1000 坐标网格布局控制，官方盲测三项第一；年营收 <500 万美元可免费商用", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/black-forest-labs"},{t:"🏠 官网", u:"https://bfl.ai/models/flux-3-image-klein"}]
+  },
+  {
     vendor:"Stability AI", vendorClass:"v-others", model:"SD 3.5 Large 8B", cat:"image", catLabel:"🖼️ 图像生成",
     params:"8B DiT", paramsNum:8, active:"8B", arch:"dense",
     ctx:"—", ctxNum:0, license:"Stability 社区许可（&lt;100 万美元营收免费商用）", licClass:"nc",
@@ -543,6 +584,14 @@ const models = [
     vram:"单卡 80GB", deployNum:80,
     feat:"混合架构，多语种、长上下文", tag:"overseas",
     links:[{t:"🤗 HF", u:"https://huggingface.co/tiiuae"}]
+  },
+  {
+    vendor:"EPFL / ETH / CSCS", vendorClass:"v-others", model:"Apertus 1.5", cat:"text", catLabel:"💬 文本/推理",
+    params:"8B / 70B Dense", paramsNum:70, active:"70B", arch:"dense",
+    ctx:"65K", ctxNum:65, license:"Apache 2.0", licClass:"open",
+    vram:"2×H100（70B BF16）· 单卡可跑 8B", deployNum:160,
+    feat:"瑞士公共机构联合打造的完全开源模型（10/16 迭代至 1.5）：权重 / 架构 / 训练代码 / 数据配方 / 中间检查点全公开，15T token、1800+ 语种（非英语约占 40%），xIELU 激活 + AdEMAMix 优化器", tag:"overseas",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/swiss-ai"}]
   },
 
   /* ─────────── 国产 · DeepSeek ─────────── */
@@ -781,6 +830,14 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/stepfun-ai/step3"},{t:"🐙 GitHub", u:"https://github.com/stepfun-ai/Step3"}]
   },
   {
+    vendor:"阶跃星辰", vendorClass:"v-stepfun", model:"Step 5 Preview", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"600B MoE (27B 激活)", paramsNum:600, active:"27B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"StepFun Model License 1.0", licClass:"perm",
+    vram:"8×H200 / FP8 单节点（BF16 16×H200）", deployNum:640,
+    feat:"10/15 开放权重（BF16 / FP8，HF + ModelScope）：原生文本 / 图像 / 视频输入，编程 / 软件工程 / 金融前沿水平，AA 指数追平 Kimi K3；昇腾 / 壁仞 / 沐曦 / 摩尔线程 Day-0 适配", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/stepfun-ai/Step-5-Preview"},{t:"🐙 GitHub", u:"https://github.com/stepfun-ai"}]
+  },
+  {
     vendor:"美团", vendorClass:"v-meituan", model:"LongCat-2.0", cat:"text", catLabel:"💬 文本/推理",
     params:"1.6T MoE (48B 激活)", paramsNum:1600, active:"48B", arch:"moe",
     ctx:"1M", ctxNum:1000, license:"MIT", licClass:"open",
@@ -797,12 +854,28 @@ const models = [
     links:[{t:"🤗 HF", u:"https://huggingface.co/meituan-longcat"},{t:"🐙 GitHub", u:"https://github.com/meituan-longcat"}]
   },
   {
+    vendor:"昆仑万维", vendorClass:"v-kunlun", model:"Matrix-Game 4.0", cat:"video", catLabel:"🎥 视频生成",
+    params:"未公开", paramsNum:null, active:"—", arch:"dense",
+    ctx:"—", ctxNum:0, license:"Apache 2.0", licClass:"open",
+    vram:"单卡 RTX 5090（FP8 优化版）", deployNum:32,
+    feat:"10/15 发布并同步开源（权重 + 游戏代码）：全球首款单张消费级显卡实时运行的视频大模型游戏，RTX 5090 上 480p 60FPS、延迟 <150ms；游戏引擎维护世界状态与规则、因果视频模型实时渲染，支持自然语言改写玩法", tag:"cn",
+    links:[{t:"🐙 GitHub", u:"https://github.com/SkyworkAI/Matrix-Game"}]
+  },
+  {
     vendor:"面壁智能", vendorClass:"v-others", model:"MiniCPM-V 4.5 / MiniCPM-4", cat:"vlm", catLabel:"👁️ 视觉语言",
     params:"8B Dense", paramsNum:8, active:"8B", arch:"dense",
     ctx:"128K", ctxNum:128, license:"Apache 2.0", licClass:"open",
     vram:"端侧 8GB（手机可跑）", deployNum:8,
     feat:"端侧多模态标杆，可跑在手机 / 车机", tag:"cn",
     links:[{t:"🤗 HF", u:"https://huggingface.co/openbmb/MiniCPM-V-4_5"},{t:"🐙 GitHub", u:"https://github.com/OpenBMB/MiniCPM-V"}]
+  },
+  {
+    vendor:"面壁智能", vendorClass:"v-others", model:"MiniCPM-V 4.7", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"35B MoE (3B 激活) · 另有 1B", paramsNum:35, active:"3B", arch:"moe",
+    ctx:"—", ctxNum:0, license:"Apache 2.0", licClass:"open",
+    vram:"端侧 3–4GB（INT4）· BF16 约 35GB", deployNum:4,
+    feat:"10/12 发布：系列首个 MoE，业界首个端侧无损流畅运行的开源 MoE——iPhone 17 Pro Max 仅 3GB 内存 13+ token/s；LES 前瞻专家调度 + DSpark 投机解码，图像 / 视频理解、OCR、PDF 解析，当日适配瑞芯微 / NVIDIA / Intel / Apple", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B"},{t:"🐙 GitHub", u:"https://github.com/OpenBMB/MiniCPM-V"}]
   },
   {
     vendor:"讯飞星火", vendorClass:"v-iflytek", model:"Spark-X2.5-4B", cat:"text", catLabel:"💬 文本/推理",

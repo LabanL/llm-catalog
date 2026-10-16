@@ -3,9 +3,9 @@
 实时对比 18 家厂商、55 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，55 款模型
-- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，56 款模型
-- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：27 家组织，56 款模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，56 款模型
+- **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，55 款模型
+- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：28 家组织，65 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -71,6 +71,16 @@
 
 ## 🗓️ 更新记录
 
+- **2026-10-16**（本轮核查窗口 10/8–10/16）：
+  - Google：**Gemini 4 Argon 结束 Fairwind 受控开放**（10/13 美东全球上线，Gemini API / AI Studio 付费调用 + Pro / Ultra 订阅同步推送），尝鲜价 $2 / $0.1 缓存 / $10 有效至 2026-11-30、之后恢复 $4 / $20；补 **AA 智能指数 53**（追平 GPT-6 Astra 与 Claude Fable 5.1，幻觉率约 15%）；Google 已确认在研低成本 **Argon-Flash**（规格与时间未公布，暂不收录）
+  - 评分补全（AA v4.3.2，10/12 快照）：**Claude Sonnet 5.5 = 56**（位列第 2，仅次于 Opus 5.5）、**GPT-6.1 Sol = 52**；Sonnet 5.5 / GPT-6.1 Sol / Gemini 4 Argon 三款自"留空"列表移除
+  - OpenAI：GPT-6.1 Sol 在 Codex / ChatGPT Work 的**默认上下文 10/12 起由 272K 提升至 500K**（可手动开至 1M，订阅用量不加收长上下文费、API 仍按标准价表）；10/8 上线 **Ultrafast 服务档**（`service_tier: "ultrafast"`，标准价 6 倍：输入 $12 / 输出 $60，最高 8 倍于 Sol Standard 的生成速度）；GPT-6 系列 10/8 起向全部 ChatGPT 免费 / Go 用户推送（GPT-5.5 于 10/14 从 ChatGPT 下线，API 定价不变）
+  - Anthropic：**Claude Haiku 5.5 规格勘误**——官方 API 文档口径为上下文 **1M** / 最大输出 **128K**（此前表中沿用 Haiku 档位 200K / 8K），首次支持 Adaptive Thinking 与五档推理强度
+  - 音视频：**移除 Sora 2**——OpenAI 3/24 宣布全面终止 Sora 业务，网页 / App 端 4/26 停运、**API 已于 9/24 停止服务**（音视频页收录数 56 → 55）；10 月中旬 The Information 报道 OpenAI 拟以股权合作方式将 Sora 移交好莱坞背景初创公司改造为专业影视工具，尚无公开 API
+  - 开源侧 10 月密集出新，已收录：**Meta Muse Spark Open**（10/15，816B-A42B，1M，原生多模态，Muse Model License，官方称“美国最强开放权重”）、**阶跃星辰 Step 5 Preview**（10/15 开放权重，600B-A27B，1M，StepFun Model License 1.0，FP8 8×H200 可部署）、**NVIDIA Nemotron 3.5 Super VL**（10/15，120B-A12B 混合 MoE + C-RADIO 视觉编码器，1M，OpenMDW-1.1）及端侧 **Nemotron 3.5 Bolt 74B-A9B**（24GB、2-bit 原生量化、256K）、**FLUX 3 Image Klein**（10/15，5.6B，文生图/编辑/10 图参考/4K，FLUX Kommunity License，单卡 12GB）、**面壁 MiniCPM-V 4.7**（10/12，35B-A3B MoE + 1B，Apache 2.0，端侧 3GB 内存跑 35B）、**Liquid AI LFM2.5-24B-A2B**（10/13，24B-A2.45B，131K，LFM 开放许可）、**昆仑万维 Matrix-Game 4.0**（10/15，单卡 RTX 5090 实时运行的交互式视频世界模型，Apache 2.0）、**Apertus 1.5**（10/16 更新，EPFL/ETH/CSCS，8B/70B，Apache 2.0 完全开源）；开源页收录数 56 → 65，组织数 27 → 28
+  - 文本页新增 **Meta Muse Wonder**（10/12，1M 上下文，主动记忆，API $4 / $0.2 缓存 / $20 预览可用，AA 52），收录数 55 → 56
+  - DeepSeek 勘误（对照官方定价页 10/16）：**V4 Pro 高峰价 ¥9.6/¥0.32/¥28.8 → ¥9/¥0.3/¥27**（`deepseek-v4-pro` 已恢复独立计费，9/14 起曾短暂路由至 V4.1 Flash；并发 500、不支持图像输入）；补充峰谷时段定义与 `deepseek-flash`（V4.1 Flash）命名 / 旧名路由说明
+  - 已核查但**暂不收录**：Mistral Large 4（10/6 预览 API，1.05T-A49B，1M，$1.36/$4.18，AA 38，权重 10 月底开放——新增厂商待议）、Claude Fable 5.5（10/13 现身 Azure 美东二区目录且标注 GA，社区读出 1M / $10 / $50，疑与 Fable 5.1 配置重复，官方未公告）、OpenAI GPT-6.1 Astra（内部代号泄露）、Kimi K3.1（野村称 10 月中旬前发布，截至 10/16 仍未官宣）、MiniMax M3.1-Flash-Preview（仍仅 MiniMax Code）、xAI Grok 4.8（已现身 Cursor，未正式发布）、可灵 Kling 4.0（10/16 全量开放创作界面，API 尚未开放）、智谱 GLM-5.4/5.5（万亿参数研发规划披露，未发布）
 - **2026-10-08**：
   - 页面维护：三页页脚改为居左对齐；清理页脚与表格中针对已下线条目 / 占位行的说明，音视频页移除 Anthropic / DeepSeek / 月之暗面 / 小米 4 条「暂无 API」占位行（该页厂商数按实际收录计为 13 家）
   - OpenAI：新增 **GPT-6.1 Sol**（9/29 DevDay 发布，模型 ID `gpt-6.1-sol`，GPT-6 Sol 升级版，1M 输入 / 64K 输出、文本 + 图像输入；实际公布定价为 **$2 / $0.1 缓存 / $10**（缓存写入 $2.5），约为 GPT-6 Astra 的五分之一）；GPT-6 Sol 仍可调用（`gpt-6-sol`）但已退出 ChatGPT 默认推荐，官方建议 2027 Q1 前评估迁移；官方未单独披露上下文，沿用 GPT-6 Sol 档位；评分待 AA 收录
