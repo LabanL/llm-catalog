@@ -1,11 +1,11 @@
 # 🤖 2026 大模型 API 清单
 
-实时对比 18 家厂商、55 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
+实时对比 18 家厂商、60 款主流大模型的 API 定价、上下文窗口、多模态能力与综合评分。
 
 本仓库包含三份数据清单：
-- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，56 款模型
+- **[`index.html`](./index.html)** — 文本大模型（对话/推理/代码）：18 家厂商，60 款模型
 - **[`media.html`](./media.html)** — 音视频大模型（视频/图像/TTS/ASR/音乐）：13 家厂商，55 款模型
-- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：28 家组织，65 款模型
+- **[`open-source.html`](./open-source.html)** — 主流开源大模型（开放权重/可私有化部署）：28 家组织，66 款模型
 
 🔗 **在线访问**：https://labanl.github.io/llm-catalog/
 
@@ -71,6 +71,14 @@
 
 ## 🗓️ 更新记录
 
+- **2026-10-27**（本轮核查窗口 10/17–10/27）：
+  - OpenAI：新增 **GPT-6.1 Terra**（10/26 发布，`gpt-6.1-terra`，1.05M 输入 / 128K 输出，文本 + 图像输入，**$1 / $0.05 缓存 / $5**——输入输出均为 GPT-6.1 Sol 的 50%、GPT-6 Astra 的 1/10；主打视觉推理与 computer use——Terminal-Bench 4.0 最高档 **50.3%**（GPT-5.6 Terra 21.5%）、OSWorld 2.1 中档即超前代最高档、内部事实错误率 53.6% → 16.7%、速度约为 Astra / Sol 的 3 倍；AA v4.3.2 智能指数 **48**，较 Sol 低 4 分）；ChatGPT Work / Codex 向 Plus / Pro / Enterprise / Edu 开放，同日上线 Amazon Bedrock；GPT-5.6 Terra 保留
+  - 月之暗面：新增 **Kimi K3.1 Pro**（10/23 API 上线、10/24 官宣，`kimi-k3.1-pro`；K3 的大规模后训练版本，2.8T MoE / 104B 激活，**1,048,576 上下文**，文本 + 图像输入，**¥13 / ¥1.3 缓存 / ¥68**，较 K3（¥20 / ¥100）降约三成；高速版 `kimi-k3.1-pro-highspeed` 输出 2–3 倍速、价格翻倍（¥26 / ¥136）；Terminal-Bench 4.0 **65.7%**，逼近 Claude Opus 5.5 的 66.4%；AA 智能指数 **55**，全球第 4、开源模型第一）；完整权重承诺 **11/4 前**开放，届时再补开源页
+  - MiniMax：新增 **MiniMax M3.1 Flash**（10/19 API 上线、10/23 开放权重，`MiniMax-M3.1-Flash`，428B MoE / 23B 激活，1M 输入 / 524K 输出，文本 + 图像 + 视频输入，**¥1 / ¥0.1 缓存 / ¥4**，较 M3 成本降约七成、线上速度提升近 3 倍；即此前匿名霸榜的 Space Bunny；AA 智能指数 **43**）；权重为 **MiniMax Community License**——商用需署名、年营收超 $2000 万需书面授权，非 Apache / MIT；开源页同步收录，66 款
+  - 讯飞星火：新增 **Spark X2.6**（10/22 1024 开发者节发布，293B MoE / 30B 激活，上下文 256K → **1M**，全国产算力训练，端云一体协同架构；限时 6 折 **¥0.9 / ¥0.08 缓存 / ¥3.6**，原价 ¥1.5 / ¥6）；端侧 **Spark X2.6-4B** 同步开源（上下文未公布，暂不收录）；同场发布 **SparkAudio 1.0** 语音基座（音视频页暂未收录）
+  - DeepSeek：V4.1 Flash 更新至 **1017 版本**（10/17，`deepseek-flash` 同步切换）：DeepSWE 74.2% → 77.0%、ARC-AGI-1 94.5% / ARC-AGI-2 72.9%，价格不变；AA 智能指数 **40 → 45**；10/20 全面开源内部推理框架 **DeepInfer** 与 `deepseek-recipe`（兼容 NVIDIA / 昇腾，非模型条目）；另有经济档 `deepseek-v4.1-flash-economy`（同权重、价格更低、生成略慢，已见于第三方平台，官方定价页未列出，暂不收录）
+  - 已核查但**暂不收录**：**Qwen3.6-27B**（LLM Gateway 10/21 上架，实为 2026-04 发布的旧模型，非新版本）、Gemini 4 Argon 后续 **Carbon**（10/20 报道称内测，未发布）、Anthropic 新一代 Claude（10/20 The Information 报道内测，未发布；本周公布的是 Claude Duet 智能体应用研究预览，非模型）、xAI **Grok 4.8**（10/17 才进入 RL 阶段，未发布）、智谱 GLM-5.4 / 5.5（万亿参数，仍在训练）、**ElevenLabs** Eleven Multilingual v3 / Scribe v2（10/22、10/19，新增音视频厂商待议）、Reflection **Beam 1.0**（10/16，501B-A23B，Apache 2.0，AA 30，新增组织待议）、腾讯 Hunyuan World 1.1（单步 3D 世界生成）、美团 LongCat-Flash-Thinking（推理小模型）、Meta SAM 3 / Qwen3Guard / DeepSeek OCR（专用视觉 / 安全 / OCR 模型）
+  - 其余厂商：Google（Gemini 4 Argon 于 10/20 起对全部付费用户开放，规格与价格与 10/13 记录一致）、豆包、腾讯混元、商汤、小米（MiMo V2.5 于 10/21 下线，已在 V2.6 条目内）、美团、Meta（Muse Wonder 与 10/12 记录一致）、xAI 本窗口内均无新文本 / 音视频模型发布
 - **2026-10-16**（本轮核查窗口 10/8–10/16）：
   - Google：**Gemini 4 Argon 结束 Fairwind 受控开放**（10/13 美东全球上线，Gemini API / AI Studio 付费调用 + Pro / Ultra 订阅同步推送），尝鲜价 $2 / $0.1 缓存 / $10 有效至 2026-11-30、之后恢复 $4 / $20；补 **AA 智能指数 53**（追平 GPT-6 Astra 与 Claude Fable 5.1，幻觉率约 15%）；Google 已确认在研低成本 **Argon-Flash**（规格与时间未公布，暂不收录）
   - 评分补全（AA v4.3.2，10/12 快照）：**Claude Sonnet 5.5 = 56**（位列第 2，仅次于 Opus 5.5）、**GPT-6.1 Sol = 52**；Sonnet 5.5 / GPT-6.1 Sol / Gemini 4 Argon 三款自"留空"列表移除

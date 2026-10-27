@@ -756,6 +756,14 @@ const models = [
 
   /* ─────────── 国产 · MiniMax / 腾讯混元 ─────────── */
   {
+    vendor:"MiniMax", vendorClass:"v-minimax", model:"MiniMax-M3.1-Flash", cat:"vlm", catLabel:"👁️ 视觉语言",
+    params:"428B MoE (23B 激活)", paramsNum:428, active:"23B", arch:"moe",
+    ctx:"1M", ctxNum:1000, license:"MiniMax Community（商用需署名，营收 > $2000 万需授权）", licClass:"perm",
+    vram:"4×H100 / 原生低精度权重约 252GB", deployNum:320,
+    feat:"10/23 开放权重（API 10/19 上线，即此前匿名刷屏的 Space Bunny）：AA 智能指数 43，缓存读取价为输入 1/10，DeepSWE 73.7% / OSWorld V2 61.7，昇腾 / 平头哥 / 昆仑芯 / 摩尔线程 Day-0 适配", tag:"cn",
+    links:[{t:"🤗 HF", u:"https://huggingface.co/MiniMaxAI"},{t:"🐙 GitHub", u:"https://github.com/MiniMax-AI"}]
+  },
+  {
     vendor:"MiniMax", vendorClass:"v-minimax", model:"MiniMax-M2", cat:"code", catLabel:"💻 代码/Agent",
     params:"230B MoE (10B 激活)", paramsNum:230, active:"10B", arch:"moe",
     ctx:"200K", ctxNum:200, license:"MIT", licClass:"open",

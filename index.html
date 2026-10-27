@@ -307,7 +307,7 @@
 
 <div class="header">
   <h1><span class="emoji">🤖</span> <span class="title-text">2026 大模型 API 清单</span></h1>
-  <p>覆盖 18 家厂商 · 56 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
+  <p>覆盖 18 家厂商 · 60 款主流模型 · 价格 / 上下文 / 参数量全维度对比</p>
   <div class="update">数据更新于 2026 年 10 月 · 价格均为每百万 Token · 人民币（¥）/ 美元（$）</div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">🤖 文本模型</a>
@@ -415,7 +415,7 @@ const models = [
     params: "552B MoE (输入 8B / 输出 16B 激活)", maxInput: "1M", maxOutput: "384K",
     inputPrice: "¥2", cachePrice: "¥0.04", outputPrice: "¥8",
     site: "https://platform.deepseek.com", tag: "cn,flagship,cheap",
-    multimodal: ["text","image"], score: 40
+    multimodal: ["text","image"], score: 45
   },
   {
     vendor: "DeepSeek", vendorClass: "v-deepseek", model: "DeepSeek 4 Pro",
@@ -553,6 +553,13 @@ const models = [
   },
   // ── MiniMax ──
   {
+    vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M3.1 Flash",
+    params: "428B MoE (23B active)", maxInput: "1M", maxOutput: "524K",
+    inputPrice: "¥1", cachePrice: "¥0.1", outputPrice: "¥4",
+    site: "https://platform.minimaxi.com", tag: "cn,flagship,cheap",
+    multimodal: ["text","image","video"], score: 43
+  },
+  {
     vendor: "MiniMax", vendorClass: "v-minimax", model: "MiniMax M3",
     params: "—", maxInput: "1M", maxOutput: "16K",
     inputPrice: "¥2.1", cachePrice: "¥0.42", outputPrice: "¥8.4",
@@ -610,7 +617,21 @@ const models = [
     site: "https://maas.xfyun.cn", tag: "cn,flagship",
     multimodal: ["text"], score: null
   },
+  {
+    vendor: "讯飞星火", vendorClass: "v-iflytek", model: "Spark X2.6",
+    params: "293B MoE (30B active)", maxInput: "1M", maxOutput: "—",
+    inputPrice: "¥0.9", cachePrice: "¥0.08", outputPrice: "¥3.6",
+    site: "https://maas.xfyun.cn", tag: "cn,flagship",
+    multimodal: ["text"], score: null
+  },
   // ── Kimi ──
+  {
+    vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K3.1 Pro",
+    params: "2.8T MoE (104B active)", maxInput: "1M", maxOutput: "—",
+    inputPrice: "¥13", cachePrice: "¥1.3", outputPrice: "¥68",
+    site: "https://platform.moonshot.cn", tag: "cn,flagship",
+    multimodal: ["text","image"], score: 55
+  },
   {
     vendor: "月之暗面", vendorClass: "v-kimi", model: "Kimi K3",
     params: "2.8T MoE", maxInput: "1M", maxOutput: "16K",
@@ -711,6 +732,13 @@ const models = [
     inputPrice: "$2", cachePrice: "$0.1", outputPrice: "$10",
     site: "https://openai.com/api/pricing", tag: "intl,flagship",
     multimodal: ["text","image"], score: 52
+  },
+  {
+    vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-6.1 Terra",
+    params: "—", maxInput: "1.05M", maxOutput: "128K",
+    inputPrice: "$1", cachePrice: "$0.05", outputPrice: "$5",
+    site: "https://openai.com/api/pricing", tag: "intl,flagship",
+    multimodal: ["text","image"], score: 48
   },
   {
     vendor: "OpenAI", vendorClass: "v-openai", model: "GPT-6 Sol",
